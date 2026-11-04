@@ -899,6 +899,7 @@
         let donorsList = [];
         let emergencyRequests = [];
         let successfulDonationCount = 0;
+        let emergencyIndex = 0;
 
         const compatibilityData = {
             'A+': { give: ['A+', 'AB+'], receive: ['A+', 'A-', 'O+', 'O-'], desc: 'Common in Jhenaidah. Can receive from positive and negative A & O types.' },
@@ -931,7 +932,7 @@
                 console.error("Error loading donors: ", error);
             });
 
-            // Real-time listener for Emergency Requests & Rotating Multiple Broadcast Ticker
+            // Real-time listener for Emergency Requests & Multiple Broadcast Ticker
             window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
                 emergencyRequests = [];
                 snapshot.forEach((docSnap) => {
@@ -939,8 +940,6 @@
                 });
 
                 const ticker = document.getElementById('emergency-broadcast-ticker');
-                const broadcastText = document.getElementById('broadcast-text');
-                const broadcastCallBtn = document.getElementById('broadcast-call-btn');
 
                 if (window.emergencyTickerInterval) {
                     clearInterval(window.emergencyTickerInterval);
@@ -949,29 +948,36 @@
 
                 if (emergencyRequests.length > 0) {
                     ticker.classList.remove('hidden');
-                    let currentIndex = 0;
 
-                    function updateTickerDisplay() {
+                    function renderCurrentTicker() {
                         if (emergencyRequests.length === 0) {
                             ticker.classList.add('hidden');
                             return;
                         }
-                        if (currentIndex >= emergencyRequests.length) currentIndex = 0;
+                        if (emergencyIndex >= emergencyRequests.length) emergencyIndex = 0;
 
-                        const currentReq = emergencyRequests[currentIndex];
-                        const neededTimeText = currentReq.donatingTime ? ` | Needed: ${currentReq.donatingTime}` : '';
-                        const alertCountLabel = emergencyRequests.length > 1 ? ` (Alert ${currentIndex + 1} of ${emergencyRequests.length})` : '';
+                        const currentReq = emergencyRequests[emergencyIndex];
+                        const timeStr = (currentReq.donatingTime && currentReq.donatingTime.trim() !== "") 
+                            ? currentReq.donatingTime 
+                            : "As soon as possible";
 
-                        broadcastText.innerHTML = `Needed <strong>${currentReq.group}</strong> blood (${currentReq.bags} Bag) for <strong>${currentReq.patient}</strong> at <strong>${currentReq.location}</strong>${neededTimeText}${alertCountLabel}`;
+                        const alertLabel = emergencyRequests.length > 1 
+                            ? ` (Alert ${emergencyIndex + 1} of ${emergencyRequests.length})` 
+                            : "";
+
+                        const broadcastText = document.getElementById('broadcast-text');
+                        const broadcastCallBtn = document.getElementById('broadcast-call-btn');
+
+                        broadcastText.innerHTML = `Needed <strong>${currentReq.group}</strong> blood (${currentReq.bags} Bag) for <strong>${currentReq.patient}</strong> at <strong>${currentReq.location}</strong> | Needed: <strong>${timeStr}</strong>${alertLabel}`;
                         broadcastCallBtn.href = `tel:${currentReq.phone}`;
                     }
 
-                    updateTickerDisplay();
+                    renderCurrentTicker();
 
                     if (emergencyRequests.length > 1) {
                         window.emergencyTickerInterval = setInterval(() => {
-                            currentIndex = (currentIndex + 1) % emergencyRequests.length;
-                            updateTickerDisplay();
+                            emergencyIndex = (emergencyIndex + 1) % emergencyRequests.length;
+                            renderCurrentTicker();
                         }, 5000);
                     }
                 } else {
@@ -1265,11 +1271,12 @@
             emergencyRequests.forEach((req) => {
                 const tr = document.createElement('tr');
                 tr.className = "border-b border-red-100 hover:bg-red-50";
+                const displayTime = (req.donatingTime && req.donatingTime.trim() !== "") ? req.donatingTime : "As soon as possible";
                 tr.innerHTML = `
                     <td class="p-3 font-bold text-slate-800">${req.patient}</td>
                     <td class="p-3 font-bold text-red-600">${req.group}</td>
                     <td class="p-3 font-bold">${req.bags} Bag(s)</td>
-                    <td class="p-3 font-medium text-slate-700">${req.donatingTime || 'ASAP'}</td>
+                    <td class="p-3 font-semibold text-red-700 bg-red-100/50 rounded-lg">${displayTime}</td>
                     <td class="p-3">${req.location}</td>
                     <td class="p-3 font-bold text-slate-900">${req.phone}</td>
                     <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
