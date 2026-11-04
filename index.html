@@ -76,44 +76,29 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
-                <!-- BRAND LOGO & NAME (EXACT MATCH TO PHOTO) -->
+                <!-- BRAND LOGO & NAME -->
                 <a href="#" class="flex items-center space-x-3 group">
                     <div class="relative w-14 h-14 flex-shrink-0 group-hover:scale-105 transition-transform logo-shadow">
-                        <!-- SVG Logo Component matching user image -->
                         <svg viewBox="0 0 200 200" class="w-full h-full">
-                            <!-- Circular background path for curved text -->
                             <path id="textPathTop" d="M 25,100 A 75,75 0 1,1 175,100" fill="none" />
                             <path id="textPathBottom" d="M 175,100 A 75,75 0 0,1 25,100" fill="none" />
-                            
-                            <!-- White circular base -->
                             <circle cx="100" cy="100" r="96" fill="#ffffff" stroke="#e2e8f0" stroke-width="4"/>
-                            
-                            <!-- Outer Red Accent Ring -->
                             <circle cx="100" cy="100" r="92" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,2"/>
-                            
-                            <!-- Top Curved Text: Durdom-25 Blood Donation -->
                             <text class="curved-logo-text">
                                 <textPath href="#textPathTop" startOffset="50%" text-anchor="middle">
                                     Durdom-25 Blood Donation
                                 </textPath>
                             </text>
-                            
-                            <!-- Bottom Curved Text: Society Jhenaidah -->
                             <text class="curved-logo-text" style="font-size: 11px; fill: #dc2626; font-weight: 800;">
                                 <textPath href="#textPathBottom" startOffset="50%" text-anchor="middle">
                                     Society Jhenaidah
                                 </textPath>
                             </text>
-                            
-                            <!-- Central Realistic Blood Drop -->
                             <g transform="translate(0, -2)">
                                 <path d="M 100 42 C 100 42, 65 92, 65 118 C 65 137 80 152 100 152 C 120 152 135 137 135 118 C 135 92, 100 42, 100 42 Z" 
                                       fill="url(#dropGradient)" />
-                                <!-- Drop Highlight -->
                                 <ellipse cx="88" cy="106" rx="6" ry="14" fill="#ffffff" opacity="0.4" transform="rotate(-20 88 106)"/>
                             </g>
-                            
-                            <!-- Gradient for blood drop -->
                             <defs>
                                 <radialGradient id="dropGradient" cx="40%" cy="40%" r="60%">
                                     <stop offset="0%" stop-color="#ff4d4d"/>
@@ -122,12 +107,9 @@
                                 </radialGradient>
                             </defs>
                         </svg>
-
-                        <!-- Green Online Status Indicator -->
                         <span class="absolute bottom-0 right-0 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow"></span>
                     </div>
 
-                    <!-- Title Text -->
                     <div class="leading-tight">
                         <span class="text-lg sm:text-xl font-black text-slate-900 tracking-tight block group-hover:text-red-600 transition-colors">
                             Durdom-25
@@ -185,14 +167,12 @@
 
     <!-- HERO SECTION -->
     <section id="home" class="relative pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden bg-gradient-to-b from-red-50/70 via-slate-50 to-white">
-        <!-- Background Ornaments -->
         <div class="absolute top-10 right-0 -mr-20 w-96 h-96 bg-red-200/50 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute bottom-0 left-0 -ml-20 w-80 h-80 bg-red-100/60 rounded-full blur-2xl pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-12 gap-12 items-center">
                 
-                <!-- Hero Left Info -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider border border-red-200">
                         <i data-lucide="shield-check" class="w-4 h-4 text-red-600"></i> Voluntary Blood Donation Movement
@@ -215,7 +195,6 @@
                         </button>
                     </div>
 
-                    <!-- Hotline Bar -->
                     <div class="pt-4 flex items-center justify-center lg:justify-start gap-3 text-slate-600 text-sm">
                         <span class="flex h-3 w-3 relative">
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -225,15 +204,12 @@
                     </div>
                 </div>
 
-                <!-- Hero Right Card & Logo Banner -->
                 <div class="lg:col-span-5">
                     <div class="relative mx-auto max-w-md bg-white p-6 sm:p-8 rounded-3xl shadow-2xl border border-slate-100 text-center">
-                        <!-- Top Badge -->
                         <div class="absolute -top-3 right-6 bg-slate-900 text-white font-bold text-xs px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1">
                             <i data-lucide="heart-pulse" class="w-3.5 h-3.5 text-red-500"></i> Durdom-25
                         </div>
 
-                        <!-- Big Circular Logo Display -->
                         <div class="w-32 h-32 mx-auto mb-4 relative">
                             <svg viewBox="0 0 200 200" class="w-full h-full logo-shadow">
                                 <path id="heroTextPathTop" d="M 25,100 A 75,75 0 1,1 175,100" fill="none" />
@@ -267,7 +243,6 @@
                         <h3 class="text-xl font-black text-slate-900">Durdom-25 Blood Donation Society</h3>
                         <p class="text-slate-500 text-xs mt-1">Voluntary Blood Donation & Emergency Network</p>
 
-                        <!-- Quick Search Box inside card -->
                         <div class="mt-6 space-y-3 text-left">
                             <div>
                                 <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group Needed</label>
@@ -341,7 +316,6 @@
                 <p class="text-slate-600 mt-2">Filter voluntary donors by blood group and upazila location.</p>
             </div>
 
-            <!-- Filter Controls -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -382,12 +356,8 @@
                 </div>
             </div>
 
-            <!-- Donor Directory Cards Grid -->
-            <div id="donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Javascript populates donor cards -->
-            </div>
+            <div id="donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-            <!-- Empty State -->
             <div id="no-donors-msg" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300">
                 <i data-lucide="user-x" class="w-12 h-12 text-slate-400 mx-auto mb-3"></i>
                 <h4 class="text-lg font-bold text-slate-700">No Donors Found</h4>
@@ -467,7 +437,6 @@
             </div>
 
             <div class="grid lg:grid-cols-12 gap-8 items-start">
-                <!-- Group Buttons Grid -->
                 <div class="lg:col-span-5 grid grid-cols-4 gap-3">
                     <button onclick="showCompatibility('A+')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition active-compat" data-group="A+">
                         <span class="block text-2xl font-black text-slate-800">A+</span>
@@ -495,7 +464,6 @@
                     </button>
                 </div>
 
-                <!-- Display Panel -->
                 <div class="lg:col-span-7 bg-slate-900 text-white rounded-3xl p-8 shadow-xl">
                     <div class="flex items-center space-x-4 pb-6 border-b border-slate-800">
                         <div id="compat-badge" class="w-16 h-16 rounded-2xl bg-red-600 flex items-center justify-center font-black text-2xl text-white shadow-lg shadow-red-600/40">
@@ -602,7 +570,6 @@
                     </div>
                 </div>
 
-                <!-- Contact Form -->
                 <div class="lg:col-span-7 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
                     <h4 class="text-xl font-bold text-slate-900 mb-6">Send Message to Durdom-25 Blood Donation Society</h4>
                     <form onsubmit="handleContactSubmit(event)" class="space-y-4">
@@ -662,7 +629,7 @@
         </div>
     </footer>
 
-    <!-- MODAL: BECOME A DONOR (REGISTER DBDSJ-25) -->
+    <!-- MODAL: BECOME A DONOR -->
     <div id="donor-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
             <button onclick="closeModal('donor-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
@@ -793,7 +760,6 @@
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
 
-            <!-- Admin Login Step -->
             <div id="admin-login-step">
                 <div class="text-center mb-6">
                     <div class="w-12 h-12 bg-slate-100 text-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-3">
@@ -814,7 +780,6 @@
                 </form>
             </div>
 
-            <!-- Admin Control Dashboard Step -->
             <div id="admin-dashboard-step" class="hidden">
                 <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
                     <div>
@@ -827,7 +792,6 @@
                 </div>
 
                 <div class="space-y-6">
-                    <!-- Emergency Blood Requests Admin View -->
                     <div>
                         <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider text-red-600 flex items-center gap-1.5">
                             <i data-lucide="alert-circle" class="w-4 h-4"></i> Active Emergency Requests
@@ -844,9 +808,7 @@
                                         <th class="p-3 text-right">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="admin-emergency-table">
-                                    <!-- Javascript renders emergency requests here -->
-                                </tbody>
+                                <tbody id="admin-emergency-table"></tbody>
                             </table>
                         </div>
                     </div>
@@ -864,9 +826,7 @@
                                         <th class="p-3 text-right">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="admin-donor-table">
-                                    <!-- Javascript renders donors here -->
-                                </tbody>
+                                <tbody id="admin-donor-table"></tbody>
                             </table>
                         </div>
                     </div>
@@ -881,13 +841,12 @@
         <span id="toast-text" class="text-sm font-bold">Notification message</span>
     </div>
 
-    <!-- JAVASCRIPT & LOGIC -->
+    <!-- JAVASCRIPT & LOGIC WITH LOCALSTORAGE -->
     <script>
-        // Reset Donor List for Durdom-25 Jhenaidah
-        let donorsList = [];
-        let emergencyRequests = [];
+        // Load stored donors and emergencies from localStorage if available
+        let donorsList = JSON.parse(localStorage.getItem('durdom_donors')) || [];
+        let emergencyRequests = JSON.parse(localStorage.getItem('durdom_emergencies')) || [];
 
-        // Compatibility Matrix Data
         const compatibilityData = {
             'A+': { give: ['A+', 'AB+'], receive: ['A+', 'A-', 'O+', 'O-'], desc: 'Common in Jhenaidah. Can receive from positive and negative A & O types.' },
             'A-': { give: ['A+', 'A-', 'AB+', 'AB-'], receive: ['A-', 'O-'], desc: 'Universal donor for all A and AB blood types.' },
@@ -906,12 +865,15 @@
             lucide.createIcons();
         });
 
-        // Render Donors
+        function saveToStorage() {
+            localStorage.setItem('durdom_donors', JSON.stringify(donorsList));
+            localStorage.setItem('durdom_emergencies', JSON.stringify(emergencyRequests));
+        }
+
         function renderDonors(items) {
             const container = document.getElementById('donor-grid');
             const emptyMsg = document.getElementById('no-donors-msg');
 
-            // Update stats counter with actual total registered donors
             const statDonorCount = document.getElementById('stat-donor-count');
             if (statDonorCount) {
                 statDonorCount.innerText = donorsList.length;
@@ -952,7 +914,6 @@
             lucide.createIcons();
         }
 
-        // Filter Logic
         function filterDonors() {
             const selectedGroup = document.getElementById('filter-group').value;
             const selectedArea = document.getElementById('filter-area').value;
@@ -982,7 +943,6 @@
             filterDonors();
         }
 
-        // Compatibility Matrix Logic
         function showCompatibility(group) {
             document.querySelectorAll('.compat-btn').forEach(btn => {
                 if(btn.getAttribute('data-group') === group) {
@@ -1004,7 +964,6 @@
             receiveContainer.innerHTML = data.receive.map(r => `<span class="px-3 py-1 bg-red-500/20 text-red-300 font-bold text-xs rounded-lg border border-red-500/30">${r}</span>`).join('');
         }
 
-        // Modal Handlers
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
         }
@@ -1017,7 +976,6 @@
             document.getElementById('mobile-menu').classList.toggle('hidden');
         }
 
-        // Form Handlers
         function handleDonorRegister(event) {
             event.preventDefault();
             const name = document.getElementById('donor-name').value;
@@ -1034,9 +992,10 @@
                 lastDonated: "Just registered"
             });
 
+            saveToStorage();
             renderDonors(donorsList);
             closeModal('donor-modal');
-            showToast(`Welcome ${name}! You are now registered with Durdom-25 Blood Donation Society.`);
+            showToast(`Welcome ${name}! You are now registered with Durdom-25.`);
             event.target.reset();
         }
 
@@ -1048,7 +1007,6 @@
             const location = document.getElementById('em-location').value;
             const phone = document.getElementById('em-phone').value;
 
-            // Save request to emergency list
             emergencyRequests.unshift({
                 patient,
                 group,
@@ -1058,10 +1016,9 @@
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             });
 
+            saveToStorage();
             closeModal('emergency-modal');
-            showToast(`Blood Request Received! Call Hotlines: 01342293635 or 01756391595 for instant dispatch.`);
-            
-            // If admin dashboard is open, update table
+            showToast(`Blood Request Received! Call Hotlines: 01342293635 or 01756391595`);
             renderAdminEmergencyTable();
             event.target.reset();
         }
@@ -1081,7 +1038,6 @@
             }, 4000);
         }
 
-        // Admin Access Logic
         function handleAdminLogin(event) {
             event.preventDefault();
             const passkey = document.getElementById('admin-passkey').value;
@@ -1156,12 +1112,14 @@
 
         function resolveEmergency(index) {
             emergencyRequests.splice(index, 1);
+            saveToStorage();
             renderAdminEmergencyTable();
             showToast("Emergency request marked as resolved.");
         }
 
         function deleteDonor(index) {
             donorsList.splice(index, 1);
+            saveToStorage();
             renderDonors(donorsList);
             renderAdminTable();
             showToast("Donor record deleted.");
