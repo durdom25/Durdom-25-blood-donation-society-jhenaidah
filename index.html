@@ -380,7 +380,7 @@
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-2">Live Cloud Directory</h2>
                 <h3 class="text-3xl font-black text-slate-900 sm:text-4xl">Available Donors in Jhenaidah</h3>
-                <p class="text-slate-600 mt-2">Filter voluntary donors by blood group and upazila location.</p>
+                <p class="text-slate-600 mt-2">Filter voluntary donors by blood group and upazila location. Enforces a 4-month (120-day) donation rest period.</p>
             </div>
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8">
@@ -950,6 +950,31 @@
             'AB-': { give: ['AB+', 'AB-'], receive: ['AB-', 'A-', 'B-', 'O-'], desc: 'Rare blood group.' }
         };
 
+        // Calculate 4-month (120 days) blood donation eligibility status
+        function calculateEligibilityStatus(lastDonatedDateStr) {
+            if (!lastDonatedDateStr || lastDonatedDateStr === "Recently" || lastDonatedDateStr === "N/A") {
+                return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
+            }
+
+            const lastDate = new Date(lastDonatedDateStr);
+            if (isNaN(lastDate.getTime())) {
+                return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
+            }
+
+            const today = new Date();
+            const timeDiff = today.getTime() - lastDate.getTime();
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            
+            // 4 months threshold (120 days)
+            const requiredDays = 120;
+            if (daysDiff >= requiredDays) {
+                return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
+            } else {
+                const daysLeft = requiredDays - daysDiff;
+                return { isEligible: false, badgeText: `Eligible in ${daysLeft} days`, daysRemaining: daysLeft };
+            }
+        }
+
         window.addEventListener('firebase-ready', () => {
             document.getElementById('year').innerText = new Date().getFullYear();
             showCompatibility('A+');
@@ -1126,14 +1151,22 @@
             emptyMsg.classList.add('hidden');
 
             items.forEach(donor => {
+                const statusInfo = calculateEligibilityStatus(donor.lastDonated);
+                const badgeClass = statusInfo.isEligible 
+                    ? "bg-emerald-100 text-emerald-700" 
+                    : "bg-amber-100 text-amber-800";
+                const dotClass = statusInfo.isEligible 
+                    ? "bg-emerald-500" 
+                    : "bg-amber-500";
+
                 const card = document.createElement('div');
                 card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col justify-between";
                 card.innerHTML = `
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <span class="w-12 h-12 rounded-xl bg-red-100 text-red-600 font-black text-lg flex items-center justify-center border border-red-200">${donor.group}</span>
-                            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-700 flex items-center gap-1">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${donor.status || 'Available'}
+                            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold ${badgeClass} flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full ${dotClass}"></span> ${statusInfo.badgeText}
                             </span>
                         </div>
                         <h4 class="text-lg font-bold text-slate-900">${donor.name}</h4>
