@@ -102,22 +102,41 @@
         </div>
     </div>
 
-    <!-- LIVE EMERGENCY BROADCAST TICKER -->
-    <div id="emergency-broadcast-ticker" class="hidden bg-red-600 text-white py-3 px-4 shadow-lg relative z-30 animate-pulse">
+    <!-- INTERACTIVE SLIDER EMERGENCY BROADCAST TICKER -->
+    <div id="emergency-broadcast-ticker" class="hidden bg-red-600 text-white py-3 px-4 shadow-lg relative z-30">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-            <div class="flex items-center space-x-3">
-                <span class="bg-white text-red-600 font-black px-2.5 py-1 rounded-lg text-xs uppercase tracking-wider shadow">
-                    🚨 URGENT EMERGENCY
-                </span>
-                <span id="broadcast-text" class="text-sm font-bold">
-                    Loading active emergency requests...
-                </span>
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+                <div class="flex items-center space-x-2">
+                    <span class="bg-white text-red-600 font-black px-2.5 py-1 rounded-lg text-xs uppercase tracking-wider shadow flex items-center gap-1">
+                        🚨 EMERGENCY
+                    </span>
+                    <span id="slider-count-badge" class="bg-red-800 text-red-100 font-extrabold px-2 py-0.5 rounded text-xs">
+                        1 / 1
+                    </span>
+                </div>
+
+                <!-- SLIDER ARROWS FOR MOBILE -->
+                <div id="slider-controls-mobile" class="flex sm:hidden items-center space-x-1">
+                    <button onclick="slidePrevEmergency()" class="p-1 bg-red-700 hover:bg-red-800 rounded-lg text-white font-black text-sm">‹</button>
+                    <button onclick="slideNextEmergency()" class="p-1 bg-red-700 hover:bg-red-800 rounded-lg text-white font-black text-sm">›</button>
+                </div>
             </div>
+
+            <div class="flex-1 px-2 text-sm font-bold truncate max-w-2xl" id="broadcast-text">
+                Loading active emergency requests...
+            </div>
+
             <div class="flex items-center space-x-2">
-                <a id="broadcast-call-btn" href="tel:" class="px-4 py-1.5 bg-white text-red-600 font-extrabold text-xs rounded-xl shadow hover:bg-red-50 transition flex items-center gap-1.5">
-                    <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Call Attendant Now
+                <!-- SLIDER ARROWS FOR DESKTOP -->
+                <div id="slider-controls-desktop" class="hidden sm:flex items-center space-x-1 mr-2">
+                    <button onclick="slidePrevEmergency()" title="Previous Alert" class="w-7 h-7 bg-red-700 hover:bg-red-800 rounded-lg text-white font-black text-sm flex items-center justify-center transition">‹</button>
+                    <button onclick="slideNextEmergency()" title="Next Alert" class="w-7 h-7 bg-red-700 hover:bg-red-800 rounded-lg text-white font-black text-sm flex items-center justify-center transition">›</button>
+                </div>
+
+                <a id="broadcast-call-btn" href="tel:" class="px-3.5 py-1.5 bg-white text-red-600 font-extrabold text-xs rounded-xl shadow hover:bg-red-50 transition flex items-center gap-1.5 whitespace-nowrap">
+                    <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Call Attendant
                 </a>
-                <a href="#find-donor" class="px-3 py-1.5 bg-red-700 hover:bg-red-800 text-white font-bold text-xs rounded-xl transition">
+                <a href="#find-donor" class="px-3 py-1.5 bg-red-700 hover:bg-red-800 text-white font-bold text-xs rounded-xl transition whitespace-nowrap">
                     View Donors
                 </a>
             </div>
@@ -932,7 +951,7 @@
                 console.error("Error loading donors: ", error);
             });
 
-            // Real-time listener for Emergency Requests & Multiple Broadcast Ticker
+            // Real-time listener for Emergency Requests with Interactive Slider Controls
             window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
                 emergencyRequests = [];
                 snapshot.forEach((docSnap) => {
@@ -948,36 +967,24 @@
 
                 if (emergencyRequests.length > 0) {
                     ticker.classList.remove('hidden');
-
-                    function renderCurrentTicker() {
-                        if (emergencyRequests.length === 0) {
-                            ticker.classList.add('hidden');
-                            return;
-                        }
-                        if (emergencyIndex >= emergencyRequests.length) emergencyIndex = 0;
-
-                        const currentReq = emergencyRequests[emergencyIndex];
-                        const timeStr = (currentReq.donatingTime && currentReq.donatingTime.trim() !== "") 
-                            ? currentReq.donatingTime 
-                            : "As soon as possible";
-
-                        const alertLabel = emergencyRequests.length > 1 
-                            ? ` (Alert ${emergencyIndex + 1} of ${emergencyRequests.length})` 
-                            : "";
-
-                        const broadcastText = document.getElementById('broadcast-text');
-                        const broadcastCallBtn = document.getElementById('broadcast-call-btn');
-
-                        broadcastText.innerHTML = `Needed <strong>${currentReq.group}</strong> blood (${currentReq.bags} Bag) for <strong>${currentReq.patient}</strong> at <strong>${currentReq.location}</strong> | Needed: <strong>${timeStr}</strong>${alertLabel}`;
-                        broadcastCallBtn.href = `tel:${currentReq.phone}`;
+                    
+                    // Show or hide slider controls based on emergency count
+                    const deskCtrls = document.getElementById('slider-controls-desktop');
+                    const mobCtrls = document.getElementById('slider-controls-mobile');
+                    if (emergencyRequests.length > 1) {
+                        if (deskCtrls) deskCtrls.classList.remove('hidden');
+                        if (mobCtrls) mobCtrls.classList.remove('hidden');
+                    } else {
+                        if (deskCtrls) deskCtrls.classList.add('hidden');
+                        if (mobCtrls) mobCtrls.classList.add('hidden');
                     }
 
-                    renderCurrentTicker();
+                    renderCurrentEmergencySlide();
 
+                    // Auto cycle every 5s if multiple exist
                     if (emergencyRequests.length > 1) {
                         window.emergencyTickerInterval = setInterval(() => {
-                            emergencyIndex = (emergencyIndex + 1) % emergencyRequests.length;
-                            renderCurrentTicker();
+                            slideNextEmergency();
                         }, 5000);
                     }
                 } else {
@@ -988,6 +995,43 @@
             }, (error) => {
                 console.error("Error loading emergencies: ", error);
             });
+        }
+
+        function renderCurrentEmergencySlide() {
+            if (emergencyRequests.length === 0) return;
+            if (emergencyIndex >= emergencyRequests.length) emergencyIndex = 0;
+            if (emergencyIndex < 0) emergencyIndex = emergencyRequests.length - 1;
+
+            const currentReq = emergencyRequests[emergencyIndex];
+            const timeStr = (currentReq.donatingTime && currentReq.donatingTime.trim() !== "") 
+                ? currentReq.donatingTime 
+                : "As soon as possible";
+
+            const broadcastText = document.getElementById('broadcast-text');
+            const broadcastCallBtn = document.getElementById('broadcast-call-btn');
+            const countBadge = document.getElementById('slider-count-badge');
+
+            if (broadcastText) {
+                broadcastText.innerHTML = `Needed <strong>${currentReq.group}</strong> blood (${currentReq.bags} Bag) for <strong>${currentReq.patient}</strong> at <strong>${currentReq.location}</strong> | Needed: <strong>${timeStr}</strong>`;
+            }
+            if (broadcastCallBtn) {
+                broadcastCallBtn.href = `tel:${currentReq.phone}`;
+            }
+            if (countBadge) {
+                countBadge.innerText = `${emergencyIndex + 1} / ${emergencyRequests.length}`;
+            }
+        }
+
+        function slideNextEmergency() {
+            if (emergencyRequests.length <= 1) return;
+            emergencyIndex = (emergencyIndex + 1) % emergencyRequests.length;
+            renderCurrentEmergencySlide();
+        }
+
+        function slidePrevEmergency() {
+            if (emergencyRequests.length <= 1) return;
+            emergencyIndex = (emergencyIndex - 1 + emergencyRequests.length) % emergencyRequests.length;
+            renderCurrentEmergencySlide();
         }
 
         async function fetchSuccessfulDonationsCount() {
