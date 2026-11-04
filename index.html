@@ -11,7 +11,7 @@
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCAEyBPps1iv-h3HVnHkfb6jaLdmm7Kg4g",
@@ -34,6 +34,8 @@
         window.deleteDoc = deleteDoc;
         window.doc = doc;
         window.onSnapshot = onSnapshot;
+        window.setDoc = setDoc;
+        window.getDoc = getDoc;
 
         // Dispatch event that Firebase is loaded and ready
         window.dispatchEvent(new Event('firebase-ready'));
@@ -338,7 +340,7 @@
                     <div class="text-xs sm:text-sm text-slate-400 font-semibold">Registered Donors in Jhenaidah</div>
                 </div>
                 <div class="p-4 border-r border-slate-800 last:border-0">
-                    <div class="text-3xl sm:text-4xl font-black text-red-500 mb-1">0</div>
+                    <div id="stat-success-count" class="text-3xl sm:text-4xl font-black text-red-500 mb-1">0</div>
                     <div class="text-xs sm:text-sm text-slate-400 font-semibold">Successful Donations</div>
                 </div>
                 <div class="p-4 border-r border-slate-800 last:border-0">
@@ -801,7 +803,7 @@
 
     <!-- MODAL: ADMIN LOGIN & PANEL -->
     <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
             <button onclick="closeModal('admin-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -829,8 +831,8 @@
             <div id="admin-dashboard-step" class="hidden">
                 <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
                     <div>
-                        <h3 class="text-xl font-black text-slate-900">Durdom-25 Blood Donation Society - Admin Panel</h3>
-                        <p class="text-xs text-slate-500">Manage cloud database records</p>
+                        <h3 class="text-xl font-black text-slate-900">Durdom-25 Admin Panel</h3>
+                        <p class="text-xs text-slate-500">Manage cloud database records & successful donations</p>
                     </div>
                     <button onclick="adminLogout()" class="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
                         Logout
@@ -849,9 +851,9 @@
                                         <th class="p-3">Patient Name</th>
                                         <th class="p-3">Group</th>
                                         <th class="p-3">Bags</th>
-                                        <th class="p-3">Hospital / Area</th>
+                                        <th class="p-3">Hospital</th>
                                         <th class="p-3">Contact</th>
-                                        <th class="p-3 text-right">Action</th>
+                                        <th class="p-3 text-right">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="admin-emergency-table"></tbody>
@@ -891,6 +893,7 @@
     <script>
         let donorsList = [];
         let emergencyRequests = [];
+        let successfulDonationCount = 0;
 
         const compatibilityData = {
             'A+': { give: ['A+', 'AB+'], receive: ['A+', 'A-', 'O+', 'O-'], desc: 'Common in Jhenaidah. Can receive from positive and negative A & O types.' },
@@ -907,6 +910,7 @@
             document.getElementById('year').innerText = new Date().getFullYear();
             showCompatibility('A+');
             initRealtimeListeners();
+            fetchSuccessfulDonationsCount();
         });
 
         function initRealtimeListeners() {
@@ -946,6 +950,53 @@
             }, (error) => {
                 console.error("Error loading emergencies: ", error);
             });
+        }
+
+        async function fetchSuccessfulDonationsCount() {
+            try {
+                const docRef = window.doc(window.db, "stats", "impact");
+                window.onSnapshot(docRef, (docSnap) => {
+                    const statSuccessCount = document.getElementById('stat-success-count');
+                    if (docSnap.exists()) {
+                        successfulDonationCount = docSnap.data().successfulDonations || 0;
+                        if (statSuccessCount) statSuccessCount.innerText = successfulDonationCount;
+                    } else {
+                        if (statSuccessCount) statSuccessCount.innerText = 0;
+                    }
+                });
+            } catch (e) {
+                console.error("Error fetching successful donations count:", e);
+            }
+        }
+
+        async function markAsSuccessfulDonation(id, patient, group) {
+            try {
+                const statRef = window.doc(window.db, "stats", "impact");
+                const statSnap = await window.getDoc(statRef);
+                
+                let currentCount = 0;
+                if (statSnap.exists()) {
+                    currentCount = statSnap.data().successfulDonations || 0;
+                }
+                
+                await window.setDoc(statRef, { successfulDonations: currentCount + 1 }, { merge: true });
+                await window.deleteDoc(window.doc(window.db, "emergencies", id));
+
+                showToast(`🎉 Recorded successful donation for ${patient} (${group})! Stats updated.`);
+            } catch (e) {
+                console.error("Error marking successful donation: ", e);
+                showToast("Error updating successful donation.");
+            }
+        }
+
+        async function markAsUnsuccessfulDonation(id, patient) {
+            try {
+                await window.deleteDoc(window.doc(window.db, "emergencies", id));
+                showToast(`⚠️ Request for ${patient} marked as unsuccessful/cancelled and removed.`);
+            } catch (e) {
+                console.error("Error marking unsuccessful donation: ", e);
+                showToast("Error removing emergency request.");
+            }
         }
 
         function renderDonors(items) {
@@ -1186,21 +1237,13 @@
                     <td class="p-3 font-bold">${req.bags} Bag(s)</td>
                     <td class="p-3">${req.location}</td>
                     <td class="p-3 font-bold text-slate-900">${req.phone}</td>
-                    <td class="p-3 text-right">
-                        <button onclick="resolveEmergency('${req.id}')" class="text-emerald-700 bg-emerald-100 px-2 py-1 rounded hover:bg-emerald-200 font-bold text-xs">Resolve</button>
+                    <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
+                        <button onclick="markAsSuccessfulDonation('${req.id}', '${req.patient}', '${req.group}')" class="text-emerald-700 bg-emerald-100 px-2 py-1 rounded hover:bg-emerald-200 font-bold text-xs">Successful</button>
+                        <button onclick="markAsUnsuccessfulDonation('${req.id}', '${req.patient}')" class="text-amber-800 bg-amber-100 px-2 py-1 rounded hover:bg-amber-200 font-bold text-xs">Unsuccessful</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
-        }
-
-        async function resolveEmergency(id) {
-            try {
-                await window.deleteDoc(window.doc(window.db, "emergencies", id));
-                showToast("Emergency request marked as resolved.");
-            } catch (e) {
-                console.error("Error deleting emergency: ", e);
-            }
         }
 
         async function deleteDonor(id) {
