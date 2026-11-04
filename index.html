@@ -787,6 +787,10 @@
                     </div>
                 </div>
                 <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Donation Date & Time Needed *</label>
+                    <input type="text" id="em-donating-time" required placeholder="e.g. Today at 4:00 PM / As soon as possible" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div>
                     <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Hospital & Location *</label>
                     <input type="text" id="em-location" required placeholder="e.g. Jhenaidah Sadar Hospital" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
                 </div>
@@ -851,6 +855,7 @@
                                         <th class="p-3">Patient Name</th>
                                         <th class="p-3">Group</th>
                                         <th class="p-3">Bags</th>
+                                        <th class="p-3">Needed Time</th>
                                         <th class="p-3">Hospital</th>
                                         <th class="p-3">Contact</th>
                                         <th class="p-3 text-right">Actions</th>
@@ -940,7 +945,8 @@
                 if (emergencyRequests.length > 0) {
                     const latest = emergencyRequests[0];
                     ticker.classList.remove('hidden');
-                    broadcastText.innerHTML = `Needed <strong>${latest.group}</strong> blood (${latest.bags} Bag) for <strong>${latest.patient}</strong> at <strong>${latest.location}</strong>!`;
+                    const neededTimeText = latest.donatingTime ? ` (Needed: ${latest.donatingTime})` : '';
+                    broadcastText.innerHTML = `Needed <strong>${latest.group}</strong> blood (${latest.bags} Bag) for <strong>${latest.patient}</strong> at <strong>${latest.location}</strong>${neededTimeText}!`;
                     broadcastCallBtn.href = `tel:${latest.phone}`;
                 } else {
                     ticker.classList.add('hidden');
@@ -1137,6 +1143,7 @@
             const patient = document.getElementById('em-patient').value;
             const group = document.getElementById('em-group').value;
             const bags = document.getElementById('em-bags').value;
+            const donatingTime = document.getElementById('em-donating-time').value;
             const location = document.getElementById('em-location').value;
             const phone = document.getElementById('em-phone').value;
 
@@ -1145,6 +1152,7 @@
                     patient,
                     group,
                     bags,
+                    donatingTime,
                     location,
                     phone,
                     time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -1224,7 +1232,7 @@
             if (!tbody) return;
             tbody.innerHTML = '';
             if (emergencyRequests.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">No active emergency blood requests.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">No active emergency blood requests.</td></tr>`;
                 return;
             }
 
@@ -1235,6 +1243,7 @@
                     <td class="p-3 font-bold text-slate-800">${req.patient}</td>
                     <td class="p-3 font-bold text-red-600">${req.group}</td>
                     <td class="p-3 font-bold">${req.bags} Bag(s)</td>
+                    <td class="p-3 font-medium text-slate-700">${req.donatingTime || 'ASAP'}</td>
                     <td class="p-3">${req.location}</td>
                     <td class="p-3 font-bold text-slate-900">${req.phone}</td>
                     <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
