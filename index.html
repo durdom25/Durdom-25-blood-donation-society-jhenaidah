@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durdom-25 Blood Donation Society Jhenaidah</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        durdom: {
+                            50: '#fef2f2',
+                            100: '#ffe1e1',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        html { scroll-behavior: smooth; }
+        .logo-shadow { filter: drop-shadow(0px 4px 10px rgba(220, 38, 38, 0.3)); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        
+        /* Curved SVG text styling for logo */
+        .curved-logo-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            fill: #b91c1c;
+            font-size: 11px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen custom-scrollbar">
+
+    <!-- TOP EMERGENCY ALERT BAR -->
+    <div class="bg-slate-900 text-white text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center space-x-2">
+                <span class="bg-red-600 text-white font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider animate-pulse">Hotline</span>
+                <span class="text-slate-300 font-medium">Durdom-25 Blood Donation Emergency:</span>
+                <a href="tel:+8801342293635" class="text-red-400 font-bold hover:underline">01342293635</a>
+                <span class="text-slate-500">|</span>
+                <a href="tel:+8801756391595" class="text-red-400 font-bold hover:underline">01756391595</a>
+            </div>
+            <div class="flex items-center space-x-4 text-slate-400 text-[11px]">
+                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-red-500"></i> Jhenaidah, Bangladesh</span>
+                <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3 text-emerald-400"></i> 24/7 Voluntary Service</span>
+                <button onclick="openModal('admin-modal')" class="text-slate-300 hover:text-white font-bold ml-2 underline flex items-center gap-1">
+                    <i data-lucide="lock" class="w-3 h-3 text-red-400"></i> Admin Login
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- BRAND LOGO & NAME (EXACT MATCH TO PHOTO) -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="relative w-14 h-14 flex-shrink-0 group-hover:scale-105 transition-transform logo-shadow">
+                        <!-- SVG Logo Component matching user image -->
+                        <svg viewBox="0 0 200 200" class="w-full h-full">
+                            <!-- Circular background path for curved text -->
+                            <path id="textPathTop" d="M 25,100 A 75,75 0 1,1 175,100" fill="none" />
+                            <path id="textPathBottom" d="M 175,100 A 75,75 0 0,1 25,100" fill="none" />
+                            
+                            <!-- White circular base -->
+                            <circle cx="100" cy="100" r="96" fill="#ffffff" stroke="#e2e8f0" stroke-width="4"/>
+                            
+                            <!-- Outer Red Accent Ring -->
+                            <circle cx="100" cy="100" r="92" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,2"/>
+                            
+                            <!-- Top Curved Text: Durdom-25 Blood Donation -->
+                            <text class="curved-logo-text">
+                                <textPath href="#textPathTop" startOffset="50%" text-anchor="middle">
+                                    Durdom-25 Blood Donation
+                                </textPath>
+                            </text>
+                            
+                            <!-- Bottom Curved Text: Society Jhenaidah -->
+                            <text class="curved-logo-text" style="font-size: 11px; fill: #dc2626; font-weight: 800;">
+                                <textPath href="#textPathBottom" startOffset="50%" text-anchor="middle">
+                                    Society Jhenaidah
+                                </textPath>
+                            </text>
+                            
+                            <!-- Central Realistic Blood Drop -->
+                            <g transform="translate(0, -2)">
+                                <path d="M 100 42 C 100 42, 65 92, 65 118 C 65 137 80 152 100 152 C 120 152 135 137 135 118 C 135 92, 100 42, 100 42 Z" 
+                                      fill="url(#dropGradient)" />
+                                <!-- Drop Highlight -->
+                                <ellipse cx="88" cy="106" rx="6" ry="14" fill="#ffffff" opacity="0.4" transform="rotate(-20 88 106)"/>
+                            </g>
+                            
+                            <!-- Gradient for blood drop -->
+                            <defs>
+                                <radialGradient id="dropGradient" cx="40%" cy="40%" r="60%">
+                                    <stop offset="0%" stop-color="#ff4d4d"/>
+                                    <stop offset="60%" stop-color="#dc2626"/>
+                                    <stop offset="100%" stop-color="#800000"/>
+                                </radialGradient>
+                            </defs>
+                        </svg>
+
+                        <!-- Green Online Status Indicator -->
+                        <span class="absolute bottom-0 right-0 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow"></span>
+                    </div>
+
+                    <!-- Title Text -->
+                    <div class="leading-tight">
+                        <span class="text-lg sm:text-xl font-black text-slate-900 tracking-tight block group-hover:text-red-600 transition-colors">
+                            Durdom-25
+                        </span>
+                        <span class="text-xs text-red-600 font-bold tracking-wider block -mt-1 uppercase">
+                            Blood Donation Society
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden lg:flex items-center space-x-7 text-sm font-bold text-slate-700">
+                    <a href="#home" class="hover:text-red-600 transition-colors">Home</a>
+                    <a href="#find-donor" class="hover:text-red-600 transition-colors">Find Donors</a>
+                    <a href="#coverage" class="hover:text-red-600 transition-colors">Coverage Areas</a>
+                    <a href="#compatibility" class="hover:text-red-600 transition-colors">Blood Types</a>
+                    <a href="#about" class="hover:text-red-600 transition-colors">About Us</a>
+                    <a href="#contact" class="hover:text-red-600 transition-colors">Contact</a>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="hidden sm:flex items-center space-x-3">
+                    <button onclick="openModal('emergency-modal')" class="px-4 py-2.5 rounded-xl border-2 border-red-600 text-red-600 font-bold text-xs sm:text-sm hover:bg-red-50 transition flex items-center gap-1.5">
+                        <i data-lucide="alert-circle" class="w-4 h-4"></i> Request Blood
+                    </button>
+                    <button onclick="openModal('donor-modal')" class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-red-600/30 transition flex items-center gap-1.5">
+                        <i data-lucide="heart" class="w-4 h-4"></i> Join DBDSJ-25
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Home</a>
+            <a href="#find-donor" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Find Donors</a>
+            <a href="#coverage" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Coverage Areas</a>
+            <a href="#compatibility" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Blood Types</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">About Durdom-25</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Contact</a>
+            <button onclick="toggleMobileMenu(); openModal('admin-modal')" class="block py-2 text-red-600 font-bold hover:text-red-800 flex items-center gap-1.5">
+                <i data-lucide="lock" class="w-4 h-4"></i> Admin Panel
+            </button>
+            <div class="pt-4 flex flex-col space-y-2">
+                <button onclick="toggleMobileMenu(); openModal('emergency-modal')" class="w-full py-2.5 rounded-xl border-2 border-red-600 text-red-600 font-bold text-sm text-center">Request Blood</button>
+                <button onclick="toggleMobileMenu(); openModal('donor-modal')" class="w-full py-2.5 rounded-xl bg-red-600 text-white font-bold text-sm text-center">Join Durdom-25</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden bg-gradient-to-b from-red-50/70 via-slate-50 to-white">
+        <!-- Background Ornaments -->
+        <div class="absolute top-10 right-0 -mr-20 w-96 h-96 bg-red-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 w-80 h-80 bg-red-100/60 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Left Info -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider border border-red-200">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-red-600"></i> Voluntary Blood Donation Movement
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+                        Durdom-25 Blood Donation Society <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">Jhenaidah</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+                        Connecting life-saving voluntary blood donors across <strong>Jhenaidah Sadar, Kaliganj, Kotchandpur, Maheshpur, Shailkupa, and Harinakunda</strong> in times of medical emergencies.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <button onclick="openModal('emergency-modal')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-red-600 text-white font-extrabold text-base shadow-xl shadow-red-600/30 hover:bg-red-700 hover:shadow-red-600/50 transition flex items-center justify-center gap-3">
+                            <i data-lucide="phone-call" class="w-5 h-5"></i> Emergency Blood Request
+                        </button>
+                        <button onclick="openModal('donor-modal')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white border border-slate-300 text-slate-800 font-extrabold text-base hover:bg-slate-100 shadow-sm transition flex items-center justify-center gap-3">
+                            <i data-lucide="user-plus" class="w-5 h-5 text-red-600"></i> Join Durdom-25
+                        </button>
+                    </div>
+
+                    <!-- Hotline Bar -->
+                    <div class="pt-4 flex items-center justify-center lg:justify-start gap-3 text-slate-600 text-sm">
+                        <span class="flex h-3 w-3 relative">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                        </span>
+                        <span>Emergency Calls: <a href="tel:+8801342293635" class="text-slate-900 font-bold hover:text-red-600">01342293635</a>, <a href="tel:+8801756391595" class="text-slate-900 font-bold hover:text-red-600">01756391595</a> (Jhenaidah Hotline)</span>
+                    </div>
+                </div>
+
+                <!-- Hero Right Card & Logo Banner -->
+                <div class="lg:col-span-5">
+                    <div class="relative mx-auto max-w-md bg-white p-6 sm:p-8 rounded-3xl shadow-2xl border border-slate-100 text-center">
+                        <!-- Top Badge -->
+                        <div class="absolute -top-3 right-6 bg-slate-900 text-white font-bold text-xs px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1">
+                            <i data-lucide="heart-pulse" class="w-3.5 h-3.5 text-red-500"></i> Durdom-25
+                        </div>
+
+                        <!-- Big Circular Logo Display -->
+                        <div class="w-32 h-32 mx-auto mb-4 relative">
+                            <svg viewBox="0 0 200 200" class="w-full h-full logo-shadow">
+                                <path id="heroTextPathTop" d="M 25,100 A 75,75 0 1,1 175,100" fill="none" />
+                                <path id="heroTextPathBottom" d="M 175,100 A 75,75 0 0,1 25,100" fill="none" />
+                                <circle cx="100" cy="100" r="96" fill="#ffffff" stroke="#cbd5e1" stroke-width="4"/>
+                                <circle cx="100" cy="100" r="92" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,2"/>
+                                <text class="curved-logo-text">
+                                    <textPath href="#heroTextPathTop" startOffset="50%" text-anchor="middle">
+                                        Durdom-25 Blood Donation
+                                    </textPath>
+                                </text>
+                                <text class="curved-logo-text" style="font-size: 11px; fill: #dc2626; font-weight: 800;">
+                                    <textPath href="#heroTextPathBottom" startOffset="50%" text-anchor="middle">
+                                        Society Jhenaidah
+                                    </textPath>
+                                </text>
+                                <g transform="translate(0, -2)">
+                                    <path d="M 100 42 C 100 42, 65 92, 65 118 C 65 137 80 152 100 152 C 120 152 135 137 135 118 C 135 92, 100 42, 100 42 Z" fill="url(#heroDropGradient)" />
+                                    <ellipse cx="88" cy="106" rx="6" ry="14" fill="#ffffff" opacity="0.4" transform="rotate(-20 88 106)"/>
+                                </g>
+                                <defs>
+                                    <radialGradient id="heroDropGradient" cx="40%" cy="40%" r="60%">
+                                        <stop offset="0%" stop-color="#ff4d4d"/>
+                                        <stop offset="60%" stop-color="#dc2626"/>
+                                        <stop offset="100%" stop-color="#800000"/>
+                                    </radialGradient>
+                                </defs>
+                            </svg>
+                        </div>
+
+                        <h3 class="text-xl font-black text-slate-900">Durdom-25 Blood Donation Society</h3>
+                        <p class="text-slate-500 text-xs mt-1">Voluntary Blood Donation & Emergency Network</p>
+
+                        <!-- Quick Search Box inside card -->
+                        <div class="mt-6 space-y-3 text-left">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group Needed</label>
+                                <select id="hero-select-group" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-red-500 outline-none">
+                                    <option value="ALL">All Blood Groups</option>
+                                    <option value="A+">A Positive (A+)</option>
+                                    <option value="A-">A Negative (A-)</option>
+                                    <option value="B+">B Positive (B+)</option>
+                                    <option value="B-">B Negative (B-)</option>
+                                    <option value="O+">O Positive (O+)</option>
+                                    <option value="O-">O Negative (O-)</option>
+                                    <option value="AB+">AB Positive (AB+)</option>
+                                    <option value="AB-">AB Negative (AB-)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Upazila / Area</label>
+                                <select id="hero-select-area" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-red-500 outline-none">
+                                    <option value="ALL">All Jhenaidah Areas</option>
+                                    <option value="Jhenaidah Sadar">Jhenaidah Sadar</option>
+                                    <option value="Kaliganj">Kaliganj</option>
+                                    <option value="Kotchandpur">Kotchandpur</option>
+                                    <option value="Maheshpur">Maheshpur</option>
+                                    <option value="Shailkupa">Shailkupa</option>
+                                    <option value="Harinakunda">Harinakunda</option>
+                                </select>
+                            </div>
+
+                            <a href="#find-donor" onclick="applyHeroFilters()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-sm rounded-xl flex items-center justify-center gap-2 transition">
+                                <i data-lucide="search" class="w-4 h-4"></i> Search Jhenaidah Donors
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACT STATS COUNTER -->
+    <section class="bg-slate-900 text-white py-12 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="p-4 border-r border-slate-800 last:border-0">
+                    <div id="stat-donor-count" class="text-3xl sm:text-4xl font-black text-red-500 mb-1">0</div>
+                    <div class="text-xs sm:text-sm text-slate-400 font-semibold">Registered Donors in Jhenaidah</div>
+                </div>
+                <div class="p-4 border-r border-slate-800 last:border-0">
+                    <div class="text-3xl sm:text-4xl font-black text-red-500 mb-1">0</div>
+                    <div class="text-xs sm:text-sm text-slate-400 font-semibold">Successful Donations</div>
+                </div>
+                <div class="p-4 border-r border-slate-800 last:border-0">
+                    <div class="text-3xl sm:text-4xl font-black text-red-500 mb-1">6 Upazilas</div>
+                    <div class="text-xs sm:text-sm text-slate-400 font-semibold">Complete Coverage</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-3xl sm:text-4xl font-black text-red-500 mb-1">24/7</div>
+                    <div class="text-xs sm:text-sm text-slate-400 font-semibold">Emergency Support Desk</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE DONOR DIRECTORY -->
+    <section id="find-donor" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-2">Live Directory</h2>
+                <h3 class="text-3xl font-black text-slate-900 sm:text-4xl">Available Donors in Jhenaidah</h3>
+                <p class="text-slate-600 mt-2">Filter voluntary donors by blood group and upazila location.</p>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Blood Group</label>
+                        <select id="filter-group" onchange="filterDonors()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option value="ALL">All Blood Groups</option>
+                            <option value="A+">A Positive (A+)</option>
+                            <option value="A-">A Negative (A-)</option>
+                            <option value="B+">B Positive (B+)</option>
+                            <option value="B-">B Negative (B-)</option>
+                            <option value="O+">O Positive (O+)</option>
+                            <option value="O-">O Negative (O-)</option>
+                            <option value="AB+">AB Positive (AB+)</option>
+                            <option value="AB-">AB Negative (AB-)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Jhenaidah Area / Upazila</label>
+                        <select id="filter-area" onchange="filterDonors()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option value="ALL">All Locations in Jhenaidah</option>
+                            <option value="Jhenaidah Sadar">Jhenaidah Sadar</option>
+                            <option value="Kaliganj">Kaliganj</option>
+                            <option value="Kotchandpur">Kotchandpur</option>
+                            <option value="Maheshpur">Maheshpur</option>
+                            <option value="Shailkupa">Shailkupa</option>
+                            <option value="Harinakunda">Harinakunda</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Search Name or Phone</label>
+                        <div class="relative">
+                            <input type="text" id="filter-search" onkeyup="filterDonors()" placeholder="Type donor name..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donor Directory Cards Grid -->
+            <div id="donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript populates donor cards -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="no-donors-msg" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300">
+                <i data-lucide="user-x" class="w-12 h-12 text-slate-400 mx-auto mb-3"></i>
+                <h4 class="text-lg font-bold text-slate-700">No Donors Found</h4>
+                <p class="text-slate-500 text-sm mt-1">Try selecting a different blood group or area in Jhenaidah.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COVERAGE AREAS SECTION -->
+    <section id="coverage" class="py-20 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-2">Our Reach</h2>
+                <h3 class="text-3xl font-black text-slate-900 sm:text-4xl">Sub-districts Covered in Jhenaidah</h3>
+                <p class="text-slate-600 mt-2">Durdom-25 Blood Donation Society maintains active donor volunteers across all Upazilas of Jhenaidah District.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div onclick="filterByArea('Jhenaidah Sadar')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
+                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm">Jhenaidah Sadar</h4>
+                    <span class="text-xs text-slate-500">Central Hub</span>
+                </div>
+
+                <div onclick="filterByArea('Kaliganj')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
+                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm">Kaliganj</h4>
+                    <span class="text-xs text-slate-500">Upazila Unit</span>
+                </div>
+
+                <div onclick="filterByArea('Kotchandpur')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
+                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm">Kotchandpur</h4>
+                    <span class="text-xs text-slate-500">Upazila Unit</span>
+                </div>
+
+                <div onclick="filterByArea('Maheshpur')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
+                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm">Maheshpur</h4>
+                    <span class="text-xs text-slate-500">Upazila Unit</span>
+                </div>
+
+                <div onclick="filterByArea('Shailkupa')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
+                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm">Shailkupa</h4>
+                    <span class="text-xs text-slate-500">Upazila Unit</span>
+                </div>
+
+                <div onclick="filterByArea('Harinakunda')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
+                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm">Harinakunda</h4>
+                    <span class="text-xs text-slate-500">Upazila Unit</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOOD COMPATIBILITY MATRIX -->
+    <section id="compatibility" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-2">Blood Knowledge</h2>
+                <h3 class="text-3xl font-black text-slate-900 sm:text-4xl">Blood Group Compatibility</h3>
+                <p class="text-slate-600 mt-2">Click on any blood group to view compatible recipient and donor types.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Group Buttons Grid -->
+                <div class="lg:col-span-5 grid grid-cols-4 gap-3">
+                    <button onclick="showCompatibility('A+')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition active-compat" data-group="A+">
+                        <span class="block text-2xl font-black text-slate-800">A+</span>
+                    </button>
+                    <button onclick="showCompatibility('A-')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="A-">
+                        <span class="block text-2xl font-black text-slate-800">A-</span>
+                    </button>
+                    <button onclick="showCompatibility('B+')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="B+">
+                        <span class="block text-2xl font-black text-slate-800">B+</span>
+                    </button>
+                    <button onclick="showCompatibility('B-')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="B-">
+                        <span class="block text-2xl font-black text-slate-800">B-</span>
+                    </button>
+                    <button onclick="showCompatibility('O+')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="O+">
+                        <span class="block text-2xl font-black text-slate-800">O+</span>
+                    </button>
+                    <button onclick="showCompatibility('O-')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="O-">
+                        <span class="block text-2xl font-black text-slate-800">O-</span>
+                    </button>
+                    <button onclick="showCompatibility('AB+')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="AB+">
+                        <span class="block text-2xl font-black text-slate-800">AB+</span>
+                    </button>
+                    <button onclick="showCompatibility('AB-')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="AB-">
+                        <span class="block text-2xl font-black text-slate-800">AB-</span>
+                    </button>
+                </div>
+
+                <!-- Display Panel -->
+                <div class="lg:col-span-7 bg-slate-900 text-white rounded-3xl p-8 shadow-xl">
+                    <div class="flex items-center space-x-4 pb-6 border-b border-slate-800">
+                        <div id="compat-badge" class="w-16 h-16 rounded-2xl bg-red-600 flex items-center justify-center font-black text-2xl text-white shadow-lg shadow-red-600/40">
+                            A+
+                        </div>
+                        <div>
+                            <h4 id="compat-title" class="text-2xl font-bold">Blood Group A Positive</h4>
+                            <p id="compat-desc" class="text-slate-400 text-sm">Common blood type in Jhenaidah.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 pt-6">
+                        <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5 mb-3">
+                                <i data-lucide="arrow-up-right" class="w-4 h-4"></i> Can Donate Blood To
+                            </span>
+                            <div id="compat-give" class="flex flex-wrap gap-2"></div>
+                        </div>
+
+                        <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
+                            <span class="text-xs font-bold uppercase tracking-wider text-red-400 flex items-center gap-1.5 mb-3">
+                                <i data-lucide="arrow-down-left" class="w-4 h-4"></i> Can Receive Blood From
+                            </span>
+                            <div id="compat-receive" class="flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider border border-red-200">
+                        About Our Movement
+                    </div>
+                    <h3 class="text-3xl font-black text-slate-900 sm:text-4xl">Durdom-25 Blood Donation Society</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
+                        Founded by dedicated youth and voluntary humanitarians of Jhenaidah, <strong>Durdom-25 Blood Donation Society</strong> is committed to ensuring that no emergency patient in Jhenaidah suffers due to a shortage of safe blood.
+                    </p>
+                    <ul class="space-y-3 text-slate-700 text-sm font-semibold">
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-red-600"></i> 100% Non-profit voluntary blood donor network</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-red-600"></i> Instant donor coordination in Jhenaidah Sadar Hospital & clinics</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-red-600"></i> Awareness campaigns & free blood grouping camps</li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-6 bg-red-900 text-white p-8 sm:p-10 rounded-3xl shadow-xl relative overflow-hidden">
+                    <div class="relative z-10 space-y-6">
+                        <h4 class="text-2xl font-bold">Need Immediate Help?</h4>
+                        <p class="text-red-100 text-sm">Call our central voluntary helpline desk operating 24 hours a day for emergency donor arrangement in Jhenaidah.</p>
+                        <div class="bg-red-800/80 p-4 rounded-2xl border border-red-700">
+                            <div class="text-xs text-red-300 uppercase font-bold">24/7 Jhenaidah Helplines</div>
+                            <div class="text-xl font-black text-white mt-1 flex flex-wrap gap-x-4">
+                                <a href="tel:+8801342293635" class="hover:underline">01342293635</a>
+                                <a href="tel:+8801756391595" class="hover:underline">01756391595</a>
+                            </div>
+                        </div>
+                        <button onclick="openModal('emergency-modal')" class="w-full py-3.5 bg-white text-red-900 font-extrabold rounded-xl hover:bg-red-50 transition">
+                            Post Emergency Request
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-2">Contact Us</h2>
+                        <h3 class="text-3xl font-black text-slate-900">Durdom-25 Society Office</h3>
+                        <p class="text-slate-600 mt-2 text-sm">Reach out to our Jhenaidah team for donations, volunteering, or emergency coordination.</p>
+                    </div>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-start space-x-4 p-4 rounded-2xl bg-white border border-slate-200">
+                            <div class="p-3 bg-red-100 text-red-600 rounded-xl">
+                                <i data-lucide="phone" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-slate-500 uppercase">Emergency Contacts</div>
+                                <div class="text-base font-bold text-slate-900 flex flex-col">
+                                    <a href="tel:+8801342293635" class="hover:text-red-600">01342293635</a>
+                                    <a href="tel:+8801756391595" class="hover:text-red-600">01756391595</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 p-4 rounded-2xl bg-white border border-slate-200">
+                            <div class="p-3 bg-red-100 text-red-600 rounded-xl">
+                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-slate-500 uppercase">Central Address</div>
+                                <div class="text-base font-bold text-slate-900">Jhenaidah Sadar, Jhenaidah, Bangladesh</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <h4 class="text-xl font-bold text-slate-900 mb-6">Send Message to Durdom-25 Blood Donation Society</h4>
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Your Name</label>
+                                <input type="text" required placeholder="Full Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number</label>
+                                <input type="tel" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Message</label>
+                            <textarea rows="4" required placeholder="Write your message here..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-slate-900 text-white font-extrabold rounded-xl hover:bg-slate-800 transition">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center p-0.5 shadow">
+                        <svg viewBox="0 0 200 200" class="w-full h-full">
+                            <circle cx="100" cy="100" r="96" fill="#ffffff"/>
+                            <g transform="translate(0, -2)">
+                                <path d="M 100 42 C 100 42, 65 92, 65 118 C 65 137 80 152 100 152 C 120 152 135 137 135 118 C 135 92, 100 42, 100 42 Z" fill="#dc2626" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-white font-black text-base block">Durdom-25 Blood Donation Society</span>
+                        <span class="text-xs text-red-500 font-bold block">Jhenaidah</span>
+                    </div>
+                </div>
+
+                <div class="text-xs text-slate-500 text-center md:text-left">
+                    &copy; <span id="year"></span> Durdom-25 Blood Donation Society Jhenaidah. All Rights Reserved.
+                </div>
+
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-white transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition"><i data-lucide="phone" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: BECOME A DONOR (REGISTER DBDSJ-25) -->
+    <div id="donor-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeModal('donor-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="user-plus" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-900">Join Durdom-25 Society</h3>
+                <p class="text-slate-500 text-xs mt-1">Register as a voluntary blood donor in Jhenaidah.</p>
+            </div>
+            
+            <form onsubmit="handleDonorRegister(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name *</label>
+                    <input type="text" id="donor-name" required placeholder="Donor Full Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group *</label>
+                        <select id="donor-group" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
+                            <option value="">Select</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Jhenaidah Upazila *</label>
+                        <select id="donor-area" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
+                            <option value="">Select Area</option>
+                            <option value="Jhenaidah Sadar">Jhenaidah Sadar</option>
+                            <option value="Kaliganj">Kaliganj</option>
+                            <option value="Kotchandpur">Kotchandpur</option>
+                            <option value="Maheshpur">Maheshpur</option>
+                            <option value="Shailkupa">Shailkupa</option>
+                            <option value="Harinakunda">Harinakunda</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number *</label>
+                        <input type="tel" id="donor-phone" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Last Donation Date</label>
+                        <input type="date" id="donor-last-date" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                </div>
+                <div class="flex items-start space-x-2 pt-2">
+                    <input type="checkbox" id="donor-eligible" required class="mt-1 rounded text-red-600 focus:ring-red-500">
+                    <label for="donor-eligible" class="text-xs text-slate-600 leading-tight">
+                        I confirm that I am in good health, weigh over 45kg, and am ready to donate blood voluntarily in Jhenaidah.
+                    </label>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-red-600 text-white font-extrabold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/30">
+                    Submit Application
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: EMERGENCY BLOOD REQUEST -->
+    <div id="emergency-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeModal('emergency-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="alert-circle" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-900">Post Emergency Request</h3>
+                <p class="text-slate-500 text-xs mt-1">Request urgent blood for a patient in Jhenaidah.</p>
+            </div>
+            
+            <form onsubmit="handleEmergencySubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Patient Name *</label>
+                    <input type="text" id="em-patient" required placeholder="Patient Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group Needed *</label>
+                        <select id="em-group" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
+                            <option value="">Select</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Bags Needed *</label>
+                        <input type="number" id="em-bags" min="1" max="10" required value="1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Hospital & Location *</label>
+                    <input type="text" id="em-location" required placeholder="e.g. Jhenaidah Sadar Hospital" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Attendant Contact Phone *</label>
+                    <input type="tel" id="em-phone" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-red-600 text-white font-extrabold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/30">
+                    Dispatch Emergency Alert
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADMIN LOGIN & PANEL -->
+    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeModal('admin-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Admin Login Step -->
+            <div id="admin-login-step">
+                <div class="text-center mb-6">
+                    <div class="w-12 h-12 bg-slate-100 text-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-red-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-slate-900">Admin Authentication</h3>
+                    <p class="text-slate-500 text-xs mt-1">Enter your Durdom-25 secret admin key to access controls.</p>
+                </div>
+
+                <form onsubmit="handleAdminLogin(event)" class="space-y-4 max-w-sm mx-auto">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Passkey Secret</label>
+                        <input type="password" id="admin-passkey" required placeholder="Enter passcode" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                    <button type="submit" class="w-full py-3.5 bg-slate-900 text-white font-extrabold rounded-xl hover:bg-slate-800 transition">
+                        Unlock Admin Dashboard
+                    </button>
+                </form>
+            </div>
+
+            <!-- Admin Control Dashboard Step -->
+            <div id="admin-dashboard-step" class="hidden">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
+                    <div>
+                        <h3 class="text-xl font-black text-slate-900">Durdom-25 Blood Donation Society - Admin Panel</h3>
+                        <p class="text-xs text-slate-500">Manage donors and system records</p>
+                    </div>
+                    <button onclick="adminLogout()" class="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
+                        Logout
+                    </button>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Emergency Blood Requests Admin View -->
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider text-red-600 flex items-center gap-1.5">
+                            <i data-lucide="alert-circle" class="w-4 h-4"></i> Active Emergency Requests
+                        </h4>
+                        <div class="overflow-x-auto border border-red-200 rounded-xl mb-6 bg-red-50/30">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-red-100 text-red-900 font-bold uppercase">
+                                    <tr>
+                                        <th class="p-3">Patient Name</th>
+                                        <th class="p-3">Group</th>
+                                        <th class="p-3">Bags</th>
+                                        <th class="p-3">Hospital / Area</th>
+                                        <th class="p-3">Contact</th>
+                                        <th class="p-3 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-emergency-table">
+                                    <!-- Javascript renders emergency requests here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider">Registered Donors Management</h4>
+                        <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-slate-100 text-slate-800 font-bold uppercase">
+                                    <tr>
+                                        <th class="p-3">Name</th>
+                                        <th class="p-3">Group</th>
+                                        <th class="p-3">Upazila</th>
+                                        <th class="p-3">Phone</th>
+                                        <th class="p-3 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-donor-table">
+                                    <!-- Javascript renders donors here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST FEEDBACK NOTIFICATION -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all border border-slate-700">
+        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+        <span id="toast-text" class="text-sm font-bold">Notification message</span>
+    </div>
+
+    <!-- JAVASCRIPT & LOGIC -->
+    <script>
+        // Reset Donor List for Durdom-25 Jhenaidah
+        let donorsList = [];
+        let emergencyRequests = [];
+
+        // Compatibility Matrix Data
+        const compatibilityData = {
+            'A+': { give: ['A+', 'AB+'], receive: ['A+', 'A-', 'O+', 'O-'], desc: 'Common in Jhenaidah. Can receive from positive and negative A & O types.' },
+            'A-': { give: ['A+', 'A-', 'AB+', 'AB-'], receive: ['A-', 'O-'], desc: 'Universal donor for all A and AB blood types.' },
+            'B+': { give: ['B+', 'AB+'], receive: ['B+', 'B-', 'O+', 'O-'], desc: 'Very common in Bangladesh. Essential for hospital reserves.' },
+            'B-': { give: ['B+', 'B-', 'AB+', 'AB-'], receive: ['B-', 'O-'], desc: 'Rare blood type. High demand in emergency care.' },
+            'O+': { give: ['O+', 'A+', 'B+', 'AB+'], receive: ['O+', 'O-'], desc: 'Most requested blood type in emergency hospital units.' },
+            'O-': { give: ['ALL TYPES (Universal Donor)'], receive: ['O-'], desc: 'Universal Red Blood Cell Donor.' },
+            'AB+': { give: ['AB+'], receive: ['ALL TYPES (Universal Recipient)'], desc: 'Universal blood recipient.' },
+            'AB-': { give: ['AB+', 'AB-'], receive: ['AB-', 'A-', 'B-', 'O-'], desc: 'Rare blood group.' }
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('year').innerText = new Date().getFullYear();
+            renderDonors(donorsList);
+            showCompatibility('A+');
+            lucide.createIcons();
+        });
+
+        // Render Donors
+        function renderDonors(items) {
+            const container = document.getElementById('donor-grid');
+            const emptyMsg = document.getElementById('no-donors-msg');
+
+            // Update stats counter with actual total registered donors
+            const statDonorCount = document.getElementById('stat-donor-count');
+            if (statDonorCount) {
+                statDonorCount.innerText = donorsList.length;
+            }
+
+            container.innerHTML = '';
+            if (items.length === 0) {
+                emptyMsg.classList.remove('hidden');
+                return;
+            }
+            emptyMsg.classList.add('hidden');
+
+            items.forEach(donor => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-xl bg-red-100 text-red-600 font-black text-lg flex items-center justify-center border border-red-200">${donor.group}</span>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-700 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${donor.status}
+                            </span>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900">${donor.name}</h4>
+                        <div class="text-xs text-slate-500 space-y-1.5 mt-2">
+                            <div class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> ${donor.area}, Jhenaidah</div>
+                            <div class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i> Last Donated: ${donor.lastDonated}</div>
+                        </div>
+                    </div>
+                    <div class="pt-5 mt-5 border-t border-slate-100">
+                        <a href="tel:${donor.phone}" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition">
+                            <i data-lucide="phone" class="w-3.5 h-3.5"></i> Call Donor (${donor.phone})
+                        </a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Filter Logic
+        function filterDonors() {
+            const selectedGroup = document.getElementById('filter-group').value;
+            const selectedArea = document.getElementById('filter-area').value;
+            const searchKeyword = document.getElementById('filter-search').value.toLowerCase();
+
+            const filtered = donorsList.filter(donor => {
+                const matchGroup = selectedGroup === 'ALL' || donor.group === selectedGroup;
+                const matchArea = selectedArea === 'ALL' || donor.area === selectedArea;
+                const matchName = donor.name.toLowerCase().includes(searchKeyword) || donor.phone.includes(searchKeyword);
+                return matchGroup && matchArea && matchName;
+            });
+
+            renderDonors(filtered);
+        }
+
+        function filterByArea(areaName) {
+            document.getElementById('filter-area').value = areaName;
+            filterDonors();
+            document.getElementById('find-donor').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function applyHeroFilters() {
+            const group = document.getElementById('hero-select-group').value;
+            const area = document.getElementById('hero-select-area').value;
+            document.getElementById('filter-group').value = group;
+            document.getElementById('filter-area').value = area;
+            filterDonors();
+        }
+
+        // Compatibility Matrix Logic
+        function showCompatibility(group) {
+            document.querySelectorAll('.compat-btn').forEach(btn => {
+                if(btn.getAttribute('data-group') === group) {
+                    btn.classList.add('border-red-600', 'bg-red-50');
+                } else {
+                    btn.classList.remove('border-red-600', 'bg-red-50');
+                }
+            });
+
+            const data = compatibilityData[group];
+            document.getElementById('compat-badge').innerText = group;
+            document.getElementById('compat-title').innerText = `Blood Group ${group}`;
+            document.getElementById('compat-desc').innerText = data.desc;
+
+            const giveContainer = document.getElementById('compat-give');
+            const receiveContainer = document.getElementById('compat-receive');
+
+            giveContainer.innerHTML = data.give.map(g => `<span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 font-bold text-xs rounded-lg border border-emerald-500/30">${g}</span>`).join('');
+            receiveContainer.innerHTML = data.receive.map(r => `<span class="px-3 py-1 bg-red-500/20 text-red-300 font-bold text-xs rounded-lg border border-red-500/30">${r}</span>`).join('');
+        }
+
+        // Modal Handlers
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Form Handlers
+        function handleDonorRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('donor-name').value;
+            const group = document.getElementById('donor-group').value;
+            const area = document.getElementById('donor-area').value;
+            const phone = document.getElementById('donor-phone').value;
+
+            donorsList.unshift({
+                name: name,
+                group: group,
+                area: area,
+                phone: phone,
+                status: "Available",
+                lastDonated: "Just registered"
+            });
+
+            renderDonors(donorsList);
+            closeModal('donor-modal');
+            showToast(`Welcome ${name}! You are now registered with Durdom-25 Blood Donation Society.`);
+            event.target.reset();
+        }
+
+        function handleEmergencySubmit(event) {
+            event.preventDefault();
+            const patient = document.getElementById('em-patient').value;
+            const group = document.getElementById('em-group').value;
+            const bags = document.getElementById('em-bags').value;
+            const location = document.getElementById('em-location').value;
+            const phone = document.getElementById('em-phone').value;
+
+            // Save request to emergency list
+            emergencyRequests.unshift({
+                patient,
+                group,
+                bags,
+                location,
+                phone,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+
+            closeModal('emergency-modal');
+            showToast(`Blood Request Received! Call Hotlines: 01342293635 or 01756391595 for instant dispatch.`);
+            
+            // If admin dashboard is open, update table
+            renderAdminEmergencyTable();
+            event.target.reset();
+        }
+
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            showToast("Thank you for contacting Durdom-25 Blood Donation Society.");
+            event.target.reset();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+
+        // Admin Access Logic
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const passkey = document.getElementById('admin-passkey').value;
+            if (passkey === 'a') {
+                document.getElementById('admin-login-step').classList.add('hidden');
+                document.getElementById('admin-dashboard-step').classList.remove('hidden');
+                renderAdminTable();
+                showToast("Admin access granted.");
+            } else {
+                showToast("Invalid admin passkey!");
+            }
+        }
+
+        function adminLogout() {
+            document.getElementById('admin-passkey').value = '';
+            document.getElementById('admin-dashboard-step').classList.add('hidden');
+            document.getElementById('admin-login-step').classList.remove('hidden');
+            closeModal('admin-modal');
+            showToast("Logged out from admin panel.");
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-donor-table');
+            tbody.innerHTML = '';
+            if (donorsList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">No registered donors available.</td></tr>`;
+                return;
+            }
+
+            donorsList.forEach((donor, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-100 hover:bg-slate-50";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-slate-800">${donor.name}</td>
+                    <td class="p-3 font-bold text-red-600">${donor.group}</td>
+                    <td class="p-3">${donor.area}</td>
+                    <td class="p-3">${donor.phone}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="deleteDonor(${index})" class="text-red-600 hover:text-red-800 font-bold text-xs underline">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            renderAdminEmergencyTable();
+        }
+
+        function renderAdminEmergencyTable() {
+            const tbody = document.getElementById('admin-emergency-table');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            if (emergencyRequests.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">No active emergency blood requests.</td></tr>`;
+                return;
+            }
+
+            emergencyRequests.forEach((req, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-red-100 hover:bg-red-50";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-slate-800">${req.patient}</td>
+                    <td class="p-3 font-bold text-red-600">${req.group}</td>
+                    <td class="p-3 font-bold">${req.bags} Bag(s)</td>
+                    <td class="p-3">${req.location}</td>
+                    <td class="p-3 font-bold text-slate-900">${req.phone}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="resolveEmergency(${index})" class="text-emerald-700 bg-emerald-100 px-2 py-1 rounded hover:bg-emerald-200 font-bold text-xs">Resolve</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function resolveEmergency(index) {
+            emergencyRequests.splice(index, 1);
+            renderAdminEmergencyTable();
+            showToast("Emergency request marked as resolved.");
+        }
+
+        function deleteDonor(index) {
+            donorsList.splice(index, 1);
+            renderDonors(donorsList);
+            renderAdminTable();
+            showToast("Donor record deleted.");
+        }
+    </script>
+</body>
+</html>
