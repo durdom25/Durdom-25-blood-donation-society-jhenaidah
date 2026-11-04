@@ -100,6 +100,28 @@
         </div>
     </div>
 
+    <!-- LIVE EMERGENCY BROADCAST TICKER -->
+    <div id="emergency-broadcast-ticker" class="hidden bg-red-600 text-white py-3 px-4 shadow-lg relative z-30 animate-pulse">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div class="flex items-center space-x-3">
+                <span class="bg-white text-red-600 font-black px-2.5 py-1 rounded-lg text-xs uppercase tracking-wider shadow">
+                    🚨 URGENT EMERGENCY
+                </span>
+                <span id="broadcast-text" class="text-sm font-bold">
+                    Loading active emergency requests...
+                </span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <a id="broadcast-call-btn" href="tel:" class="px-4 py-1.5 bg-white text-red-600 font-extrabold text-xs rounded-xl shadow hover:bg-red-50 transition flex items-center gap-1.5">
+                    <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Call Attendant Now
+                </a>
+                <a href="#find-donor" class="px-3 py-1.5 bg-red-700 hover:bg-red-800 text-white font-bold text-xs rounded-xl transition">
+                    View Donors
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- MAIN HEADER NAVIGATION -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -759,7 +781,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Bags Needed *</label>
-                        <input type="number" id="em-bags" min="1" max="10" required value="1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                        <input type="number" id="em-bags" min="1" max="10" required value="1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
                     </div>
                 </div>
                 <div>
@@ -900,12 +922,26 @@
                 console.error("Error loading donors: ", error);
             });
 
-            // Real-time listener for Emergency Requests
+            // Real-time listener for Emergency Requests & Broadcast Ticker
             window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
                 emergencyRequests = [];
                 snapshot.forEach((docSnap) => {
                     emergencyRequests.push({ id: docSnap.id, ...docSnap.data() });
                 });
+
+                const ticker = document.getElementById('emergency-broadcast-ticker');
+                const broadcastText = document.getElementById('broadcast-text');
+                const broadcastCallBtn = document.getElementById('broadcast-call-btn');
+
+                if (emergencyRequests.length > 0) {
+                    const latest = emergencyRequests[0];
+                    ticker.classList.remove('hidden');
+                    broadcastText.innerHTML = `Needed <strong>${latest.group}</strong> blood (${latest.bags} Bag) for <strong>${latest.patient}</strong> at <strong>${latest.location}</strong>!`;
+                    broadcastCallBtn.href = `tel:${latest.phone}`;
+                } else {
+                    ticker.classList.add('hidden');
+                }
+
                 renderAdminEmergencyTable();
             }, (error) => {
                 console.error("Error loading emergencies: ", error);
@@ -1064,7 +1100,7 @@
                     createdAt: new Date()
                 });
                 closeModal('emergency-modal');
-                showToast(`Emergency alert saved to cloud! Hotlines: 01342293635`);
+                showToast(`Emergency alert broadcasted! Hotlines: 01342293635`);
                 event.target.reset();
             } catch (e) {
                 console.error("Error adding emergency: ", e);
