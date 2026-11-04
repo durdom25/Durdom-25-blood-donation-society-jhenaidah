@@ -643,16 +643,16 @@
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Your Name</label>
-                                <input type="text" required placeholder="Full Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                                <input type="text" id="msg-name" required placeholder="Full Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number</label>
-                                <input type="tel" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                                <input type="tel" id="msg-phone" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
                             </div>
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Message</label>
-                            <textarea rows="4" required placeholder="Write your message here..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"></textarea>
+                            <textarea id="msg-content" rows="4" required placeholder="Write your message here..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"></textarea>
                         </div>
                         <button type="submit" class="w-full py-3.5 bg-slate-900 text-white font-extrabold rounded-xl hover:bg-slate-800 transition">
                             Send Message
@@ -688,9 +688,8 @@
                 </div>
 
                 <div class="flex space-x-4">
-                    <a href="#" class="hover:text-white transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                    <a href="#" class="hover:text-white transition"><i data-lucide="phone" class="w-5 h-5"></i></a>
-                    <a href="#" class="hover:text-white transition"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                    <a href="https://m.me/j/AbZM1wYdC8-oEXDs/?send_source=gc%3Acopy_invite_link_t" target="_blank" class="hover:text-white transition"><i data-lucide="message-square" class="w-5 h-5 text-red-500"></i></a>
+                    <a href="tel:+8801342293635" class="hover:text-white transition"><i data-lucide="phone" class="w-5 h-5"></i></a>
                 </div>
             </div>
         </div>
@@ -855,7 +854,7 @@
                 <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
                     <div>
                         <h3 class="text-xl font-black text-slate-900">Durdom-25 Admin Panel</h3>
-                        <p class="text-xs text-slate-500">Manage cloud database records & successful donations</p>
+                        <p class="text-xs text-slate-500">Manage cloud database records, messages & successful donations</p>
                     </div>
                     <button onclick="adminLogout()" class="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
                         Logout
@@ -881,6 +880,25 @@
                                     </tr>
                                 </thead>
                                 <tbody id="admin-emergency-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider flex items-center gap-1.5 text-blue-600">
+                            <i data-lucide="message-square" class="w-4 h-4"></i> Received Messages
+                        </h4>
+                        <div class="overflow-x-auto border border-slate-200 rounded-xl mb-6 bg-slate-50/50">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-slate-100 text-slate-800 font-bold uppercase">
+                                    <tr>
+                                        <th class="p-3">Sender Name</th>
+                                        <th class="p-3">Phone</th>
+                                        <th class="p-3">Message</th>
+                                        <th class="p-3 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-messages-table"></tbody>
                             </table>
                         </div>
                     </div>
@@ -917,6 +935,7 @@
     <script>
         let donorsList = [];
         let emergencyRequests = [];
+        let contactMessages = [];
         let successfulDonationCount = 0;
         let emergencyIndex = 0;
 
@@ -951,7 +970,18 @@
                 console.error("Error loading donors: ", error);
             });
 
-            // Real-time listener for Emergency Requests with Interactive Slider Controls
+            // Real-time listener for Contact Messages
+            window.onSnapshot(window.collection(window.db, "messages"), (snapshot) => {
+                contactMessages = [];
+                snapshot.forEach((docSnap) => {
+                    contactMessages.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                renderAdminMessagesTable();
+            }, (error) => {
+                console.error("Error loading messages: ", error);
+            });
+
+            // Real-time listener for Emergency Requests
             window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
                 emergencyRequests = [];
                 snapshot.forEach((docSnap) => {
@@ -968,7 +998,6 @@
                 if (emergencyRequests.length > 0) {
                     ticker.classList.remove('hidden');
                     
-                    // Show or hide slider controls based on emergency count
                     const deskCtrls = document.getElementById('slider-controls-desktop');
                     const mobCtrls = document.getElementById('slider-controls-mobile');
                     if (emergencyRequests.length > 1) {
@@ -981,7 +1010,6 @@
 
                     renderCurrentEmergencySlide();
 
-                    // Auto cycle every 5s if multiple exist
                     if (emergencyRequests.length > 1) {
                         window.emergencyTickerInterval = setInterval(() => {
                             slideNextEmergency();
@@ -1243,10 +1271,25 @@
             }
         }
 
-        function handleContactSubmit(event) {
+        async function handleContactSubmit(event) {
             event.preventDefault();
-            showToast("Thank you for contacting Durdom-25 Blood Donation Society.");
-            event.target.reset();
+            const name = document.getElementById('msg-name').value;
+            const phone = document.getElementById('msg-phone').value;
+            const message = document.getElementById('msg-content').value;
+
+            try {
+                await window.addDoc(window.collection(window.db, "messages"), {
+                    name,
+                    phone,
+                    message,
+                    createdAt: new Date()
+                });
+                showToast("Message sent to Durdom-25 team!");
+                event.target.reset();
+            } catch (e) {
+                console.error("Error saving message: ", e);
+                showToast("Error sending message.");
+            }
         }
 
         function showToast(message) {
@@ -1332,12 +1375,45 @@
             });
         }
 
+        function renderAdminMessagesTable() {
+            const tbody = document.getElementById('admin-messages-table');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            if (contactMessages.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">No contact messages received yet.</td></tr>`;
+                return;
+            }
+
+            contactMessages.forEach((msg) => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-100 hover:bg-slate-50";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-slate-800">${msg.name}</td>
+                    <td class="p-3 font-bold text-slate-900">${msg.phone}</td>
+                    <td class="p-3 text-slate-700">${msg.message}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="deleteMessage('${msg.id}')" class="text-red-600 hover:text-red-800 font-bold text-xs underline">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
         async function deleteDonor(id) {
             try {
                 await window.deleteDoc(window.doc(window.db, "donors", id));
                 showToast("Donor record deleted from cloud.");
             } catch (e) {
                 console.error("Error deleting donor: ", e);
+            }
+        }
+
+        async function deleteMessage(id) {
+            try {
+                await window.deleteDoc(window.doc(window.db, "messages", id));
+                showToast("Message deleted from cloud.");
+            } catch (e) {
+                console.error("Error deleting message: ", e);
             }
         }
     </script>
