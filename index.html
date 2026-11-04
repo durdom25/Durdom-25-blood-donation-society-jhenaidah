@@ -931,7 +931,7 @@
                 console.error("Error loading donors: ", error);
             });
 
-            // Real-time listener for Emergency Requests & Broadcast Ticker
+            // Real-time listener for Emergency Requests & Rotating Multiple Broadcast Ticker
             window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
                 emergencyRequests = [];
                 snapshot.forEach((docSnap) => {
@@ -942,12 +942,38 @@
                 const broadcastText = document.getElementById('broadcast-text');
                 const broadcastCallBtn = document.getElementById('broadcast-call-btn');
 
+                if (window.emergencyTickerInterval) {
+                    clearInterval(window.emergencyTickerInterval);
+                    window.emergencyTickerInterval = null;
+                }
+
                 if (emergencyRequests.length > 0) {
-                    const latest = emergencyRequests[0];
                     ticker.classList.remove('hidden');
-                    const neededTimeText = latest.donatingTime ? ` (Needed: ${latest.donatingTime})` : '';
-                    broadcastText.innerHTML = `Needed <strong>${latest.group}</strong> blood (${latest.bags} Bag) for <strong>${latest.patient}</strong> at <strong>${latest.location}</strong>${neededTimeText}!`;
-                    broadcastCallBtn.href = `tel:${latest.phone}`;
+                    let currentIndex = 0;
+
+                    function updateTickerDisplay() {
+                        if (emergencyRequests.length === 0) {
+                            ticker.classList.add('hidden');
+                            return;
+                        }
+                        if (currentIndex >= emergencyRequests.length) currentIndex = 0;
+
+                        const currentReq = emergencyRequests[currentIndex];
+                        const neededTimeText = currentReq.donatingTime ? ` | Needed: ${currentReq.donatingTime}` : '';
+                        const alertCountLabel = emergencyRequests.length > 1 ? ` (Alert ${currentIndex + 1} of ${emergencyRequests.length})` : '';
+
+                        broadcastText.innerHTML = `Needed <strong>${currentReq.group}</strong> blood (${currentReq.bags} Bag) for <strong>${currentReq.patient}</strong> at <strong>${currentReq.location}</strong>${neededTimeText}${alertCountLabel}`;
+                        broadcastCallBtn.href = `tel:${currentReq.phone}`;
+                    }
+
+                    updateTickerDisplay();
+
+                    if (emergencyRequests.length > 1) {
+                        window.emergencyTickerInterval = setInterval(() => {
+                            currentIndex = (currentIndex + 1) % emergencyRequests.length;
+                            updateTickerDisplay();
+                        }, 5000);
+                    }
                 } else {
                     ticker.classList.add('hidden');
                 }
