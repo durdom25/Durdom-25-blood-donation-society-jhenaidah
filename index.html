@@ -905,7 +905,7 @@
 
                     <div>
                         <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
-                            <i data-lucide="message-square" class="w-4 h-4"></i> Incoming User Messages & Inquiries (Click message to read full)
+                            <i data-lucide="message-square" class="w-4 h-4"></i> Incoming User Messages & Inquiries
                         </h4>
                         <div class="overflow-x-auto border border-blue-200 rounded-xl bg-blue-50/30">
                             <table class="w-full text-left text-xs text-slate-600">
@@ -922,43 +922,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: VIEW MESSAGE DETAILS POP-UP (PLACED CORRECTLY OUTSIDE ADMIN MODAL) -->
-    <div id="message-modal" class="fixed inset-0 z-[60] hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-slate-100">
-            <button onclick="closeModal('message-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            
-            <div class="text-center mb-4">
-                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-2">
-                    <i data-lucide="message-square" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-xl font-black text-slate-900" id="msg-modal-sender">Sender Name</h3>
-                <p class="text-slate-500 text-xs">Incoming User Inquiry</p>
-            </div>
-
-            <div class="space-y-3 text-sm bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                <div>
-                    <span class="text-xs font-bold text-slate-400 uppercase block mb-1">Phone Number:</span>
-                    <a id="msg-modal-phone" href="tel:" class="font-bold text-blue-600 hover:underline">017...</a>
-                </div>
-                <div>
-                    <span class="text-xs font-bold text-slate-400 uppercase block mb-1">Full Message:</span>
-                    <p id="msg-modal-body" class="font-medium text-slate-800 bg-white p-3 rounded-xl border border-slate-200 whitespace-pre-wrap leading-relaxed"></p>
-                </div>
-            </div>
-
-            <div class="mt-5 flex gap-3">
-                <a id="msg-modal-call-btn" href="tel:" class="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-center text-sm rounded-xl transition flex items-center justify-center gap-2">
-                    <i data-lucide="phone-call" class="w-4 h-4"></i> Call Sender
-                </a>
-                <button onclick="closeModal('message-modal')" class="px-4 py-3 bg-slate-200 text-slate-800 font-bold text-sm rounded-xl">
-                    Close
-                </button>
             </div>
         </div>
     </div>
@@ -1227,15 +1190,6 @@
             openModal('details-modal');
         }
 
-        function showMessageDetails(name, phone, message) {
-            document.getElementById('msg-modal-sender').innerText = name || "Anonymous";
-            document.getElementById('msg-modal-phone').innerText = phone || "N/A";
-            document.getElementById('msg-modal-phone').href = `tel:${phone}`;
-            document.getElementById('msg-modal-body').innerText = message || "No message content.";
-            document.getElementById('msg-modal-call-btn').href = `tel:${phone}`;
-            openModal('message-modal');
-        }
-
         function slideNextEmergency() {
             if (emergencyRequests.length <= 1) return;
             emergencyIndex = (emergencyIndex + 1) % emergencyRequests.length;
@@ -1498,17 +1452,15 @@
             }
 
             messagesList.forEach((msg) => {
-                const safeName = (msg.name || '').replace(/'/g, "\\'");
-                const safePhone = (msg.phone || '').replace(/'/g, "\\'");
-                const safeMsg = (msg.message || '').replace(/'/g, "\\'").replace(/\n/g, ' ');
-
                 const tr = document.createElement('tr');
-                tr.className = "border-b border-blue-100 hover:bg-blue-50 cursor-pointer";
+                tr.className = "border-b border-blue-100 hover:bg-blue-50";
                 tr.innerHTML = `
-                    <td class="p-3 font-bold text-slate-800" onclick="showMessageDetails('${safeName}', '${safePhone}', '${safeMsg}')">${msg.name}</td>
-                    <td class="p-3 font-bold text-blue-600" onclick="showMessageDetails('${safeName}', '${safePhone}', '${safeMsg}')">${msg.phone}</td>
-                    <td class="p-3 text-slate-700 max-w-xs truncate" onclick="showMessageDetails('${safeName}', '${safePhone}', '${safeMsg}')" title="Click to view full message">${msg.message}</td>
-                    <td class="p-3 text-right">
+                    <td class="p-3 font-bold text-slate-800 align-top">${msg.name || 'Anonymous'}</td>
+                    <td class="p-3 font-bold text-blue-600 align-top whitespace-nowrap">
+                        <a href="tel:${msg.phone}" class="hover:underline">${msg.phone || 'N/A'}</a>
+                    </td>
+                    <td class="p-3 text-slate-800 font-medium align-top whitespace-normal break-words leading-relaxed min-w-[200px]">${msg.message || ''}</td>
+                    <td class="p-3 text-right align-top">
                         <button onclick="deleteMessage('${msg.id}')" class="text-red-600 hover:text-red-800 font-bold text-xs underline">Delete</button>
                     </td>
                 `;
