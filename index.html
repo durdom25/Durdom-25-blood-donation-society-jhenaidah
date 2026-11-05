@@ -135,44 +135,82 @@
         </div>
     </div>
 
-    <!-- COMBINED TICKER FOR EMERGENCY REQUESTS & USER REVIEWS/MESSAGES -->
-    <div id="emergency-broadcast-ticker" class="hidden bg-red-600 text-white py-2.5 px-3 shadow-lg relative z-30">
+    <!-- ROW 1: EMERGENCY BROADCAST TICKER (RED) -->
+    <div id="emergency-broadcast-ticker" class="hidden bg-red-600 text-white py-2 px-3 shadow-md relative z-30 border-b border-red-700">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
             
             <div class="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start flex-shrink-0">
                 <div class="flex items-center space-x-1.5">
-                    <span id="ticker-badge" class="bg-white text-red-600 font-black px-2 py-0.5 rounded text-[11px] uppercase tracking-wider shadow">
+                    <span class="bg-white text-red-600 font-black px-2 py-0.5 rounded text-[11px] uppercase tracking-wider shadow">
                         🚨 EMERGENCY
                     </span>
-                    <span id="slider-count-badge" class="bg-red-800 text-red-100 font-extrabold px-1.5 py-0.5 rounded text-[11px]">
+                    <span id="em-count-badge" class="bg-red-800 text-red-100 font-extrabold px-1.5 py-0.5 rounded text-[11px]">
                         1 / 1
                     </span>
                 </div>
 
-                <div id="slider-controls-mobile" class="flex sm:hidden items-center space-x-1">
-                    <button onclick="slidePrevTicker()" class="px-2 py-0.5 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs">‹</button>
-                    <button onclick="slideNextTicker()" class="px-2 py-0.5 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs">›</button>
+                <div id="em-controls-mobile" class="flex sm:hidden items-center space-x-1">
+                    <button onclick="slidePrevEmergency()" class="px-2 py-0.5 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs">‹</button>
+                    <button onclick="slideNextEmergency()" class="px-2 py-0.5 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs">›</button>
                 </div>
             </div>
 
-            <!-- SCROLLABLE TEXT AREA -->
-            <div onclick="handleTickerClick()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-bold marquee-container" title="Click for full details">
-                <div id="broadcast-text" class="marquee-content">
-                    Loading broadcasts...
+            <div onclick="showEmergencyDetailsModal()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-bold marquee-container" title="Click for emergency details">
+                <div id="em-broadcast-text" class="marquee-content">
+                    Loading emergency requests...
                 </div>
             </div>
 
             <div class="flex items-center space-x-2 flex-shrink-0 w-full sm:w-auto justify-end">
-                <div id="slider-controls-desktop" class="hidden sm:flex items-center space-x-1 mr-1">
-                    <button onclick="slidePrevTicker()" title="Previous" class="w-6 h-6 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs flex items-center justify-center transition">‹</button>
-                    <button onclick="slideNextTicker()" title="Next" class="w-6 h-6 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs flex items-center justify-center transition">›</button>
+                <div id="em-controls-desktop" class="hidden sm:flex items-center space-x-1 mr-1">
+                    <button onclick="slidePrevEmergency()" title="Previous Alert" class="w-6 h-6 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs flex items-center justify-center transition">‹</button>
+                    <button onclick="slideNextEmergency()" title="Next Alert" class="w-6 h-6 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs flex items-center justify-center transition">›</button>
                 </div>
 
-                <a id="broadcast-call-btn" href="tel:" class="px-3 py-1 bg-white text-red-600 font-black text-xs rounded-lg shadow hover:bg-red-50 transition flex items-center gap-1 whitespace-nowrap">
+                <a id="em-call-btn" href="tel:" class="px-3 py-1 bg-white text-red-600 font-black text-xs rounded-lg shadow hover:bg-red-50 transition flex items-center gap-1 whitespace-nowrap">
                     <i data-lucide="phone-call" class="w-3 h-3"></i> Call
                 </a>
-                <button onclick="handleTickerClick()" class="px-2.5 py-1 bg-red-800 hover:bg-red-900 text-white font-bold text-xs rounded-lg transition whitespace-nowrap">
-                    View
+                <button onclick="showEmergencyDetailsModal()" class="px-2.5 py-1 bg-red-800 hover:bg-red-900 text-white font-bold text-xs rounded-lg transition whitespace-nowrap">
+                    Details
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROW 2: USER REVIEWS & FEEDBACK TICKER (DISTINCT BLUE ROW) -->
+    <div id="review-broadcast-ticker" class="hidden bg-indigo-900 text-white py-2 px-3 shadow-md relative z-20 border-b border-indigo-950">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+            
+            <div class="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start flex-shrink-0">
+                <div class="flex items-center space-x-1.5">
+                    <span class="bg-indigo-500 text-white font-black px-2 py-0.5 rounded text-[11px] uppercase tracking-wider shadow flex items-center gap-1">
+                        💬 USER REVIEW
+                    </span>
+                    <span id="review-count-badge" class="bg-indigo-950 text-indigo-200 font-extrabold px-1.5 py-0.5 rounded text-[11px]">
+                        1 / 1
+                    </span>
+                </div>
+
+                <div id="review-controls-mobile" class="flex sm:hidden items-center space-x-1">
+                    <button onclick="slidePrevReview()" class="px-2 py-0.5 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs">‹</button>
+                    <button onclick="slideNextReview()" class="px-2 py-0.5 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs">›</button>
+                </div>
+            </div>
+
+            <div onclick="showReviewToast()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-semibold marquee-container" title="Click to view full review">
+                <div id="review-broadcast-text" class="marquee-content text-indigo-100">
+                    Loading user feedback...
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 flex-shrink-0 w-full sm:w-auto justify-end">
+                <div id="review-controls-desktop" class="hidden sm:flex items-center space-x-1 mr-1">
+                    <button onclick="slidePrevReview()" title="Previous Review" class="w-6 h-6 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs flex items-center justify-center transition">‹</button>
+                    <button onclick="slideNextReview()" title="Next Review" class="w-6 h-6 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs flex items-center justify-center transition">›</button>
+                </div>
+
+                <button onclick="showReviewToast()" class="px-3 py-1 bg-indigo-500 hover:bg-indigo-400 text-white font-extrabold text-xs rounded-lg transition whitespace-nowrap">
+                    Read Review
                 </button>
             </div>
         </div>
@@ -937,8 +975,8 @@
         let donorsList = [];
         let emergencyRequests = [];
         let messagesList = [];
-        let tickerItems = [];
-        let tickerIndex = 0;
+        let emergencyIndex = 0;
+        let reviewIndex = 0;
         let isInitialLoad = true;
 
         const compatibilityData = {
@@ -1089,6 +1127,7 @@
                 }
             });
 
+            // ROW 1: Emergency Requests Listener
             window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
                 const previousLength = emergencyRequests.length;
                 emergencyRequests = [];
@@ -1102,118 +1141,128 @@
                 }
                 isInitialLoad = false;
 
-                rebuildTickerItems();
+                const ticker = document.getElementById('emergency-broadcast-ticker');
+                if (window.emergencyTickerInterval) {
+                    clearInterval(window.emergencyTickerInterval);
+                    window.emergencyTickerInterval = null;
+                }
+
+                if (emergencyRequests.length > 0) {
+                    ticker.classList.remove('hidden');
+                    const deskCtrls = document.getElementById('em-controls-desktop');
+                    const mobCtrls = document.getElementById('em-controls-mobile');
+                    if (emergencyRequests.length > 1) {
+                        if (deskCtrls) deskCtrls.classList.remove('hidden');
+                        if (mobCtrls) mobCtrls.classList.remove('hidden');
+                    } else {
+                        if (deskCtrls) deskCtrls.classList.add('hidden');
+                        if (mobCtrls) mobCtrls.classList.add('hidden');
+                    }
+
+                    renderCurrentEmergencySlide();
+
+                    if (emergencyRequests.length > 1) {
+                        window.emergencyTickerInterval = setInterval(() => {
+                            slideNextEmergency();
+                        }, 5000);
+                    }
+                } else {
+                    ticker.classList.add('hidden');
+                }
+
                 renderAdminEmergencyTable();
             });
 
+            // ROW 2: User Reviews/Messages Listener
             window.onSnapshot(window.collection(window.db, "messages"), (snapshot) => {
                 messagesList = [];
                 snapshot.forEach((docSnap) => {
                     messagesList.push({ id: docSnap.id, ...docSnap.data() });
                 });
-                rebuildTickerItems();
+
+                const ticker = document.getElementById('review-broadcast-ticker');
+                if (window.reviewTickerInterval) {
+                    clearInterval(window.reviewTickerInterval);
+                    window.reviewTickerInterval = null;
+                }
+
+                if (messagesList.length > 0) {
+                    ticker.classList.remove('hidden');
+                    const deskCtrls = document.getElementById('review-controls-desktop');
+                    const mobCtrls = document.getElementById('review-controls-mobile');
+                    if (messagesList.length > 1) {
+                        if (deskCtrls) deskCtrls.classList.remove('hidden');
+                        if (mobCtrls) mobCtrls.classList.remove('hidden');
+                    } else {
+                        if (deskCtrls) deskCtrls.classList.add('hidden');
+                        if (mobCtrls) mobCtrls.classList.add('hidden');
+                    }
+
+                    renderCurrentReviewSlide();
+
+                    if (messagesList.length > 1) {
+                        window.reviewTickerInterval = setInterval(() => {
+                            slideNextReview();
+                        }, 6000);
+                    }
+                } else {
+                    ticker.classList.add('hidden');
+                }
+
                 renderAdminMessageTable();
             });
         }
 
-        function rebuildTickerItems() {
-            tickerItems = [];
+        /* ROW 1: EMERGENCY FUNCTIONS */
+        function renderCurrentEmergencySlide() {
+            if (emergencyRequests.length === 0) return;
+            if (emergencyIndex >= emergencyRequests.length) emergencyIndex = 0;
+            if (emergencyIndex < 0) emergencyIndex = emergencyRequests.length - 1;
 
-            // Add all active emergency requests to ticker
-            emergencyRequests.forEach(req => {
-                tickerItems.push({ type: 'emergency', data: req });
-            });
+            const currentReq = emergencyRequests[emergencyIndex];
+            
+            const bloodGroupStr = currentReq.group || currentReq.bloodGroup || currentReq.blood || currentReq.blood_group || "Blood Needed";
+            const bagStr = currentReq.bags ? `(${currentReq.bags} Bag)` : '(1 Bag)';
+            const timeStr = (currentReq.donatingTime && currentReq.donatingTime.trim() !== "") 
+                ? currentReq.donatingTime 
+                : "ASAP";
+            const patientStr = currentReq.patient || "Patient";
+            const locationStr = currentReq.location || "Jhenaidah";
 
-            // Add all user messages/reviews to ticker
-            messagesList.forEach(msg => {
-                tickerItems.push({ type: 'message', data: msg });
-            });
+            const broadcastText = document.getElementById('em-broadcast-text');
+            const broadcastCallBtn = document.getElementById('em-call-btn');
+            const countBadge = document.getElementById('em-count-badge');
 
-            const ticker = document.getElementById('emergency-broadcast-ticker');
-            if (window.tickerInterval) {
-                clearInterval(window.tickerInterval);
-                window.tickerInterval = null;
-            }
-
-            if (tickerItems.length > 0) {
-                ticker.classList.remove('hidden');
-                const deskCtrls = document.getElementById('slider-controls-desktop');
-                const mobCtrls = document.getElementById('slider-controls-mobile');
-                if (tickerItems.length > 1) {
-                    if (deskCtrls) deskCtrls.classList.remove('hidden');
-                    if (mobCtrls) mobCtrls.classList.remove('hidden');
-                } else {
-                    if (deskCtrls) deskCtrls.classList.add('hidden');
-                    if (mobCtrls) mobCtrls.classList.add('hidden');
-                }
-
-                renderCurrentTickerSlide();
-
-                if (tickerItems.length > 1) {
-                    window.tickerInterval = setInterval(() => {
-                        slideNextTicker();
-                    }, 5000);
-                }
-            } else {
-                ticker.classList.add('hidden');
-            }
-        }
-
-        function renderCurrentTickerSlide() {
-            if (tickerItems.length === 0) return;
-            if (tickerIndex >= tickerItems.length) tickerIndex = 0;
-            if (tickerIndex < 0) tickerIndex = tickerItems.length - 1;
-
-            const item = tickerItems[tickerIndex];
-            const broadcastText = document.getElementById('broadcast-text');
-            const broadcastCallBtn = document.getElementById('broadcast-call-btn');
-            const countBadge = document.getElementById('slider-count-badge');
-            const tickerBadge = document.getElementById('ticker-badge');
-
-            if (item.type === 'emergency') {
-                const req = item.data;
-                const bloodGrp = req.group || req.bloodGroup || req.blood || req.blood_group || "Blood Needed";
-                const bagStr = req.bags ? `(${req.bags} Bag)` : '(1 Bag)';
-                const timeStr = (req.donatingTime && req.donatingTime.trim() !== "") ? req.donatingTime : "ASAP";
-                const patientStr = req.patient || "Patient";
-                const locationStr = req.location || "Jhenaidah";
-
-                tickerBadge.className = "bg-white text-red-600 font-black px-2 py-0.5 rounded text-[11px] uppercase tracking-wider shadow";
-                tickerBadge.innerHTML = "🚨 EMERGENCY";
-
-                const fullMsg = `<span class="bg-white text-red-600 px-1.5 py-0.5 rounded font-black mr-1">${bloodGrp}</span> <strong>${bagStr}</strong> for <strong>${patientStr}</strong> | 📍 <strong>${locationStr}</strong> | ⏰ <strong>${timeStr}</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `;
+            if (broadcastText) {
+                const fullMsg = `<span class="bg-white text-red-600 px-1.5 py-0.5 rounded font-black mr-1">${bloodGroupStr}</span> <strong>${bagStr}</strong> for <strong>${patientStr}</strong> | 📍 <strong>${locationStr}</strong> | ⏰ <strong>${timeStr}</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `;
                 broadcastText.innerHTML = fullMsg + fullMsg;
-                broadcastCallBtn.href = `tel:${req.phone}`;
-                broadcastCallBtn.style.display = 'inline-flex';
-            } else {
-                const msg = item.data;
-                tickerBadge.className = "bg-white text-blue-600 font-black px-2 py-0.5 rounded text-[11px] uppercase tracking-wider shadow";
-                tickerBadge.innerHTML = "💬 USER REVIEW";
-
-                const fullMsg = `💬 <strong>"${msg.message}"</strong> &mdash; <span class="underline">${msg.name || 'Anonymous'}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `;
-                broadcastText.innerHTML = fullMsg + fullMsg;
-                broadcastCallBtn.href = `tel:${msg.phone}`;
-                if (!msg.phone) broadcastCallBtn.style.display = 'none';
-                else broadcastCallBtn.style.display = 'inline-flex';
             }
-
+            if (broadcastCallBtn) {
+                broadcastCallBtn.href = `tel:${currentReq.phone}`;
+            }
             if (countBadge) {
-                countBadge.innerText = `${tickerIndex + 1} / ${tickerItems.length}`;
+                countBadge.innerText = `${emergencyIndex + 1} / ${emergencyRequests.length}`;
             }
         }
 
-        function handleTickerClick() {
-            if (tickerItems.length === 0) return;
-            const item = tickerItems[tickerIndex];
-            if (item.type === 'emergency') {
-                showEmergencyDetailsModalForItem(item.data);
-            } else {
-                showToast(`Review by ${item.data.name || 'Anonymous'}: "${item.data.message}"`);
-            }
+        function slideNextEmergency() {
+            if (emergencyRequests.length <= 1) return;
+            emergencyIndex = (emergencyIndex + 1) % emergencyRequests.length;
+            renderCurrentEmergencySlide();
         }
 
-        function showEmergencyDetailsModalForItem(currentReq) {
+        function slidePrevEmergency() {
+            if (emergencyRequests.length <= 1) return;
+            emergencyIndex = (emergencyIndex - 1 + emergencyRequests.length) % emergencyRequests.length;
+            renderCurrentEmergencySlide();
+        }
+
+        function showEmergencyDetailsModal() {
+            if (emergencyRequests.length === 0) return;
+            const currentReq = emergencyRequests[emergencyIndex];
+
             const bloodGrp = currentReq.group || currentReq.bloodGroup || currentReq.blood || currentReq.blood_group || 'Blood Needed';
+            
             document.getElementById('dt-group-badge').innerText = bloodGrp;
             document.getElementById('dt-patient-name').innerText = currentReq.patient || "Emergency Request";
             document.getElementById('dt-bags').innerText = `${currentReq.bags || 1} Bag(s)`;
@@ -1221,19 +1270,45 @@
             document.getElementById('dt-time').innerText = currentReq.donatingTime || "As soon as possible";
             document.getElementById('dt-phone').innerText = currentReq.phone || "N/A";
             document.getElementById('dt-call-btn').href = `tel:${currentReq.phone}`;
+
             openModal('details-modal');
         }
 
-        function slideNextTicker() {
-            if (tickerItems.length <= 1) return;
-            tickerIndex = (tickerIndex + 1) % tickerItems.length;
-            renderCurrentTickerSlide();
+        /* ROW 2: USER REVIEWS FUNCTIONS */
+        function renderCurrentReviewSlide() {
+            if (messagesList.length === 0) return;
+            if (reviewIndex >= messagesList.length) reviewIndex = 0;
+            if (reviewIndex < 0) reviewIndex = messagesList.length - 1;
+
+            const currentMsg = messagesList[reviewIndex];
+            const broadcastText = document.getElementById('review-broadcast-text');
+            const countBadge = document.getElementById('review-count-badge');
+
+            if (broadcastText) {
+                const fullMsg = `💬 <strong>"${currentMsg.message}"</strong> &mdash; <span class="font-extrabold text-white underline">${currentMsg.name || 'Anonymous'}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `;
+                broadcastText.innerHTML = fullMsg + fullMsg;
+            }
+            if (countBadge) {
+                countBadge.innerText = `${reviewIndex + 1} / ${messagesList.length}`;
+            }
         }
 
-        function slidePrevTicker() {
-            if (tickerItems.length <= 1) return;
-            tickerIndex = (tickerIndex - 1 + tickerItems.length) % tickerItems.length;
-            renderCurrentTickerSlide();
+        function slideNextReview() {
+            if (messagesList.length <= 1) return;
+            reviewIndex = (reviewIndex + 1) % messagesList.length;
+            renderCurrentReviewSlide();
+        }
+
+        function slidePrevReview() {
+            if (messagesList.length <= 1) return;
+            reviewIndex = (reviewIndex - 1 + messagesList.length) % messagesList.length;
+            renderCurrentReviewSlide();
+        }
+
+        function showReviewToast() {
+            if (messagesList.length === 0) return;
+            const msg = messagesList[reviewIndex];
+            showToast(`💬 Review by ${msg.name || 'Anonymous'}: "${msg.message}"`);
         }
 
         function renderDonors(items) {
@@ -1393,7 +1468,7 @@
                     message,
                     createdAt: new Date()
                 });
-                showToast("Message sent and broadcasted as a public review!");
+                showToast("Message sent and broadcasted as a review!");
                 event.target.reset();
             } catch (e) {
                 console.error("Error saving message: ", e);
