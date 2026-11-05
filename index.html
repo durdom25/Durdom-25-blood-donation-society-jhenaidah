@@ -108,14 +108,16 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen custom-scrollbar">
 
-    <!-- TOP EMERGENCY ALERT BAR -->
+    <!-- TOP EMERGENCY ALERT BAR WITH NAMES -->
     <div class="bg-slate-900 text-white text-xs py-2 px-4 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center space-x-2">
                 <span class="bg-red-600 text-white font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider animate-pulse">Hotline</span>
-                <span class="text-slate-300 font-medium">Durdom-25 Blood Donation Emergency:</span>
+                <span class="text-slate-300 font-medium">Durdom-25 Emergency:</span>
+                <span class="text-slate-200 font-semibold">Tanvir:</span>
                 <a href="tel:+8801342293635" class="text-red-400 font-bold hover:underline">01342293635</a>
                 <span class="text-slate-500">|</span>
+                <span class="text-slate-200 font-semibold">Miskat:</span>
                 <a href="tel:+8801756391595" class="text-red-400 font-bold hover:underline">01756391595</a>
             </div>
             <div class="flex items-center space-x-4 text-slate-400 text-[11px]">
@@ -553,9 +555,9 @@
                         <p class="text-red-100 text-sm">Call our central voluntary helpline desk operating 24 hours a day for emergency donor arrangement in Jhenaidah.</p>
                         <div class="bg-red-800/80 p-4 rounded-2xl border border-red-700">
                             <div class="text-xs text-red-300 uppercase font-bold">24/7 Jhenaidah Helplines</div>
-                            <div class="text-xl font-black text-white mt-1 flex flex-wrap gap-x-4">
-                                <a href="tel:+8801342293635" class="hover:underline">01342293635</a>
-                                <a href="tel:+8801756391595" class="hover:underline">01756391595</a>
+                            <div class="text-base font-bold text-white mt-1 flex flex-col gap-1">
+                                <div>Tanvir: <a href="tel:+8801342293635" class="hover:underline text-red-200">01342293635</a></div>
+                                <div>Miskat: <a href="tel:+8801756391595" class="hover:underline text-red-200">01756391595</a></div>
                             </div>
                         </div>
                         <button onclick="openModal('emergency-modal')" class="w-full py-3.5 bg-white text-red-900 font-extrabold rounded-xl hover:bg-red-50 transition">
@@ -585,9 +587,9 @@
                             </div>
                             <div>
                                 <div class="text-xs font-bold text-slate-500 uppercase">Emergency Contacts</div>
-                                <div class="text-base font-bold text-slate-900 flex flex-col">
-                                    <a href="tel:+8801342293635" class="hover:text-red-600">01342293635</a>
-                                    <a href="tel:+8801756391595" class="hover:text-red-600">01756391595</a>
+                                <div class="text-sm font-bold text-slate-900 flex flex-col gap-0.5 mt-1">
+                                    <div>Tanvir: <a href="tel:+8801342293635" class="text-red-600 hover:underline">01342293635</a></div>
+                                    <div>Miskat: <a href="tel:+8801756391595" class="text-red-600 hover:underline">01756391595</a></div>
                                 </div>
                             </div>
                         </div>
@@ -1056,7 +1058,6 @@
         }
 
         function initRealtimeListeners() {
-            // SYNC DONORS & DONOR COUNT
             window.onSnapshot(window.collection(window.db, "donors"), (snapshot) => {
                 donorsList = [];
                 snapshot.forEach((docSnap) => {
@@ -1071,7 +1072,6 @@
                 }
             });
 
-            // SYNC STATS (SUCCESSFUL DONATIONS)
             window.onSnapshot(window.doc(window.db, "stats", "impact"), (docSnap) => {
                 const donationCountElem = document.getElementById('stat-donations-count');
                 if (donationCountElem) {
@@ -1083,7 +1083,6 @@
                 }
             });
 
-            // SYNC EMERGENCIES
             window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
                 const previousLength = emergencyRequests.length;
                 emergencyRequests = [];
@@ -1129,7 +1128,6 @@
                 renderAdminEmergencyTable();
             });
 
-            // SYNC MESSAGES
             window.onSnapshot(window.collection(window.db, "messages"), (snapshot) => {
                 messagesList = [];
                 snapshot.forEach((docSnap) => {
