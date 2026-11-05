@@ -363,6 +363,217 @@
         </div>
     </section>
 
+    <!-- MODAL: BECOME A DONOR -->
+    <div id="donor-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeModal('donor-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="user-plus" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-900">Join Durdom-25 Society</h3>
+                <p class="text-slate-500 text-xs mt-1">Register as a voluntary blood donor in Jhenaidah.</p>
+            </div>
+            
+            <form onsubmit="handleDonorRegister(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name *</label>
+                    <input type="text" id="donor-name" required placeholder="Donor Full Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group *</label>
+                        <select id="donor-group" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
+                            <option value="">Select</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Jhenaidah Upazila *</label>
+                        <select id="donor-area" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
+                            <option value="">Select Area</option>
+                            <option value="Jhenaidah Sadar">Jhenaidah Sadar</option>
+                            <option value="Kaliganj">Kaliganj</option>
+                            <option value="Kotchandpur">Kotchandpur</option>
+                            <option value="Maheshpur">Maheshpur</option>
+                            <option value="Shailkupa">Shailkupa</option>
+                            <option value="Harinakunda">Harinakunda</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number *</label>
+                        <input type="tel" id="donor-phone" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Last Donation Date</label>
+                        <input type="date" id="donor-last-date" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                </div>
+                <div class="flex items-start space-x-2 pt-2">
+                    <input type="checkbox" id="donor-eligible" required class="mt-1 rounded text-red-600 focus:ring-red-500">
+                    <label for="donor-eligible" class="text-xs text-slate-600 leading-tight">
+                        I confirm that I am in good health, weigh over 45kg, and am ready to donate blood voluntarily in Jhenaidah.
+                    </label>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-red-600 text-white font-extrabold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/30">
+                    Submit Application
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: EMERGENCY BLOOD REQUEST -->
+    <div id="emergency-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeModal('emergency-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="alert-circle" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-900">Post Emergency Request</h3>
+                <p class="text-slate-500 text-xs mt-1">Request urgent blood for a patient in Jhenaidah.</p>
+            </div>
+            
+            <form onsubmit="handleEmergencySubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Patient Name *</label>
+                    <input type="text" id="em-patient" required placeholder="Patient Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group Needed *</label>
+                        <select id="em-group" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
+                            <option value="">Select</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Bags Needed *</label>
+                        <input type="number" id="em-bags" min="1" max="10" required value="1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Donation Date & Time Needed *</label>
+                    <input type="text" id="em-donating-time" required placeholder="e.g. Today at 4:00 PM / As soon as possible" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Hospital & Location *</label>
+                    <input type="text" id="em-location" required placeholder="e.g. Jhenaidah Sadar Hospital" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Attendant Contact Phone *</label>
+                    <input type="tel" id="em-phone" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-red-600 text-white font-extrabold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/30">
+                    Dispatch Emergency Alert
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADMIN LOGIN & PANEL -->
+    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeModal('admin-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div id="admin-login-step">
+                <div class="text-center mb-6">
+                    <div class="w-12 h-12 bg-slate-100 text-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-red-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-slate-900">Admin Authentication</h3>
+                    <p class="text-slate-500 text-xs mt-1">Enter your Durdom-25 secret admin key to access controls.</p>
+                </div>
+
+                <form onsubmit="handleAdminLogin(event)" class="space-y-4 max-w-sm mx-auto">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Passkey Secret</label>
+                        <input type="password" id="admin-passkey" required placeholder="Enter passcode" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                    <button type="submit" class="w-full py-3.5 bg-slate-900 text-white font-extrabold rounded-xl hover:bg-slate-800 transition">
+                        Unlock Admin Dashboard
+                    </button>
+                </form>
+            </div>
+
+            <div id="admin-dashboard-step" class="hidden">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
+                    <div>
+                        <h3 class="text-xl font-black text-slate-900">Durdom-25 Admin Panel</h3>
+                        <p class="text-xs text-slate-500">Manage cloud database records & successful donations</p>
+                    </div>
+                    <button onclick="adminLogout()" class="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
+                        Logout
+                    </button>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider text-red-600 flex items-center gap-1.5">
+                            <i data-lucide="alert-circle" class="w-4 h-4"></i> Active Emergency Requests
+                        </h4>
+                        <div class="overflow-x-auto border border-red-200 rounded-xl mb-6 bg-red-50/30">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-red-100 text-red-900 font-bold uppercase">
+                                    <tr>
+                                        <th class="p-3">Patient Name</th>
+                                        <th class="p-3">Group</th>
+                                        <th class="p-3">Bags</th>
+                                        <th class="p-3">Needed Time</th>
+                                        <th class="p-3">Hospital</th>
+                                        <th class="p-3">Contact</th>
+                                        <th class="p-3 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-emergency-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider">Registered Donors Management</h4>
+                        <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-slate-100 text-slate-800 font-bold uppercase">
+                                    <tr>
+                                        <th class="p-3">Name</th>
+                                        <th class="p-3">Group</th>
+                                        <th class="p-3">Upazila</th>
+                                        <th class="p-3">Phone</th>
+                                        <th class="p-3 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-donor-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST FEEDBACK NOTIFICATION -->
     <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all border border-slate-700">
         <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
@@ -372,13 +583,51 @@
     <!-- JAVASCRIPT & INLINE SERVICE WORKER -->
     <script>
         let donorsList = [];
+        let emergencyRequests = [];
+        let emergencyIndex = 0;
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Calculate 4-month (120 days) blood donation eligibility status
+        function calculateEligibilityStatus(lastDonatedDateStr) {
+            if (!lastDonatedDateStr || lastDonatedDateStr === "Recently" || lastDonatedDateStr === "N/A") {
+                return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
+            }
+
+            const lastDate = new Date(lastDonatedDateStr);
+            if (isNaN(lastDate.getTime())) {
+                return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
+            }
+
+            const today = new Date();
+            const timeDiff = today.getTime() - lastDate.getTime();
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            
+            const requiredDays = 120;
+            if (daysDiff >= requiredDays) {
+                return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
+            } else {
+                const daysLeft = requiredDays - daysDiff;
+                return { isEligible: false, badgeText: `Eligible in ${daysLeft} days`, daysRemaining: daysLeft };
+            }
+        }
 
         window.addEventListener('firebase-ready', () => {
             initRealtimeListeners();
             registerDynamicServiceWorker();
+            lucide.createIcons();
         });
 
-        // Dynamically create and register service worker on-the-fly
         function registerDynamicServiceWorker() {
             if ('serviceWorker' in navigator) {
                 const swCode = `
@@ -415,13 +664,91 @@
         }
 
         function initRealtimeListeners() {
+            // Real-time listener for Donors
             window.onSnapshot(window.collection(window.db, "donors"), (snapshot) => {
                 donorsList = [];
                 snapshot.forEach((docSnap) => {
                     donorsList.push({ id: docSnap.id, ...docSnap.data() });
                 });
                 renderDonors(donorsList);
+                renderAdminTable();
             });
+
+            // Real-time listener for Emergencies & Slider Banner
+            window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
+                emergencyRequests = [];
+                snapshot.forEach((docSnap) => {
+                    emergencyRequests.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                const ticker = document.getElementById('emergency-broadcast-ticker');
+                if (window.emergencyTickerInterval) {
+                    clearInterval(window.emergencyTickerInterval);
+                    window.emergencyTickerInterval = null;
+                }
+
+                if (emergencyRequests.length > 0) {
+                    ticker.classList.remove('hidden');
+                    const deskCtrls = document.getElementById('slider-controls-desktop');
+                    const mobCtrls = document.getElementById('slider-controls-mobile');
+                    if (emergencyRequests.length > 1) {
+                        if (deskCtrls) deskCtrls.classList.remove('hidden');
+                        if (mobCtrls) mobCtrls.classList.remove('hidden');
+                    } else {
+                        if (deskCtrls) deskCtrls.classList.add('hidden');
+                        if (mobCtrls) mobCtrls.classList.add('hidden');
+                    }
+
+                    renderCurrentEmergencySlide();
+
+                    if (emergencyRequests.length > 1) {
+                        window.emergencyTickerInterval = setInterval(() => {
+                            slideNextEmergency();
+                        }, 5000);
+                    }
+                } else {
+                    ticker.classList.add('hidden');
+                }
+
+                renderAdminEmergencyTable();
+            });
+        }
+
+        function renderCurrentEmergencySlide() {
+            if (emergencyRequests.length === 0) return;
+            if (emergencyIndex >= emergencyRequests.length) emergencyIndex = 0;
+            if (emergencyIndex < 0) emergencyIndex = emergencyRequests.length - 1;
+
+            const currentReq = emergencyRequests[emergencyIndex];
+            const timeStr = (currentReq.donatingTime && currentReq.donatingTime.trim() !== "") 
+                ? currentReq.donatingTime 
+                : "As soon as possible";
+
+            const broadcastText = document.getElementById('broadcast-text');
+            const broadcastCallBtn = document.getElementById('broadcast-call-btn');
+            const countBadge = document.getElementById('slider-count-badge');
+
+            if (broadcastText) {
+                broadcastText.innerHTML = `Needed <strong>${currentReq.group}</strong> blood (${currentReq.bags} Bag) for <strong>${currentReq.patient}</strong> at <strong>${currentReq.location}</strong> | Needed: <strong>${timeStr}</strong>`;
+            }
+            if (broadcastCallBtn) {
+                broadcastCallBtn.href = `tel:${currentReq.phone}`;
+            }
+            if (countBadge) {
+                countBadge.innerText = `${emergencyIndex + 1} / ${emergencyRequests.length}`;
+            }
+        }
+
+        function slideNextEmergency() {
+            if (emergencyRequests.length <= 1) return;
+            emergencyIndex = (emergencyIndex + 1) % emergencyRequests.length;
+            renderCurrentEmergencySlide();
+        }
+
+        function slidePrevEmergency() {
+            if (emergencyRequests.length <= 1) return;
+            emergencyIndex = (emergencyIndex - 1 + emergencyRequests.length) % emergencyRequests.length;
+            renderCurrentEmergencySlide();
         }
 
         function renderDonors(items) {
@@ -430,19 +757,95 @@
             container.innerHTML = '';
 
             items.forEach(donor => {
+                const statusInfo = calculateEligibilityStatus(donor.lastDonated);
+                const badgeClass = statusInfo.isEligible 
+                    ? "bg-emerald-100 text-emerald-700" 
+                    : "bg-amber-100 text-amber-800";
+                const dotClass = statusInfo.isEligible 
+                    ? "bg-emerald-500" 
+                    : "bg-amber-500";
+
                 const card = document.createElement('div');
-                card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200";
+                card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col justify-between";
                 card.innerHTML = `
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="w-12 h-12 rounded-xl bg-red-100 text-red-600 font-black text-lg flex items-center justify-center">${donor.group}</span>
-                        <span class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-700">${donor.status || 'Available'}</span>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-xl bg-red-100 text-red-600 font-black text-lg flex items-center justify-center border border-red-200">${donor.group}</span>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold ${badgeClass} flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full ${dotClass}"></span> ${statusInfo.badgeText}
+                            </span>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900">${donor.name}</h4>
+                        <div class="text-xs text-slate-500 space-y-1.5 mt-2">
+                            <div class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> ${donor.area}, Jhenaidah</div>
+                            <div class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i> Last Donated: ${donor.lastDonated || 'N/A'}</div>
+                        </div>
                     </div>
-                    <h4 class="text-lg font-bold text-slate-900">${donor.name}</h4>
-                    <p class="text-xs text-slate-500 mt-1">${donor.area}, Jhenaidah</p>
-                    <a href="tel:${donor.phone}" class="mt-4 block text-center py-2 bg-slate-900 text-white font-bold text-xs rounded-xl">Call Donor</a>
+                    <div class="pt-5 mt-5 border-t border-slate-100">
+                        <a href="tel:${donor.phone}" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition">
+                            <i data-lucide="phone" class="w-3.5 h-3.5"></i> Call Donor (${donor.phone})
+                        </a>
+                    </div>
                 `;
                 container.appendChild(card);
             });
+            lucide.createIcons();
+        }
+
+        async function handleDonorRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('donor-name').value;
+            const group = document.getElementById('donor-group').value;
+            const area = document.getElementById('donor-area').value;
+            const phone = document.getElementById('donor-phone').value;
+            const lastDonated = document.getElementById('donor-last-date').value || "Recently";
+
+            try {
+                await window.addDoc(window.collection(window.db, "donors"), {
+                    name,
+                    group,
+                    area,
+                    phone,
+                    status: "Available",
+                    lastDonated,
+                    createdAt: new Date()
+                });
+                closeModal('donor-modal');
+                showToast(`Welcome ${name}! Registered to Firestore cloud.`);
+                event.target.reset();
+            } catch (e) {
+                console.error("Error adding donor: ", e);
+                showToast("Error saving to database.");
+            }
+        }
+
+        async function handleEmergencySubmit(event) {
+            event.preventDefault();
+            const patient = document.getElementById('em-patient').value;
+            const group = document.getElementById('em-group').value;
+            const bags = document.getElementById('em-bags').value;
+            const donatingTime = document.getElementById('em-donating-time').value;
+            const location = document.getElementById('em-location').value;
+            const phone = document.getElementById('em-phone').value;
+
+            try {
+                await window.addDoc(window.collection(window.db, "emergencies"), {
+                    patient,
+                    group,
+                    bags,
+                    donatingTime,
+                    location,
+                    phone,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    createdAt: new Date()
+                });
+                closeModal('emergency-modal');
+                showToast(`Emergency alert broadcasted!`);
+                event.target.reset();
+            } catch (e) {
+                console.error("Error adding emergency: ", e);
+                showToast("Error posting emergency.");
+            }
         }
 
         function filterDonors() {
@@ -463,6 +866,111 @@
             document.getElementById('filter-group').value = document.getElementById('hero-select-group').value;
             document.getElementById('filter-area').value = document.getElementById('hero-select-area').value;
             filterDonors();
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const passkey = document.getElementById('admin-passkey').value;
+            if (passkey === 'a') {
+                document.getElementById('admin-login-step').classList.add('hidden');
+                document.getElementById('admin-dashboard-step').classList.remove('hidden');
+                showToast("Admin access granted.");
+            } else {
+                showToast("Invalid admin passkey!");
+            }
+        }
+
+        function adminLogout() {
+            document.getElementById('admin-passkey').value = '';
+            document.getElementById('admin-dashboard-step').classList.add('hidden');
+            document.getElementById('admin-login-step').classList.remove('hidden');
+            closeModal('admin-modal');
+            showToast("Logged out from admin panel.");
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-donor-table');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            if (donorsList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">No registered donors in database.</td></tr>`;
+                return;
+            }
+
+            donorsList.forEach((donor) => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-100 hover:bg-slate-50";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-slate-800">${donor.name}</td>
+                    <td class="p-3 font-bold text-red-600">${donor.group}</td>
+                    <td class="p-3">${donor.area}</td>
+                    <td class="p-3">${donor.phone}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="deleteDonor('${donor.id}')" class="text-red-600 hover:text-red-800 font-bold text-xs underline">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderAdminEmergencyTable() {
+            const tbody = document.getElementById('admin-emergency-table');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            if (emergencyRequests.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">No active emergency blood requests.</td></tr>`;
+                return;
+            }
+
+            emergencyRequests.forEach((req) => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-red-100 hover:bg-red-50";
+                const displayTime = (req.donatingTime && req.donatingTime.trim() !== "") ? req.donatingTime : "As soon as possible";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-slate-800">${req.patient}</td>
+                    <td class="p-3 font-bold text-red-600">${req.group}</td>
+                    <td class="p-3 font-bold">${req.bags} Bag(s)</td>
+                    <td class="p-3 font-semibold text-red-700 bg-red-100/50 rounded-lg">${displayTime}</td>
+                    <td class="p-3">${req.location}</td>
+                    <td class="p-3 font-bold text-slate-900">${req.phone}</td>
+                    <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
+                        <button onclick="markAsSuccessfulDonation('${req.id}', '${req.patient}', '${req.group}')" class="text-emerald-700 bg-emerald-100 px-2 py-1 rounded hover:bg-emerald-200 font-bold text-xs">Successful</button>
+                        <button onclick="deleteEmergency('${req.id}')" class="text-amber-800 bg-amber-100 px-2 py-1 rounded hover:bg-amber-200 font-bold text-xs">Remove</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function deleteDonor(id) {
+            try {
+                await window.deleteDoc(window.doc(window.db, "donors", id));
+                showToast("Donor record deleted.");
+            } catch (e) {
+                console.error("Error deleting donor: ", e);
+            }
+        }
+
+        async function deleteEmergency(id) {
+            try {
+                await window.deleteDoc(window.doc(window.db, "emergencies", id));
+                showToast("Emergency request removed.");
+            } catch (e) {
+                console.error("Error deleting emergency: ", e);
+            }
+        }
+
+        async function markAsSuccessfulDonation(id, patient, group) {
+            try {
+                const statRef = window.doc(window.db, "stats", "impact");
+                const statSnap = await window.getDoc(statRef);
+                let currentCount = statSnap.exists() ? (statSnap.data().successfulDonations || 0) : 0;
+                await window.setDoc(statRef, { successfulDonations: currentCount + 1 }, { merge: true });
+                await window.deleteDoc(window.doc(window.db, "emergencies", id));
+                showToast(`🎉 Recorded successful donation for ${patient} (${group})!`);
+            } catch (e) {
+                console.error("Error updating stats: ", e);
+            }
         }
 
         function showToast(msg) {
