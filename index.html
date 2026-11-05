@@ -598,7 +598,6 @@
             document.getElementById('mobile-menu').classList.toggle('hidden');
         }
 
-        // Calculate 4-month (120 days) blood donation eligibility status
         function calculateEligibilityStatus(lastDonatedDateStr) {
             if (!lastDonatedDateStr || lastDonatedDateStr === "Recently" || lastDonatedDateStr === "N/A") {
                 return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
@@ -664,7 +663,6 @@
         }
 
         function initRealtimeListeners() {
-            // Real-time listener for Donors
             window.onSnapshot(window.collection(window.db, "donors"), (snapshot) => {
                 donorsList = [];
                 snapshot.forEach((docSnap) => {
@@ -674,7 +672,6 @@
                 renderAdminTable();
             });
 
-            // Real-time listener for Emergencies & Slider Banner
             window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
                 emergencyRequests = [];
                 snapshot.forEach((docSnap) => {
@@ -720,6 +717,10 @@
             if (emergencyIndex < 0) emergencyIndex = emergencyRequests.length - 1;
 
             const currentReq = emergencyRequests[emergencyIndex];
+            
+            // Extract blood group cleanly with fallback support for different key names
+            const bloodGroupStr = currentReq.group || currentReq.bloodGroup || 'Urgent';
+            const bagStr = currentReq.bags ? `(${currentReq.bags} Bag)` : '';
             const timeStr = (currentReq.donatingTime && currentReq.donatingTime.trim() !== "") 
                 ? currentReq.donatingTime 
                 : "As soon as possible";
@@ -729,7 +730,7 @@
             const countBadge = document.getElementById('slider-count-badge');
 
             if (broadcastText) {
-                broadcastText.innerHTML = `Needed <strong>${currentReq.group}</strong> blood (${currentReq.bags} Bag) for <strong>${currentReq.patient}</strong> at <strong>${currentReq.location}</strong> | Needed: <strong>${timeStr}</strong>`;
+                broadcastText.innerHTML = `Needed <span class="bg-white text-red-600 px-1.5 py-0.5 rounded font-black">${bloodGroupStr}</span> ${bagStr} for <strong>${currentReq.patient}</strong> at <strong>${currentReq.location}</strong> | Needed: <strong>${timeStr}</strong>`;
             }
             if (broadcastCallBtn) {
                 broadcastCallBtn.href = `tel:${currentReq.phone}`;
@@ -926,15 +927,16 @@
                 const tr = document.createElement('tr');
                 tr.className = "border-b border-red-100 hover:bg-red-50";
                 const displayTime = (req.donatingTime && req.donatingTime.trim() !== "") ? req.donatingTime : "As soon as possible";
+                const bloodGrp = req.group || req.bloodGroup || 'N/A';
                 tr.innerHTML = `
                     <td class="p-3 font-bold text-slate-800">${req.patient}</td>
-                    <td class="p-3 font-bold text-red-600">${req.group}</td>
+                    <td class="p-3 font-bold text-red-600">${bloodGrp}</td>
                     <td class="p-3 font-bold">${req.bags} Bag(s)</td>
                     <td class="p-3 font-semibold text-red-700 bg-red-100/50 rounded-lg">${displayTime}</td>
                     <td class="p-3">${req.location}</td>
                     <td class="p-3 font-bold text-slate-900">${req.phone}</td>
                     <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
-                        <button onclick="markAsSuccessfulDonation('${req.id}', '${req.patient}', '${req.group}')" class="text-emerald-700 bg-emerald-100 px-2 py-1 rounded hover:bg-emerald-200 font-bold text-xs">Successful</button>
+                        <button onclick="markAsSuccessfulDonation('${req.id}', '${req.patient}', '${bloodGrp}')" class="text-emerald-700 bg-emerald-100 px-2 py-1 rounded hover:bg-emerald-200 font-bold text-xs">Successful</button>
                         <button onclick="deleteEmergency('${req.id}')" class="text-amber-800 bg-amber-100 px-2 py-1 rounded hover:bg-amber-200 font-bold text-xs">Remove</button>
                     </td>
                 `;
