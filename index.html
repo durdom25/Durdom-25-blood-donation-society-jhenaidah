@@ -280,6 +280,22 @@
                         Connecting life-saving voluntary blood donors across <strong>Jhenaidah Sadar, Kaliganj, Kotchandpur, Maheshpur, Shailkupa, and Harinakunda</strong> in times of medical emergencies.
                     </p>
 
+                    <!-- LIVE IMPACT STATS BAR -->
+                    <div class="grid grid-cols-3 gap-3 pt-2 max-w-xl mx-auto lg:mx-0">
+                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm text-center">
+                            <span id="stat-donors-count" class="block text-2xl font-black text-red-600">0</span>
+                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Registered Donors</span>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm text-center">
+                            <span id="stat-donations-count" class="block text-2xl font-black text-emerald-600">0</span>
+                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Successful Donations</span>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm text-center">
+                            <span class="block text-2xl font-black text-slate-800">6</span>
+                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Sub-districts</span>
+                        </div>
+                    </div>
+
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                         <button onclick="openModal('emergency-modal')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-red-600 text-white font-extrabold text-base shadow-xl shadow-red-600/30 hover:bg-red-700 transition flex items-center justify-center gap-3">
                             <i data-lucide="phone-call" class="w-5 h-5"></i> Emergency Blood Request
@@ -1031,16 +1047,6 @@
                 const permission = await Notification.requestPermission();
                 if (permission === 'granted') {
                     showToast("🔔 Push Notifications Enabled!");
-                    if (window.messaging && window.getToken) {
-                        try {
-                            const token = await window.getToken(window.messaging, {
-                                vapidKey: "BEl8...YOUR_VAPID_KEY..." 
-                            });
-                            console.log("FCM Device Token:", token);
-                        } catch (e) {
-                            console.log("Token setup note:", e);
-                        }
-                    }
                 } else {
                     showToast("Notification permission denied.");
                 }
@@ -1050,6 +1056,7 @@
         }
 
         function initRealtimeListeners() {
+            // SYNC DONORS & DONOR COUNT
             window.onSnapshot(window.collection(window.db, "donors"), (snapshot) => {
                 donorsList = [];
                 snapshot.forEach((docSnap) => {
@@ -1057,8 +1064,26 @@
                 });
                 renderDonors(donorsList);
                 renderAdminTable();
+                
+                const donorCountElem = document.getElementById('stat-donors-count');
+                if (donorCountElem) {
+                    donorCountElem.innerText = donorsList.length;
+                }
             });
 
+            // SYNC STATS (SUCCESSFUL DONATIONS)
+            window.onSnapshot(window.doc(window.db, "stats", "impact"), (docSnap) => {
+                const donationCountElem = document.getElementById('stat-donations-count');
+                if (donationCountElem) {
+                    if (docSnap.exists()) {
+                        donationCountElem.innerText = docSnap.data().successfulDonations || 0;
+                    } else {
+                        donationCountElem.innerText = "0";
+                    }
+                }
+            });
+
+            // SYNC EMERGENCIES
             window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
                 const previousLength = emergencyRequests.length;
                 emergencyRequests = [];
@@ -1104,6 +1129,7 @@
                 renderAdminEmergencyTable();
             });
 
+            // SYNC MESSAGES
             window.onSnapshot(window.collection(window.db, "messages"), (snapshot) => {
                 messagesList = [];
                 snapshot.forEach((docSnap) => {
