@@ -1370,7 +1370,7 @@
         function handleAdminLogin(event) {
             event.preventDefault();
             const passkey = document.getElementById('admin-passkey').value;
-            if (passkey === 'a') {
+            if (passkey === 'admin012') {
                 document.getElementById('admin-login-step').classList.add('hidden');
                 document.getElementById('admin-dashboard-step').classList.remove('hidden');
                 showToast("Admin access granted.");
