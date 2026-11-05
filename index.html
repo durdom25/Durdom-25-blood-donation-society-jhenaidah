@@ -718,8 +718,8 @@
 
             const currentReq = emergencyRequests[emergencyIndex];
             
-            // Extract blood group cleanly with fallback support for different key names
-            const bloodGroupStr = currentReq.group || currentReq.bloodGroup || 'Urgent';
+            // Checks all possible Firestore property names for blood group
+            const bloodGroupStr = currentReq.group || currentReq.bloodGroup || currentReq.blood || currentReq.blood_group || "Blood Needed";
             const bagStr = currentReq.bags ? `(${currentReq.bags} Bag)` : '';
             const timeStr = (currentReq.donatingTime && currentReq.donatingTime.trim() !== "") 
                 ? currentReq.donatingTime 
@@ -927,7 +927,7 @@
                 const tr = document.createElement('tr');
                 tr.className = "border-b border-red-100 hover:bg-red-50";
                 const displayTime = (req.donatingTime && req.donatingTime.trim() !== "") ? req.donatingTime : "As soon as possible";
-                const bloodGrp = req.group || req.bloodGroup || 'N/A';
+                const bloodGrp = req.group || req.bloodGroup || req.blood || req.blood_group || 'N/A';
                 tr.innerHTML = `
                     <td class="p-3 font-bold text-slate-800">${req.patient}</td>
                     <td class="p-3 font-bold text-red-600">${bloodGrp}</td>
