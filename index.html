@@ -8,7 +8,7 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-import{getFirestore,collection,addDoc,getDocs,deleteDoc,doc,onSnapshot,setDoc,getDoc,updateDoc}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+import{getFirestore,collection,addDoc,getDocs,deleteDoc,doc,onSnapshot,setDoc,getDoc,updateDoc,query,where,orderBy}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 import{getMessaging,getToken,onMessage}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-messaging.js";
 const firebaseConfig={apiKey:"AIzaSyCAEyBPps1iv-h3HVnHkfb6jaLdmm7Kg4g",authDomain:"durdom-25-9ac1b.firebaseapp.com",projectId:"durdom-25-9ac1b",storageBucket:"durdom-25-9ac1b.firebasestorage.app",messagingSenderId:"121818470965",appId:"1:121818470965:web:4126f6ec6a14d113976f7c",measurementId:"G-67G4J5K71H"};
 const app=initializeApp(firebaseConfig);
@@ -17,6 +17,7 @@ let messaging;try{messaging=getMessaging(app);}catch(e){}
 window.db=db;window.messaging=messaging;window.getToken=getToken;window.onMessage=onMessage;
 window.collection=collection;window.addDoc=addDoc;window.getDocs=getDocs;window.deleteDoc=deleteDoc;
 window.doc=doc;window.onSnapshot=onSnapshot;window.setDoc=setDoc;window.getDoc=getDoc;window.updateDoc=updateDoc;
+window.query=query;window.where=where;window.orderBy=orderBy;
 window.dispatchEvent(new Event('firebase-ready'));
 </script>
 <style>
@@ -98,7 +99,6 @@ html{scroll-behavior:smooth}
 <a href="#home" class="hover:text-red-600">Home</a>
 <a href="#find-donor" class="hover:text-red-600">Donors</a>
 <a href="#coverage" class="hover:text-red-600">Coverage</a>
-<a href="#compatibility" class="hover:text-red-600">Blood Types</a>
 <a href="#contact" class="hover:text-red-600">Contact</a>
 </nav>
 <div class="hidden sm:flex items-center space-x-2">
@@ -111,7 +111,6 @@ html{scroll-behavior:smooth}
 <div id="mobile-menu" class="hidden lg:hidden border-t bg-white px-4 py-4 space-y-2">
 <a href="#home" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Home</a>
 <a href="#find-donor" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Donors</a>
-<a href="#coverage" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Coverage</a>
 <div class="pt-2 flex flex-col space-y-2">
 <button onclick="toggleMobileMenu();openModal('donor-login-modal')" class="w-full py-2 rounded-xl border font-bold text-sm">Donor Login</button>
 <button onclick="toggleMobileMenu();openModal('emergency-modal')" class="w-full py-2 rounded-xl border-2 border-red-600 text-red-600 font-bold text-sm">Request Blood</button>
@@ -159,26 +158,6 @@ html{scroll-behavior:smooth}
 </div>
 </section>
 
-<section id="contact" class="py-16 bg-white border-t">
-<div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8">
-<div>
-<h3 class="text-2xl font-black mb-4">Contact Durdom-25</h3>
-<p class="text-slate-600 text-sm mb-4">Reach out to our helpline contacts directly for assistance in Jhenaidah.</p>
-<div class="space-y-2 text-sm font-bold">
-<div>Tanvir: <a href="tel:+8801342293635" class="text-red-600 underline">01342293635</a></div>
-<div>Miskat: <a href="tel:+8801756391595" class="text-red-600 underline">01756391595</a></div>
-<div>Shuvo: <a href="tel:+8801342307405" class="text-red-600 underline">01342307405</a></div>
-</div>
-</div>
-<form onsubmit="handleContactSubmit(event)" class="space-y-3 bg-slate-50 p-6 rounded-2xl border">
-<input type="text" id="msg-name" required placeholder="Your Name" class="w-full border rounded-xl p-2.5 text-sm">
-<input type="tel" id="msg-phone" required placeholder="Phone Number" class="w-full border rounded-xl p-2.5 text-sm">
-<textarea id="msg-content" rows="3" required placeholder="Your Message" class="w-full border rounded-xl p-2.5 text-sm"></textarea>
-<button type="submit" class="w-full py-3 bg-slate-900 text-white font-bold rounded-xl text-sm">Send Message</button>
-</form>
-</div>
-</section>
-
 <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs">
 &copy; Durdom-25 Blood Donation Society Jhenaidah.
 </footer>
@@ -220,7 +199,32 @@ html{scroll-behavior:smooth}
 <div>Last Donated: <strong id="dp-last">-</strong></div>
 <div>Status: <strong id="dp-status" class="text-emerald-600">-</strong></div>
 </div>
-<button onclick="openEditProfileForm()" class="w-full py-2.5 bg-red-600 text-white font-bold rounded-xl text-sm mb-2">Edit Profile</button>
+<div class="space-y-2">
+<button onclick="openDonorHistoryModal()" class="w-full py-2.5 bg-slate-900 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5">📜 View Donation History</button>
+<button onclick="openEditProfileForm()" class="w-full py-2.5 bg-red-600 text-white font-bold rounded-xl text-xs">Edit Profile Details</button>
+</div>
+</div>
+</div>
+
+<!-- DONOR HISTORY MODAL -->
+<div id="donor-history-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-md w-full p-6 relative max-h-[85vh] overflow-y-auto">
+<button onclick="closeModal('donor-history-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-lg font-black text-center mb-1">Donation History Timeline</h3>
+<p class="text-xs text-slate-500 text-center mb-4" id="dh-donor-name">Donor Name</p>
+
+<!-- Add New Past Donation Form -->
+<form onsubmit="handleAddHistoryRecord(event)" class="bg-red-50 p-3 rounded-xl border border-red-200 mb-4 space-y-2">
+<span class="text-xs font-bold text-red-700 block">➕ Log New Completed Donation</span>
+<input type="date" id="dh-new-date" required class="w-full border rounded-lg p-2 text-xs">
+<input type="text" id="dh-new-location" placeholder="Hospital / Location (e.g. Sadar Hosp)" required class="w-full border rounded-lg p-2 text-xs">
+<input type="text" id="dh-new-patient" placeholder="Patient Name (Optional)" class="w-full border rounded-lg p-2 text-xs">
+<button type="submit" class="w-full py-2 bg-red-600 text-white font-bold text-xs rounded-lg">Add to My History</button>
+</form>
+
+<div id="dh-history-list" class="space-y-2">
+<div class="text-center text-xs text-slate-400 py-4">Loading history...</div>
+</div>
 </div>
 </div>
 
@@ -438,6 +442,90 @@ document.getElementById('dp-last').innerText=found.lastDonated||'N/A';
 document.getElementById('dp-status').innerText=calculateEligibilityStatus(found.lastDonated).badgeText;
 openModal('donor-profile-modal');
 }else{showToast("Phone number not registered.");}
+}
+
+async function openDonorHistoryModal(){
+if(!currentLoggedInDonor)return;
+closeModal('donor-profile-modal');
+document.getElementById('dh-donor-name').innerText=`Donor: ${currentLoggedInDonor.name} (${currentLoggedInDonor.phone})`;
+openModal('donor-history-modal');
+loadDonorHistory();
+}
+
+async function loadDonorHistory(){
+const listEl=document.getElementById('dh-history-list');
+listEl.innerHTML='<div class="text-center text-xs text-slate-400 py-4">Loading timeline...</div>';
+
+try{
+const q=window.query(window.collection(window.db,"donation_history"),window.where("phone","==",currentLoggedInDonor.phone));
+const snap=await window.getDocs(q);
+listEl.innerHTML='';
+
+if(snap.empty){
+listEl.innerHTML='<div class="text-center text-xs text-slate-400 py-3">No history records logged yet. Add your past donation above!</div>';
+return;
+}
+
+snap.forEach(d=>{
+const data=d.data();
+const item=document.createElement('div');
+item.className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs flex justify-between items-center";
+item.innerHTML=`
+<div>
+<div class="font-bold text-slate-800">📍 ${data.location||'Jhenaidah'}</div>
+<div class="text-[11px] text-slate-500">${data.patient?`For: ${data.patient}`:''}</div>
+</div>
+<div class="text-right">
+<span class="font-extrabold text-red-600 block">${data.date}</span>
+<button onclick="deleteHistoryRecord('${d.id}')" class="text-[10px] text-slate-400 hover:text-red-600 underline">Delete</button>
+</div>
+`;
+listEl.appendChild(item);
+});
+}catch(err){
+console.error("Error loading history:",err);
+listEl.innerHTML='<div class="text-center text-xs text-red-500 py-3">Failed to load history.</div>';
+}
+}
+
+async function handleAddHistoryRecord(e){
+e.preventDefault();
+if(!currentLoggedInDonor)return;
+
+const date=document.getElementById('dh-new-date').value;
+const location=document.getElementById('dh-new-location').value;
+const patient=document.getElementById('dh-new-patient').value;
+
+try{
+await window.addDoc(window.collection(window.db,"donation_history"),{
+phone:currentLoggedInDonor.phone,
+donorName:currentLoggedInDonor.name,
+date,
+location,
+patient,
+createdAt:new Date()
+});
+
+await window.updateDoc(window.doc(window.db,"donors",currentLoggedInDonor.id),{
+lastDonated:date
+});
+currentLoggedInDonor.lastDonated=date;
+
+showToast("Donation history record added!");
+e.target.reset();
+loadDonorHistory();
+}catch(err){
+console.error("Error adding record:",err);
+showToast("Failed to save history record.");
+}
+}
+
+async function deleteHistoryRecord(id){
+try{
+await window.deleteDoc(window.doc(window.db,"donation_history",id));
+showToast("Record removed.");
+loadDonorHistory();
+}catch(e){console.error(e);}
 }
 
 function openEditProfileForm(){
