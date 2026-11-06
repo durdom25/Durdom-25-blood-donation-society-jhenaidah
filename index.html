@@ -129,7 +129,7 @@
                 </button>
                 <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-red-500"></i> Jhenaidah, Bangladesh</span>
                 <button onclick="openModal('admin-modal')" class="text-slate-300 hover:text-white font-bold ml-2 underline flex items-center gap-1">
-                    <i data-lucide="lock" class="w-3 h-3 text-red-400"></i> Admin Login
+                    <i data-lucide="lock" class="w-3 h-3 text-red-400"></i> Admin Panel
                 </button>
             </div>
         </div>
@@ -138,7 +138,6 @@
     <!-- ROW 1: EMERGENCY BROADCAST TICKER (RED) -->
     <div id="emergency-broadcast-ticker" class="hidden bg-red-600 text-white py-2 px-3 shadow-md relative z-30 border-b border-red-700">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-            
             <div class="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start flex-shrink-0">
                 <div class="flex items-center space-x-1.5">
                     <span class="bg-white text-red-600 font-black px-2 py-0.5 rounded text-[11px] uppercase tracking-wider shadow">
@@ -148,25 +147,21 @@
                         1 / 1
                     </span>
                 </div>
-
                 <div id="em-controls-mobile" class="flex sm:hidden items-center space-x-1">
                     <button onclick="slidePrevEmergency()" class="px-2 py-0.5 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs">‹</button>
                     <button onclick="slideNextEmergency()" class="px-2 py-0.5 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs">›</button>
                 </div>
             </div>
-
             <div onclick="showEmergencyDetailsModal()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-bold marquee-container" title="Click for emergency details">
                 <div id="em-broadcast-text" class="marquee-content">
                     Loading emergency requests...
                 </div>
             </div>
-
             <div class="flex items-center space-x-2 flex-shrink-0 w-full sm:w-auto justify-end">
                 <div id="em-controls-desktop" class="hidden sm:flex items-center space-x-1 mr-1">
                     <button onclick="slidePrevEmergency()" title="Previous Alert" class="w-6 h-6 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs flex items-center justify-center transition">‹</button>
                     <button onclick="slideNextEmergency()" title="Next Alert" class="w-6 h-6 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs flex items-center justify-center transition">›</button>
                 </div>
-
                 <a id="em-call-btn" href="tel:" class="px-3 py-1 bg-white text-red-600 font-black text-xs rounded-lg shadow hover:bg-red-50 transition flex items-center gap-1 whitespace-nowrap">
                     <i data-lucide="phone-call" class="w-3 h-3"></i> Call
                 </a>
@@ -177,10 +172,9 @@
         </div>
     </div>
 
-    <!-- ROW 2: USER REVIEWS & FEEDBACK TICKER (DISTINCT BLUE ROW) -->
+    <!-- ROW 2: USER REVIEWS TICKER (BLUE) -->
     <div id="review-broadcast-ticker" class="hidden bg-indigo-900 text-white py-2 px-3 shadow-md relative z-20 border-b border-indigo-950">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-            
             <div class="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start flex-shrink-0">
                 <div class="flex items-center space-x-1.5">
                     <span class="bg-indigo-500 text-white font-black px-2 py-0.5 rounded text-[11px] uppercase tracking-wider shadow flex items-center gap-1">
@@ -190,25 +184,21 @@
                         1 / 1
                     </span>
                 </div>
-
                 <div id="review-controls-mobile" class="flex sm:hidden items-center space-x-1">
                     <button onclick="slidePrevReview()" class="px-2 py-0.5 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs">‹</button>
                     <button onclick="slideNextReview()" class="px-2 py-0.5 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs">›</button>
                 </div>
             </div>
-
             <div onclick="showReviewToast()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-semibold marquee-container" title="Click to view full review">
                 <div id="review-broadcast-text" class="marquee-content text-indigo-100">
                     Loading user feedback...
                 </div>
             </div>
-
             <div class="flex items-center space-x-2 flex-shrink-0 w-full sm:w-auto justify-end">
                 <div id="review-controls-desktop" class="hidden sm:flex items-center space-x-1 mr-1">
                     <button onclick="slidePrevReview()" title="Previous Review" class="w-6 h-6 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs flex items-center justify-center transition">‹</button>
                     <button onclick="slideNextReview()" title="Next Review" class="w-6 h-6 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs flex items-center justify-center transition">›</button>
                 </div>
-
                 <button onclick="showReviewToast()" class="px-3 py-1 bg-indigo-500 hover:bg-indigo-400 text-white font-extrabold text-xs rounded-lg transition whitespace-nowrap">
                     Read Review
                 </button>
@@ -220,7 +210,6 @@
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                
                 <a href="#" class="flex items-center space-x-3 group">
                     <div class="relative w-14 h-14 flex-shrink-0 group-hover:scale-105 transition-transform logo-shadow">
                         <svg viewBox="0 0 200 200" class="w-full h-full">
@@ -239,8 +228,7 @@
                                 </textPath>
                             </text>
                             <g transform="translate(0, -2)">
-                                <path d="M 100 42 C 100 42, 65 92, 65 118 C 65 137 80 152 100 152 C 120 152 135 137 135 118 C 135 92, 100 42, 100 42 Z" 
-                                      fill="url(#dropGradient)" />
+                                <path d="M 100 42 C 100 42, 65 92, 65 118 C 65 137 80 152 100 152 C 120 152 135 137 135 118 C 135 92, 100 42, 100 42 Z" fill="url(#dropGradient)" />
                                 <ellipse cx="88" cy="106" rx="6" ry="14" fill="#ffffff" opacity="0.4" transform="rotate(-20 88 106)"/>
                             </g>
                             <defs>
@@ -253,7 +241,6 @@
                         </svg>
                         <span class="absolute bottom-0 right-0 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow"></span>
                     </div>
-
                     <div class="leading-tight">
                         <span class="text-lg sm:text-xl font-black text-slate-900 tracking-tight block group-hover:text-red-600 transition-colors">
                             Durdom-25
@@ -309,7 +296,6 @@
     <section id="home" class="relative pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden bg-gradient-to-b from-red-50/70 via-slate-50 to-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-12 gap-12 items-center">
-                
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider border border-red-200">
                         <i data-lucide="shield-check" class="w-4 h-4 text-red-600"></i> Cloud-Synced Firebase Database
@@ -389,7 +375,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -875,13 +860,13 @@
                         <i data-lucide="shield-check" class="w-6 h-6 text-red-600"></i>
                     </div>
                     <h3 class="text-2xl font-black text-slate-900">Admin Authentication</h3>
-                    <p class="text-slate-500 text-xs mt-1">Enter your Durdom-25 secret admin key to access controls.</p>
+                    <p class="text-slate-500 text-xs mt-1">Enter your Durdom-25 admin key to access controls.</p>
                 </div>
 
                 <form onsubmit="handleAdminLogin(event)" class="space-y-4 max-w-sm mx-auto">
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Passkey Secret</label>
-                        <input type="password" id="admin-passkey" required placeholder="Enter passcode" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Admin Key</label>
+                        <input type="password" id="admin-passkey" required placeholder="Enter key" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
                     </div>
                     <button type="submit" class="w-full py-3.5 bg-slate-900 text-white font-extrabold rounded-xl hover:bg-slate-800 transition">
                         Unlock Admin Dashboard
@@ -1484,7 +1469,7 @@
                 document.getElementById('admin-dashboard-step').classList.remove('hidden');
                 showToast("Admin access granted.");
             } else {
-                showToast("Invalid admin passkey!");
+                showToast("Invalid admin key!");
             }
         }
 
