@@ -11,7 +11,7 @@
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
         import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-messaging.js";
 
         const firebaseConfig = {
@@ -46,6 +46,7 @@
         window.onSnapshot = onSnapshot;
         window.setDoc = setDoc;
         window.getDoc = getDoc;
+        window.updateDoc = updateDoc;
 
         window.dispatchEvent(new Event('firebase-ready'));
     </script>
@@ -733,7 +734,7 @@
                     <i data-lucide="user" class="w-6 h-6"></i>
                 </div>
                 <h3 class="text-2xl font-black text-slate-900">Donor Login</h3>
-                <p class="text-slate-500 text-xs mt-1">Enter your registered phone number to view your donor status.</p>
+                <p class="text-slate-500 text-xs mt-1">Enter your registered phone number to view or edit your profile.</p>
             </div>
             
             <form onsubmit="handleDonorLogin(event)" class="space-y-4">
@@ -748,9 +749,9 @@
         </div>
     </div>
 
-    <!-- MODAL: DONOR PROFILE DASHBOARD -->
+    <!-- MODAL: DONOR PROFILE DASHBOARD WITH EDIT OPTION -->
     <div id="donor-profile-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
             <button onclick="closeModal('donor-profile-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -777,11 +778,77 @@
                     <span class="font-black text-emerald-600" id="dp-status">-</span>
                 </div>
             </div>
-            <div class="mt-6">
-                <button onclick="closeModal('donor-profile-modal')" class="w-full py-3 bg-slate-900 text-white font-bold text-sm rounded-xl hover:bg-slate-800 transition">
-                    Close Dashboard
+            <div class="mt-6 flex gap-3">
+                <button onclick="openEditProfileForm()" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold text-sm rounded-xl transition flex items-center justify-center gap-1.5 shadow">
+                    <i data-lucide="edit-3" class="w-4 h-4"></i> Edit Profile
+                </button>
+                <button onclick="closeModal('donor-profile-modal')" class="px-4 py-3 bg-slate-200 text-slate-800 font-bold text-sm rounded-xl hover:bg-slate-300 transition">
+                    Close
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- MODAL: EDIT DONOR PROFILE FORM -->
+    <div id="donor-edit-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeModal('donor-edit-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="edit-3" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-900">Edit Your Profile</h3>
+                <p class="text-slate-500 text-xs mt-1">Update your information in the live database.</p>
+            </div>
+            
+            <form onsubmit="handleDonorUpdate(event)" class="space-y-4">
+                <input type="hidden" id="edit-donor-id">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name *</label>
+                    <input type="text" id="edit-name" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group *</label>
+                        <select id="edit-group" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Jhenaidah Upazila *</label>
+                        <select id="edit-area" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
+                            <option value="Jhenaidah Sadar">Jhenaidah Sadar</option>
+                            <option value="Kaliganj">Kaliganj</option>
+                            <option value="Kotchandpur">Kotchandpur</option>
+                            <option value="Maheshpur">Maheshpur</option>
+                            <option value="Shailkupa">Shailkupa</option>
+                            <option value="Harinakunda">Harinakunda</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number (Locked)</label>
+                        <input type="tel" id="edit-phone" disabled class="w-full bg-slate-200 text-slate-500 border border-slate-200 rounded-xl px-4 py-2.5 text-sm cursor-not-allowed">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Last Donation Date</label>
+                        <input type="date" id="edit-last-date" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-red-600 text-white font-extrabold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/30">
+                    Save Changes
+                </button>
+            </form>
         </div>
     </div>
 
@@ -1029,6 +1096,7 @@
         let emergencyIndex = 0;
         let reviewIndex = 0;
         let isInitialLoad = true;
+        let currentLoggedInDonor = null;
 
         const compatibilityData = {
             'A+': { give: ['A+', 'AB+'], receive: ['A+', 'A-', 'O+', 'O-'], desc: 'Common in Jhenaidah. Can receive from positive and negative A & O types.' },
@@ -1043,6 +1111,7 @@
 
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
+            lucide.createIcons();
         }
 
         function closeModal(id) {
@@ -1164,6 +1233,15 @@
                 const donorCountElem = document.getElementById('stat-donors-count');
                 if (donorCountElem) {
                     donorCountElem.innerText = donorsList.length;
+                }
+
+                // Keep profile modal updated live if logged in
+                if (currentLoggedInDonor) {
+                    const refreshed = donorsList.find(d => d.id === currentLoggedInDonor.id);
+                    if (refreshed) {
+                        currentLoggedInDonor = refreshed;
+                        updateProfileModalUI(refreshed);
+                    }
                 }
             });
 
@@ -1483,20 +1561,74 @@
             
             const matchedDonor = donorsList.find(d => d.phone === phoneInput);
             if (matchedDonor) {
+                currentLoggedInDonor = matchedDonor;
                 closeModal('donor-login-modal');
-                document.getElementById('dp-name').innerText = matchedDonor.name;
-                document.getElementById('dp-group-badge').innerText = matchedDonor.group;
-                document.getElementById('dp-phone').innerText = matchedDonor.phone;
-                document.getElementById('dp-area').innerText = matchedDonor.area;
-                document.getElementById('dp-last').innerText = matchedDonor.lastDonated || 'N/A';
-                
-                const eligibility = calculateEligibilityStatus(matchedDonor.lastDonated);
-                document.getElementById('dp-status').innerText = eligibility.badgeText;
-                
+                updateProfileModalUI(matchedDonor);
                 openModal('donor-profile-modal');
                 showToast(`Welcome back, ${matchedDonor.name}!`);
             } else {
                 showToast("Phone number not found in registered donors.");
+            }
+        }
+
+        function updateProfileModalUI(donor) {
+            document.getElementById('dp-name').innerText = donor.name;
+            document.getElementById('dp-group-badge').innerText = donor.group;
+            document.getElementById('dp-phone').innerText = donor.phone;
+            document.getElementById('dp-area').innerText = donor.area;
+            document.getElementById('dp-last').innerText = donor.lastDonated || 'N/A';
+            
+            const eligibility = calculateEligibilityStatus(donor.lastDonated);
+            document.getElementById('dp-status').innerText = eligibility.badgeText;
+        }
+
+        function openEditProfileForm() {
+            if (!currentLoggedInDonor) return;
+            closeModal('donor-profile-modal');
+
+            document.getElementById('edit-donor-id').value = currentLoggedInDonor.id;
+            document.getElementById('edit-name').value = currentLoggedInDonor.name;
+            document.getElementById('edit-group').value = currentLoggedInDonor.group;
+            document.getElementById('edit-area').value = currentLoggedInDonor.area;
+            document.getElementById('edit-phone').value = currentLoggedInDonor.phone;
+            document.getElementById('edit-last-date').value = (currentLoggedInDonor.lastDonated && currentLoggedInDonor.lastDonated !== "Recently") ? currentLoggedInDonor.lastDonated : '';
+
+            openModal('donor-edit-modal');
+        }
+
+        async function handleDonorUpdate(event) {
+            event.preventDefault();
+            if (!currentLoggedInDonor) return;
+
+            const donorId = document.getElementById('edit-donor-id').value;
+            const updatedName = document.getElementById('edit-name').value;
+            const updatedGroup = document.getElementById('edit-group').value;
+            const updatedArea = document.getElementById('edit-area').value;
+            const updatedLastDate = document.getElementById('edit-last-date').value || "Recently";
+
+            try {
+                const donorRef = window.doc(window.db, "donors", donorId);
+                await window.updateDoc(donorRef, {
+                    name: updatedName,
+                    group: updatedGroup,
+                    area: updatedArea,
+                    lastDonated: updatedLastDate
+                });
+
+                closeModal('donor-edit-modal');
+                showToast("Profile successfully updated!");
+                
+                // Refresh local session and reopen profile modal
+                currentLoggedInDonor.name = updatedName;
+                currentLoggedInDonor.group = updatedGroup;
+                currentLoggedInDonor.area = updatedArea;
+                currentLoggedInDonor.lastDonated = updatedLastDate;
+
+                updateProfileModalUI(currentLoggedInDonor);
+                openModal('donor-profile-modal');
+            } catch (e) {
+                console.error("Error updating profile:", e);
+                showToast("Failed to update profile.");
             }
         }
 
