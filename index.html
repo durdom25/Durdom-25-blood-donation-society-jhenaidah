@@ -98,7 +98,7 @@ html{scroll-behavior:smooth}
 <nav class="hidden lg:flex items-center space-x-6 text-sm font-bold text-slate-700">
 <a href="#home" class="hover:text-red-600">Home</a>
 <a href="#find-donor" class="hover:text-red-600">Donors</a>
-<a href="#coverage" class="hover:text-red-600">Coverage</a>
+<a href="#archive" class="hover:text-red-600">Archive</a>
 <a href="#contact" class="hover:text-red-600">Contact</a>
 </nav>
 <div class="hidden sm:flex items-center space-x-2">
@@ -111,6 +111,7 @@ html{scroll-behavior:smooth}
 <div id="mobile-menu" class="hidden lg:hidden border-t bg-white px-4 py-4 space-y-2">
 <a href="#home" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Home</a>
 <a href="#find-donor" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Donors</a>
+<a href="#archive" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Archive</a>
 <div class="pt-2 flex flex-col space-y-2">
 <button onclick="toggleMobileMenu();openModal('donor-login-modal')" class="w-full py-2 rounded-xl border font-bold text-sm">Donor Login</button>
 <button onclick="toggleMobileMenu();openModal('emergency-modal')" class="w-full py-2 rounded-xl border-2 border-red-600 text-red-600 font-bold text-sm">Request Blood</button>
@@ -155,6 +156,20 @@ html{scroll-behavior:smooth}
 <input type="text" id="filter-search" onkeyup="filterDonors()" placeholder="Search name or phone..." class="border rounded-xl p-2.5 text-sm font-medium">
 </div>
 <div id="donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+</div>
+</section>
+
+<!-- DONOR ARCHIVE / WALL OF HONOR SECTION -->
+<section id="archive" class="py-16 bg-white border-t">
+<div class="max-w-7xl mx-auto px-4">
+<div class="text-center mb-8">
+<h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-1">Wall of Honor</h2>
+<h3 class="text-2xl font-black text-slate-900">Donor Archive & Successful Donations</h3>
+<p class="text-slate-500 text-xs mt-1">Honoring the life-saving voluntary blood donors of Jhenaidah.</p>
+</div>
+<div id="archive-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="text-center text-xs text-slate-400 col-span-full py-6">Loading donor archive...</div>
+</div>
 </div>
 </section>
 
@@ -219,7 +234,7 @@ html{scroll-behavior:smooth}
 <input type="date" id="dh-new-date" required class="w-full border rounded-lg p-2 text-xs">
 <input type="text" id="dh-new-location" placeholder="Hospital / Location (e.g. Sadar Hosp)" required class="w-full border rounded-lg p-2 text-xs">
 <input type="text" id="dh-new-patient" placeholder="Patient Name (Optional)" class="w-full border rounded-lg p-2 text-xs">
-<button type="submit" class="w-full py-2 bg-red-600 text-white font-bold text-xs rounded-lg">Add to My History</button>
+<button type="submit" class="w-full py-2 bg-red-600 text-white font-bold text-xs rounded-lg">Add to My History & Public Archive</button>
 </form>
 
 <div id="dh-history-list" class="space-y-2">
@@ -348,6 +363,37 @@ messagesList=[];snap.forEach(d=>messagesList.push({id:d.id,...d.data()}));
 const ticker=document.getElementById('review-broadcast-ticker');
 if(messagesList.length>0){ticker.classList.remove('hidden');renderCurrentReviewSlide();}
 else{ticker.classList.add('hidden');}
+});
+
+// Real-time Public Archive Listener
+window.onSnapshot(window.collection(window.db,"donation_history"),(snap)=>{
+const archiveList=[];
+snap.forEach(d=>archiveList.push({id:d.id,...d.data()}));
+renderArchive(archiveList);
+});
+}
+
+function renderArchive(items){
+const c=document.getElementById('archive-grid');if(!c)return;c.innerHTML='';
+if(items.length===0){
+c.innerHTML=`<div class="text-center text-xs text-slate-400 col-span-full py-6">No archive records yet.</div>`;
+return;
+}
+items.sort((a,b)=>(b.createdAt?.toMillis()||0)-(a.createdAt?.toMillis()||0));
+items.forEach(item=>{
+const card=document.createElement('div');
+card.className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs space-y-2 shadow-sm";
+card.innerHTML=`
+<div class="flex justify-between items-center">
+<span class="font-extrabold text-slate-900 text-sm">❤️ ${item.donorName||'Anonymous Donor'}</span>
+<span class="bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-md text-[11px]">${item.date||'Recent'}</span>
+</div>
+<div class="text-slate-600 space-y-1">
+<div>📍 <strong>Location:</strong> ${item.location||'Jhenaidah'}</div>
+${item.patient?`<div>🏥 <strong>Patient:</strong> ${item.patient}</div>`:''}
+</div>
+`;
+c.appendChild(card);
 });
 }
 
@@ -511,7 +557,7 @@ lastDonated:date
 });
 currentLoggedInDonor.lastDonated=date;
 
-showToast("Donation history record added!");
+showToast("Donation history record added & published to archive!");
 e.target.reset();
 loadDonorHistory();
 }catch(err){
