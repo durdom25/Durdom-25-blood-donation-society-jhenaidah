@@ -329,11 +329,15 @@
                         </div>
                     </div>
 
+                    <!-- HERO ACTION BUTTONS (INCLUDES DONOR LOGIN) -->
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                        <button onclick="openModal('emergency-modal')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-red-600 text-white font-extrabold text-base shadow-xl shadow-red-600/30 hover:bg-red-700 transition flex items-center justify-center gap-3">
+                        <button onclick="openModal('emergency-modal')" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-red-600 text-white font-extrabold text-base shadow-xl shadow-red-600/30 hover:bg-red-700 transition flex items-center justify-center gap-3">
                             <i data-lucide="phone-call" class="w-5 h-5"></i> Emergency Blood Request
                         </button>
-                        <button onclick="openModal('donor-modal')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white border border-slate-300 text-slate-800 font-extrabold text-base hover:bg-slate-100 shadow-sm transition flex items-center justify-center gap-3">
+                        <button onclick="openModal('donor-login-modal')" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-slate-900 text-white font-extrabold text-base shadow-xl shadow-slate-900/30 hover:bg-slate-800 transition flex items-center justify-center gap-3">
+                            <i data-lucide="user" class="w-5 h-5 text-red-500"></i> Donor Login
+                        </button>
+                        <button onclick="openModal('donor-modal')" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white border border-slate-300 text-slate-800 font-extrabold text-base hover:bg-slate-100 shadow-sm transition flex items-center justify-center gap-3">
                             <i data-lucide="user-plus" class="w-5 h-5 text-red-600"></i> Join Durdom-25
                         </button>
                     </div>
@@ -1235,7 +1239,6 @@
                     donorCountElem.innerText = donorsList.length;
                 }
 
-                // Keep profile modal updated live if logged in
                 if (currentLoggedInDonor) {
                     const refreshed = donorsList.find(d => d.id === currentLoggedInDonor.id);
                     if (refreshed) {
@@ -1618,7 +1621,6 @@
                 closeModal('donor-edit-modal');
                 showToast("Profile successfully updated!");
                 
-                // Refresh local session and reopen profile modal
                 currentLoggedInDonor.name = updatedName;
                 currentLoggedInDonor.group = updatedGroup;
                 currentLoggedInDonor.area = updatedArea;
