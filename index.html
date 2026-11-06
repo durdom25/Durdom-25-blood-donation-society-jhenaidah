@@ -1,1837 +1,538 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Durdom-25 Blood Donation Society Jhenaidah</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Firebase SDKs -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
-        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-messaging.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCAEyBPps1iv-h3HVnHkfb6jaLdmm7Kg4g",
-            authDomain: "durdom-25-9ac1b.firebaseapp.com",
-            projectId: "durdom-25-9ac1b",
-            storageBucket: "durdom-25-9ac1b.firebasestorage.app",
-            messagingSenderId: "121818470965",
-            appId: "1:121818470965:web:4126f6ec6a14d113976f7c",
-            measurementId: "G-67G4J5K71H"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
-        let messaging;
-        try {
-            messaging = getMessaging(app);
-        } catch (e) {
-            console.log("Messaging setup:", e);
-        }
-
-        window.db = db;
-        window.messaging = messaging;
-        window.getToken = getToken;
-        window.onMessage = onMessage;
-        window.collection = collection;
-        window.addDoc = addDoc;
-        window.getDocs = getDocs;
-        window.deleteDoc = deleteDoc;
-        window.doc = doc;
-        window.onSnapshot = onSnapshot;
-        window.setDoc = setDoc;
-        window.getDoc = getDoc;
-        window.updateDoc = updateDoc;
-
-        window.dispatchEvent(new Event('firebase-ready'));
-    </script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        durdom: {
-                            50: '#fef2f2',
-                            100: '#ffe1e1',
-                            500: '#ef4444',
-                            600: '#dc2626',
-                            700: '#b91c1c',
-                            800: '#991b1b',
-                            900: '#7f1d1d',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        html { scroll-behavior: smooth; }
-        .logo-shadow { filter: drop-shadow(0px 4px 10px rgba(220, 38, 38, 0.3)); }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        
-        .curved-logo-text {
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            fill: #b91c1c;
-            font-size: 11px;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-        }
-
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .marquee-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 16s linear infinite;
-        }
-        .marquee-container:hover .marquee-content {
-            animation-play-state: paused;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Durdom-25 Blood Donation Society Jhenaidah</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+import{getFirestore,collection,addDoc,getDocs,deleteDoc,doc,onSnapshot,setDoc,getDoc,updateDoc}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+import{getMessaging,getToken,onMessage}from"https://www.gstatic.com/firebasejs/13.2.0/firebase-messaging.js";
+const firebaseConfig={apiKey:"AIzaSyCAEyBPps1iv-h3HVnHkfb6jaLdmm7Kg4g",authDomain:"durdom-25-9ac1b.firebaseapp.com",projectId:"durdom-25-9ac1b",storageBucket:"durdom-25-9ac1b.firebasestorage.app",messagingSenderId:"121818470965",appId:"1:121818470965:web:4126f6ec6a14d113976f7c",measurementId:"G-67G4J5K71H"};
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+let messaging;try{messaging=getMessaging(app);}catch(e){}
+window.db=db;window.messaging=messaging;window.getToken=getToken;window.onMessage=onMessage;
+window.collection=collection;window.addDoc=addDoc;window.getDocs=getDocs;window.deleteDoc=deleteDoc;
+window.doc=doc;window.onSnapshot=onSnapshot;window.setDoc=setDoc;window.getDoc=getDoc;window.updateDoc=updateDoc;
+window.dispatchEvent(new Event('firebase-ready'));
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+html{scroll-behavior:smooth}
+.logo-shadow{filter:drop-shadow(0px 4px 10px rgba(220,38,38,.3))}
+.curved-logo-text{font-family:'Inter',sans-serif;font-weight:800;fill:#b91c1c;font-size:11px;letter-spacing:.8px;text-transform:uppercase}
+.marquee-container{overflow:hidden;white-space:nowrap}
+.marquee-content{display:inline-block;white-space:nowrap;animation:marquee 16s linear infinite}
+.marquee-container:hover .marquee-content{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0%)}100%{transform:translateX(-50%)}}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen custom-scrollbar">
-
-    <!-- TOP EMERGENCY ALERT BAR WITH 3 HOTLINES -->
-    <div class="bg-slate-900 text-white text-xs py-2 px-4 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center space-x-2 flex-wrap">
-                <span class="bg-red-600 text-white font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider animate-pulse">Hotline</span>
-                <span class="text-slate-300 font-medium">Durdom-25:</span>
-                <span class="text-slate-200 font-semibold">Tanvir:</span>
-                <a href="tel:+8801342293635" class="text-red-400 font-bold hover:underline">01342293635</a>
-                <span class="text-slate-500">|</span>
-                <span class="text-slate-200 font-semibold">Miskat:</span>
-                <a href="tel:+8801756391595" class="text-red-400 font-bold hover:underline">01756391595</a>
-                <span class="text-slate-500">|</span>
-                <span class="text-slate-200 font-semibold">Shuvo:</span>
-                <a href="tel:+8801342307405" class="text-red-400 font-bold hover:underline">01342307405</a>
-            </div>
-            <div class="flex items-center space-x-4 text-slate-400 text-[11px]">
-                <button onclick="requestNotificationPermission()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 shadow">
-                    <i data-lucide="bell" class="w-3 h-3"></i> Enable Emergency Alerts
-                </button>
-                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-red-500"></i> Jhenaidah, Bangladesh</span>
-                <button onclick="openModal('admin-modal')" class="text-slate-300 hover:text-white font-bold ml-2 underline flex items-center gap-1">
-                    <i data-lucide="lock" class="w-3 h-3 text-red-400"></i> Admin Panel
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ROW 1: EMERGENCY BROADCAST TICKER (RED) -->
-    <div id="emergency-broadcast-ticker" class="hidden bg-red-600 text-white py-2 px-3 shadow-md relative z-30 border-b border-red-700">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-            <div class="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start flex-shrink-0">
-                <div class="flex items-center space-x-1.5">
-                    <span class="bg-white text-red-600 font-black px-2 py-0.5 rounded text-[11px] uppercase tracking-wider shadow">
-                        🚨 EMERGENCY
-                    </span>
-                    <span id="em-count-badge" class="bg-red-800 text-red-100 font-extrabold px-1.5 py-0.5 rounded text-[11px]">
-                        1 / 1
-                    </span>
-                </div>
-                <div id="em-controls-mobile" class="flex sm:hidden items-center space-x-1">
-                    <button onclick="slidePrevEmergency()" class="px-2 py-0.5 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs">‹</button>
-                    <button onclick="slideNextEmergency()" class="px-2 py-0.5 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs">›</button>
-                </div>
-            </div>
-            <div onclick="showEmergencyDetailsModal()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-bold marquee-container" title="Click for emergency details">
-                <div id="em-broadcast-text" class="marquee-content">
-                    Loading emergency requests...
-                </div>
-            </div>
-            <div class="flex items-center space-x-2 flex-shrink-0 w-full sm:w-auto justify-end">
-                <div id="em-controls-desktop" class="hidden sm:flex items-center space-x-1 mr-1">
-                    <button onclick="slidePrevEmergency()" title="Previous Alert" class="w-6 h-6 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs flex items-center justify-center transition">‹</button>
-                    <button onclick="slideNextEmergency()" title="Next Alert" class="w-6 h-6 bg-red-700 hover:bg-red-800 rounded text-white font-black text-xs flex items-center justify-center transition">›</button>
-                </div>
-                <a id="em-call-btn" href="tel:" class="px-3 py-1 bg-white text-red-600 font-black text-xs rounded-lg shadow hover:bg-red-50 transition flex items-center gap-1 whitespace-nowrap">
-                    <i data-lucide="phone-call" class="w-3 h-3"></i> Call
-                </a>
-                <button onclick="showEmergencyDetailsModal()" class="px-2.5 py-1 bg-red-800 hover:bg-red-900 text-white font-bold text-xs rounded-lg transition whitespace-nowrap">
-                    Details
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ROW 2: USER REVIEWS TICKER (BLUE) -->
-    <div id="review-broadcast-ticker" class="hidden bg-indigo-900 text-white py-2 px-3 shadow-md relative z-20 border-b border-indigo-950">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-            <div class="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start flex-shrink-0">
-                <div class="flex items-center space-x-1.5">
-                    <span class="bg-indigo-500 text-white font-black px-2 py-0.5 rounded text-[11px] uppercase tracking-wider shadow flex items-center gap-1">
-                        💬 USER REVIEW
-                    </span>
-                    <span id="review-count-badge" class="bg-indigo-950 text-indigo-200 font-extrabold px-1.5 py-0.5 rounded text-[11px]">
-                        1 / 1
-                    </span>
-                </div>
-                <div id="review-controls-mobile" class="flex sm:hidden items-center space-x-1">
-                    <button onclick="slidePrevReview()" class="px-2 py-0.5 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs">‹</button>
-                    <button onclick="slideNextReview()" class="px-2 py-0.5 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs">›</button>
-                </div>
-            </div>
-            <div onclick="showReviewToast()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-semibold marquee-container" title="Click to view full review">
-                <div id="review-broadcast-text" class="marquee-content text-indigo-100">
-                    Loading user feedback...
-                </div>
-            </div>
-            <div class="flex items-center space-x-2 flex-shrink-0 w-full sm:w-auto justify-end">
-                <div id="review-controls-desktop" class="hidden sm:flex items-center space-x-1 mr-1">
-                    <button onclick="slidePrevReview()" title="Previous Review" class="w-6 h-6 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs flex items-center justify-center transition">‹</button>
-                    <button onclick="slideNextReview()" title="Next Review" class="w-6 h-6 bg-indigo-800 hover:bg-indigo-700 rounded text-white font-black text-xs flex items-center justify-center transition">›</button>
-                </div>
-                <button onclick="showReviewToast()" class="px-3 py-1 bg-indigo-500 hover:bg-indigo-400 text-white font-extrabold text-xs rounded-lg transition whitespace-nowrap">
-                    Read Review
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN HEADER NAVIGATION -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="#" class="flex items-center space-x-3 group">
-                    <div class="relative w-14 h-14 flex-shrink-0 group-hover:scale-105 transition-transform logo-shadow">
-                        <svg viewBox="0 0 200 200" class="w-full h-full">
-                            <path id="textPathTop" d="M 25,100 A 75,75 0 1,1 175,100" fill="none" />
-                            <path id="textPathBottom" d="M 175,100 A 75,75 0 0,1 25,100" fill="none" />
-                            <circle cx="100" cy="100" r="96" fill="#ffffff" stroke="#e2e8f0" stroke-width="4"/>
-                            <circle cx="100" cy="100" r="92" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,2"/>
-                            <text class="curved-logo-text">
-                                <textPath href="#textPathTop" startOffset="50%" text-anchor="middle">
-                                    Durdom-25 Blood Donation
-                                </textPath>
-                            </text>
-                            <text class="curved-logo-text" style="font-size: 11px; fill: #dc2626; font-weight: 800;">
-                                <textPath href="#textPathBottom" startOffset="50%" text-anchor="middle">
-                                    Society Jhenaidah
-                                </textPath>
-                            </text>
-                            <g transform="translate(0, -2)">
-                                <path d="M 100 42 C 100 42, 65 92, 65 118 C 65 137 80 152 100 152 C 120 152 135 137 135 118 C 135 92, 100 42, 100 42 Z" fill="url(#dropGradient)" />
-                                <ellipse cx="88" cy="106" rx="6" ry="14" fill="#ffffff" opacity="0.4" transform="rotate(-20 88 106)"/>
-                            </g>
-                            <defs>
-                                <radialGradient id="dropGradient" cx="40%" cy="40%" r="60%">
-                                    <stop offset="0%" stop-color="#ff4d4d"/>
-                                    <stop offset="60%" stop-color="#dc2626"/>
-                                    <stop offset="100%" stop-color="#800000"/>
-                                </radialGradient>
-                            </defs>
-                        </svg>
-                        <span class="absolute bottom-0 right-0 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow"></span>
-                    </div>
-                    <div class="leading-tight">
-                        <span class="text-lg sm:text-xl font-black text-slate-900 tracking-tight block group-hover:text-red-600 transition-colors">
-                            Durdom-25
-                        </span>
-                        <span class="text-xs text-red-600 font-bold tracking-wider block -mt-1 uppercase">
-                            Blood Donation Society
-                        </span>
-                    </div>
-                </a>
-
-                <nav class="hidden lg:flex items-center space-x-7 text-sm font-bold text-slate-700">
-                    <a href="#home" class="hover:text-red-600 transition-colors">Home</a>
-                    <a href="#find-donor" class="hover:text-red-600 transition-colors">Find Donors</a>
-                    <a href="#coverage" class="hover:text-red-600 transition-colors">Coverage Areas</a>
-                    <a href="#compatibility" class="hover:text-red-600 transition-colors">Blood Types</a>
-                    <a href="#about" class="hover:text-red-600 transition-colors">About Us</a>
-                    <a href="#contact" class="hover:text-red-600 transition-colors">Contact</a>
-                </nav>
-
-                <div class="hidden sm:flex items-center space-x-3">
-                    <button onclick="openModal('donor-login-modal')" class="px-3.5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 transition flex items-center gap-1.5">
-                        <i data-lucide="user" class="w-4 h-4 text-red-600"></i> Donor Login
-                    </button>
-                    <button onclick="openModal('emergency-modal')" class="px-3.5 py-2.5 rounded-xl border-2 border-red-600 text-red-600 font-bold text-xs sm:text-sm hover:bg-red-50 transition flex items-center gap-1.5">
-                        <i data-lucide="alert-circle" class="w-4 h-4"></i> Request Blood
-                    </button>
-                    <button onclick="openModal('donor-modal')" class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-red-600/30 transition flex items-center gap-1.5">
-                        <i data-lucide="heart" class="w-4 h-4"></i> Join DBDSJ-25
-                    </button>
-                </div>
-
-                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-            </div>
-        </div>
-
-        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3">
-            <a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Home</a>
-            <a href="#find-donor" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Find Donors</a>
-            <a href="#coverage" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Coverage Areas</a>
-            <a href="#compatibility" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Blood Types</a>
-            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">About Durdom-25</a>
-            <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-slate-800 font-bold hover:text-red-600">Contact</a>
-            <div class="pt-2 flex flex-col space-y-2">
-                <button onclick="toggleMobileMenu(); openModal('donor-login-modal')" class="w-full py-2.5 rounded-xl border border-slate-300 text-slate-800 font-bold text-sm text-center flex items-center justify-center gap-1.5">
-                    <i data-lucide="user" class="w-4 h-4 text-red-600"></i> Donor Login
-                </button>
-                <button onclick="toggleMobileMenu(); openModal('emergency-modal')" class="w-full py-2.5 rounded-xl border-2 border-red-600 text-red-600 font-bold text-sm text-center">Request Blood</button>
-                <button onclick="toggleMobileMenu(); openModal('donor-modal')" class="w-full py-2.5 rounded-xl bg-red-600 text-white font-bold text-sm text-center">Join Durdom-25</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section id="home" class="relative pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden bg-gradient-to-b from-red-50/70 via-slate-50 to-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider border border-red-200">
-                        <i data-lucide="shield-check" class="w-4 h-4 text-red-600"></i> Cloud-Synced Firebase Database
-                    </div>
-
-                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-                        Durdom-25 Blood Donation Society <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">Jhenaidah</span>
-                    </h1>
-
-                    <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                        Connecting life-saving voluntary blood donors across <strong>Jhenaidah Sadar, Kaliganj, Kotchandpur, Maheshpur, Shailkupa, and Harinakunda</strong> in times of medical emergencies.
-                    </p>
-
-                    <!-- LIVE IMPACT STATS BAR -->
-                    <div class="grid grid-cols-3 gap-3 pt-2 max-w-xl mx-auto lg:mx-0">
-                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm text-center">
-                            <span id="stat-donors-count" class="block text-2xl font-black text-red-600">0</span>
-                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Registered Donors</span>
-                        </div>
-                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm text-center">
-                            <span id="stat-donations-count" class="block text-2xl font-black text-emerald-600">0</span>
-                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Successful Donations</span>
-                        </div>
-                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm text-center">
-                            <span class="block text-2xl font-black text-slate-800">6</span>
-                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Sub-districts</span>
-                        </div>
-                    </div>
-
-                    <!-- HERO ACTION BUTTONS (INCLUDES DONOR LOGIN) -->
-                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                        <button onclick="openModal('emergency-modal')" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-red-600 text-white font-extrabold text-base shadow-xl shadow-red-600/30 hover:bg-red-700 transition flex items-center justify-center gap-3">
-                            <i data-lucide="phone-call" class="w-5 h-5"></i> Emergency Blood Request
-                        </button>
-                        <button onclick="openModal('donor-login-modal')" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-slate-900 text-white font-extrabold text-base shadow-xl shadow-slate-900/30 hover:bg-slate-800 transition flex items-center justify-center gap-3">
-                            <i data-lucide="user" class="w-5 h-5 text-red-500"></i> Donor Login
-                        </button>
-                        <button onclick="openModal('donor-modal')" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white border border-slate-300 text-slate-800 font-extrabold text-base hover:bg-slate-100 shadow-sm transition flex items-center justify-center gap-3">
-                            <i data-lucide="user-plus" class="w-5 h-5 text-red-600"></i> Join Durdom-25
-                        </button>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-5">
-                    <div class="relative mx-auto max-w-md bg-white p-6 sm:p-8 rounded-3xl shadow-2xl border border-slate-100 text-center">
-                        <h3 class="text-xl font-black text-slate-900">Durdom-25 Blood Donation Society</h3>
-                        <p class="text-slate-500 text-xs mt-1">Voluntary Blood Donation & Emergency Network</p>
-
-                        <div class="mt-6 space-y-3 text-left">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group Needed</label>
-                                <select id="hero-select-group" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 outline-none">
-                                    <option value="ALL">All Blood Groups</option>
-                                    <option value="A+">A Positive (A+)</option>
-                                    <option value="A-">A Negative (A-)</option>
-                                    <option value="B+">B Positive (B+)</option>
-                                    <option value="B-">B Negative (B-)</option>
-                                    <option value="O+">O Positive (O+)</option>
-                                    <option value="O-">O Negative (O-)</option>
-                                    <option value="AB+">AB Positive (AB+)</option>
-                                    <option value="AB-">AB Negative (AB-)</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Upazila / Area</label>
-                                <select id="hero-select-area" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 outline-none">
-                                    <option value="ALL">All Jhenaidah Areas</option>
-                                    <option value="Jhenaidah Sadar">Jhenaidah Sadar</option>
-                                    <option value="Kaliganj">Kaliganj</option>
-                                    <option value="Kotchandpur">Kotchandpur</option>
-                                    <option value="Maheshpur">Maheshpur</option>
-                                    <option value="Shailkupa">Shailkupa</option>
-                                    <option value="Harinakunda">Harinakunda</option>
-                                </select>
-                            </div>
-
-                            <a href="#find-donor" onclick="applyHeroFilters()" class="w-full py-3 bg-slate-900 text-white font-extrabold text-sm rounded-xl flex items-center justify-center gap-2 transition">
-                                <i data-lucide="search" class="w-4 h-4"></i> Search Jhenaidah Donors
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LIVE DONOR DIRECTORY -->
-    <section id="find-donor" class="py-20 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-12">
-                <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-2">Live Cloud Directory</h2>
-                <h3 class="text-3xl font-black text-slate-900 sm:text-4xl">Available Donors in Jhenaidah</h3>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Blood Group</label>
-                        <select id="filter-group" onchange="filterDonors()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 outline-none">
-                            <option value="ALL">All Blood Groups</option>
-                            <option value="A+">A Positive (A+)</option>
-                            <option value="A-">A Negative (A-)</option>
-                            <option value="B+">B Positive (B+)</option>
-                            <option value="B-">B Negative (B-)</option>
-                            <option value="O+">O Positive (O+)</option>
-                            <option value="O-">O Negative (O-)</option>
-                            <option value="AB+">AB Positive (AB+)</option>
-                            <option value="AB-">AB Negative (AB-)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Jhenaidah Area / Upazila</label>
-                        <select id="filter-area" onchange="filterDonors()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 outline-none">
-                            <option value="ALL">All Locations in Jhenaidah</option>
-                            <option value="Jhenaidah Sadar">Jhenaidah Sadar</option>
-                            <option value="Kaliganj">Kaliganj</option>
-                            <option value="Kotchandpur">Kotchandpur</option>
-                            <option value="Maheshpur">Maheshpur</option>
-                            <option value="Shailkupa">Shailkupa</option>
-                            <option value="Harinakunda">Harinakunda</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Search Name or Phone</label>
-                        <input type="text" id="filter-search" onkeyup="filterDonors()" placeholder="Type donor name..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 outline-none">
-                    </div>
-                </div>
-            </div>
-
-            <div id="donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </div>
-    </section>
-
-    <!-- COVERAGE AREAS SECTION -->
-    <section id="coverage" class="py-20 bg-white border-y border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-2">Our Reach</h2>
-                <h3 class="text-3xl font-black text-slate-900 sm:text-4xl">Sub-districts Covered in Jhenaidah</h3>
-                <p class="text-slate-600 mt-2">Durdom-25 Blood Donation Society maintains active donor volunteers across all Upazilas of Jhenaidah District.</p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <div onclick="filterByArea('Jhenaidah Sadar')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
-                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
-                        <i data-lucide="map-pin" class="w-5 h-5"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-900 text-sm">Jhenaidah Sadar</h4>
-                    <span class="text-xs text-slate-500">Central Hub</span>
-                </div>
-
-                <div onclick="filterByArea('Kaliganj')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
-                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
-                        <i data-lucide="map-pin" class="w-5 h-5"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-900 text-sm">Kaliganj</h4>
-                    <span class="text-xs text-slate-500">Upazila Unit</span>
-                </div>
-
-                <div onclick="filterByArea('Kotchandpur')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
-                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
-                        <i data-lucide="map-pin" class="w-5 h-5"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-900 text-sm">Kotchandpur</h4>
-                    <span class="text-xs text-slate-500">Upazila Unit</span>
-                </div>
-
-                <div onclick="filterByArea('Maheshpur')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
-                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
-                        <i data-lucide="map-pin" class="w-5 h-5"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-900 text-sm">Maheshpur</h4>
-                    <span class="text-xs text-slate-500">Upazila Unit</span>
-                </div>
-
-                <div onclick="filterByArea('Shailkupa')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
-                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
-                        <i data-lucide="map-pin" class="w-5 h-5"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-900 text-sm">Shailkupa</h4>
-                    <span class="text-xs text-slate-500">Upazila Unit</span>
-                </div>
-
-                <div onclick="filterByArea('Harinakunda')" class="cursor-pointer bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-red-500 hover:bg-red-50 text-center transition group">
-                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
-                        <i data-lucide="map-pin" class="w-5 h-5"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-900 text-sm">Harinakunda</h4>
-                    <span class="text-xs text-slate-500">Upazila Unit</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BLOOD COMPATIBILITY MATRIX -->
-    <section id="compatibility" class="py-20 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-2">Blood Knowledge</h2>
-                <h3 class="text-3xl font-black text-slate-900 sm:text-4xl">Blood Group Compatibility</h3>
-                <p class="text-slate-600 mt-2">Click on any blood group to view compatible recipient and donor types.</p>
-            </div>
-
-            <div class="grid lg:grid-cols-12 gap-8 items-start">
-                <div class="lg:col-span-5 grid grid-cols-4 gap-3">
-                    <button onclick="showCompatibility('A+')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition active-compat" data-group="A+">
-                        <span class="block text-2xl font-black text-slate-800">A+</span>
-                    </button>
-                    <button onclick="showCompatibility('A-')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="A-">
-                        <span class="block text-2xl font-black text-slate-800">A-</span>
-                    </button>
-                    <button onclick="showCompatibility('B+')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="B+">
-                        <span class="block text-2xl font-black text-slate-800">B+</span>
-                    </button>
-                    <button onclick="showCompatibility('B-')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="B-">
-                        <span class="block text-2xl font-black text-slate-800">B-</span>
-                    </button>
-                    <button onclick="showCompatibility('O+')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="O+">
-                        <span class="block text-2xl font-black text-slate-800">O+</span>
-                    </button>
-                    <button onclick="showCompatibility('O-')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="O-">
-                        <span class="block text-2xl font-black text-slate-800">O-</span>
-                    </button>
-                    <button onclick="showCompatibility('AB+')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="AB+">
-                        <span class="block text-2xl font-black text-slate-800">AB+</span>
-                    </button>
-                    <button onclick="showCompatibility('AB-')" class="compat-btn p-4 rounded-2xl border-2 border-slate-200 bg-white text-center hover:border-red-500 transition" data-group="AB-">
-                        <span class="block text-2xl font-black text-slate-800">AB-</span>
-                    </button>
-                </div>
-
-                <div class="lg:col-span-7 bg-slate-900 text-white rounded-3xl p-8 shadow-xl">
-                    <div class="flex items-center space-x-4 pb-6 border-b border-slate-800">
-                        <div id="compat-badge" class="w-16 h-16 rounded-2xl bg-red-600 flex items-center justify-center font-black text-2xl text-white shadow-lg shadow-red-600/40">
-                            A+
-                        </div>
-                        <div>
-                            <h4 id="compat-title" class="text-2xl font-bold">Blood Group A Positive</h4>
-                            <p id="compat-desc" class="text-slate-400 text-sm">Common blood type in Jhenaidah.</p>
-                        </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6 pt-6">
-                        <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
-                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5 mb-3">
-                                <i data-lucide="arrow-up-right" class="w-4 h-4"></i> Can Donate Blood To
-                            </span>
-                            <div id="compat-give" class="flex flex-wrap gap-2"></div>
-                        </div>
-
-                        <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
-                            <span class="text-xs font-bold uppercase tracking-wider text-red-400 flex items-center gap-1.5 mb-3">
-                                <i data-lucide="arrow-down-left" class="w-4 h-4"></i> Can Receive Blood From
-                            </span>
-                            <div id="compat-receive" class="flex flex-wrap gap-2"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section id="about" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-6 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider border border-red-200">
-                        About Our Movement
-                    </div>
-                    <h3 class="text-3xl font-black text-slate-900 sm:text-4xl">Durdom-25 Blood Donation Society</h3>
-                    <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
-                        Founded by dedicated youth and voluntary humanitarians of Jhenaidah, <strong>Durdom-25 Blood Donation Society</strong> is committed to ensuring that no emergency patient in Jhenaidah suffers due to a shortage of safe blood.
-                    </p>
-                    <ul class="space-y-3 text-slate-700 text-sm font-semibold">
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-red-600"></i> 100% Non-profit voluntary blood donor network</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-red-600"></i> Instant donor coordination in Jhenaidah Sadar Hospital & clinics</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-red-600"></i> Awareness campaigns & free blood grouping camps</li>
-                    </ul>
-                </div>
-                <div class="lg:col-span-6 bg-red-900 text-white p-8 sm:p-10 rounded-3xl shadow-xl relative overflow-hidden">
-                    <div class="relative z-10 space-y-6">
-                        <h4 class="text-2xl font-bold">Need Immediate Help?</h4>
-                        <p class="text-red-100 text-sm">Call our central voluntary helpline desk operating 24 hours a day for emergency donor arrangement in Jhenaidah.</p>
-                        <div class="bg-red-800/80 p-4 rounded-2xl border border-red-700">
-                            <div class="text-xs text-red-300 uppercase font-bold">24/7 Jhenaidah Helplines</div>
-                            <div class="text-base font-bold text-white mt-1 flex flex-col gap-1">
-                                <div>Tanvir: <a href="tel:+8801342293635" class="hover:underline text-red-200">01342293635</a></div>
-                                <div>Miskat: <a href="tel:+8801756391595" class="hover:underline text-red-200">01756391595</a></div>
-                                <div>Shuvo: <a href="tel:+8801342307405" class="hover:underline text-red-200">01342307405</a></div>
-                            </div>
-                        </div>
-                        <button onclick="openModal('emergency-modal')" class="w-full py-3.5 bg-white text-red-900 font-extrabold rounded-xl hover:bg-red-50 transition">
-                            Post Emergency Request
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="py-20 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-12 gap-12">
-                <div class="lg:col-span-5 space-y-6">
-                    <div>
-                        <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-2">Contact Us</h2>
-                        <h3 class="text-3xl font-black text-slate-900">Durdom-25 Society Office</h3>
-                        <p class="text-slate-600 mt-2 text-sm">Reach out to our Jhenaidah team for donations, volunteering, or emergency coordination.</p>
-                    </div>
-
-                    <div class="space-y-4 pt-4">
-                        <div class="flex items-start space-x-4 p-4 rounded-2xl bg-white border border-slate-200">
-                            <div class="p-3 bg-red-100 text-red-600 rounded-xl">
-                                <i data-lucide="phone" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs font-bold text-slate-500 uppercase">Emergency Contacts</div>
-                                <div class="text-sm font-bold text-slate-900 flex flex-col gap-0.5 mt-1">
-                                    <div>Tanvir: <a href="tel:+8801342293635" class="text-red-600 hover:underline">01342293635</a></div>
-                                    <div>Miskat: <a href="tel:+8801756391595" class="text-red-600 hover:underline">01756391595</a></div>
-                                    <div>Shuvo: <a href="tel:+8801342307405" class="text-red-600 hover:underline">01342307405</a></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-4 p-4 rounded-2xl bg-white border border-slate-200">
-                            <div class="p-3 bg-red-100 text-red-600 rounded-xl">
-                                <i data-lucide="map-pin" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs font-bold text-slate-500 uppercase">Central Address</div>
-                                <div class="text-base font-bold text-slate-900">Jhenaidah Sadar, Jhenaidah, Bangladesh</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-7 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <h4 class="text-xl font-bold text-slate-900 mb-6">Send Message to Durdom-25 Blood Donation Society</h4>
-                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Your Name *</label>
-                                <input type="text" id="msg-name" required placeholder="Full Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number *</label>
-                                <input type="tel" id="msg-phone" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Message *</label>
-                            <textarea id="msg-content" rows="4" required placeholder="Write your message here..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-3.5 bg-slate-900 text-white font-extrabold rounded-xl hover:bg-slate-800 transition">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="flex items-center space-x-3">
-                    <span class="text-white font-black text-base block">Durdom-25 Blood Donation Society</span>
-                </div>
-                <div class="text-xs text-slate-500 text-center md:text-left">
-                    &copy; Durdom-25 Blood Donation Society Jhenaidah. All Rights Reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- MODAL: EMERGENCY DETAILS POP-UP -->
-    <div id="details-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-slate-100">
-            <button onclick="closeModal('details-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            
-            <div class="text-center mb-5">
-                <span id="dt-group-badge" class="inline-block px-4 py-1.5 bg-red-600 text-white font-black text-xl rounded-2xl shadow mb-2">
-                    A+
-                </span>
-                <h3 class="text-xl font-black text-slate-900" id="dt-patient-name">Emergency Request</h3>
-                <p class="text-slate-500 text-xs">Durdom-25 Emergency Dispatch</p>
-            </div>
-
-            <div class="space-y-3 text-sm bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                <div class="flex justify-between border-b border-slate-200 pb-2">
-                    <span class="text-slate-500 font-bold">Bags Needed:</span>
-                    <span class="font-extrabold text-slate-900" id="dt-bags">1 Bag</span>
-                </div>
-                <div class="flex justify-between border-b border-slate-200 pb-2">
-                    <span class="text-slate-500 font-bold">Hospital Location:</span>
-                    <span class="font-bold text-slate-900 text-right" id="dt-location">Jhenaidah Sadar</span>
-                </div>
-                <div class="flex justify-between border-b border-slate-200 pb-2">
-                    <span class="text-slate-500 font-bold">Time Needed:</span>
-                    <span class="font-bold text-red-600 text-right" id="dt-time">ASAP</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-slate-500 font-bold">Attendant Contact:</span>
-                    <span class="font-black text-slate-900" id="dt-phone">017...</span>
-                </div>
-            </div>
-
-            <div class="mt-5 flex gap-3">
-                <a id="dt-call-btn" href="tel:" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-center text-sm rounded-xl transition flex items-center justify-center gap-2">
-                    <i data-lucide="phone-call" class="w-4 h-4"></i> Call Attendant
-                </a>
-                <button onclick="closeModal('details-modal')" class="px-4 py-3 bg-slate-200 text-slate-800 font-bold text-sm rounded-xl">
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: DONOR LOGIN (PHONE NUMBER ONLY) -->
-    <div id="donor-login-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100">
-            <button onclick="closeModal('donor-login-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                    <i data-lucide="user" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-2xl font-black text-slate-900">Donor Login</h3>
-                <p class="text-slate-500 text-xs mt-1">Enter your registered phone number to view or edit your profile.</p>
-            </div>
-            
-            <form onsubmit="handleDonorLogin(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number *</label>
-                    <input type="tel" id="login-phone" required placeholder="e.g. 017..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                </div>
-                <button type="submit" class="w-full py-3.5 bg-red-600 text-white font-extrabold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/30">
-                    Login to Profile
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: DONOR PROFILE DASHBOARD WITH EDIT OPTION -->
-    <div id="donor-profile-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
-            <button onclick="closeModal('donor-profile-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            <div class="text-center mb-6">
-                <span id="dp-group-badge" class="inline-block px-4 py-1.5 bg-red-600 text-white font-black text-xl rounded-2xl shadow mb-2">A+</span>
-                <h3 class="text-2xl font-black text-slate-900" id="dp-name">Donor Profile</h3>
-                <p class="text-slate-500 text-xs mt-0.5">Durdom-25 Registered Member</p>
-            </div>
-            <div class="space-y-3 text-sm bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                <div class="flex justify-between border-b border-slate-200 pb-2">
-                    <span class="text-slate-500 font-bold">Phone:</span>
-                    <span class="font-extrabold text-slate-900" id="dp-phone">-</span>
-                </div>
-                <div class="flex justify-between border-b border-slate-200 pb-2">
-                    <span class="text-slate-500 font-bold">Upazila / Area:</span>
-                    <span class="font-bold text-slate-900" id="dp-area">-</span>
-                </div>
-                <div class="flex justify-between border-b border-slate-200 pb-2">
-                    <span class="text-slate-500 font-bold">Last Donated:</span>
-                    <span class="font-bold text-slate-900" id="dp-last">-</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-slate-500 font-bold">Eligibility Status:</span>
-                    <span class="font-black text-emerald-600" id="dp-status">-</span>
-                </div>
-            </div>
-            <div class="mt-6 flex gap-3">
-                <button onclick="openEditProfileForm()" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold text-sm rounded-xl transition flex items-center justify-center gap-1.5 shadow">
-                    <i data-lucide="edit-3" class="w-4 h-4"></i> Edit Profile
-                </button>
-                <button onclick="closeModal('donor-profile-modal')" class="px-4 py-3 bg-slate-200 text-slate-800 font-bold text-sm rounded-xl hover:bg-slate-300 transition">
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: EDIT DONOR PROFILE FORM -->
-    <div id="donor-edit-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
-            <button onclick="closeModal('donor-edit-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                    <i data-lucide="edit-3" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-2xl font-black text-slate-900">Edit Your Profile</h3>
-                <p class="text-slate-500 text-xs mt-1">Update your information in the live database.</p>
-            </div>
-            
-            <form onsubmit="handleDonorUpdate(event)" class="space-y-4">
-                <input type="hidden" id="edit-donor-id">
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name *</label>
-                    <input type="text" id="edit-name" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group *</label>
-                        <select id="edit-group" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Jhenaidah Upazila *</label>
-                        <select id="edit-area" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
-                            <option value="Jhenaidah Sadar">Jhenaidah Sadar</option>
-                            <option value="Kaliganj">Kaliganj</option>
-                            <option value="Kotchandpur">Kotchandpur</option>
-                            <option value="Maheshpur">Maheshpur</option>
-                            <option value="Shailkupa">Shailkupa</option>
-                            <option value="Harinakunda">Harinakunda</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number (Locked)</label>
-                        <input type="tel" id="edit-phone" disabled class="w-full bg-slate-200 text-slate-500 border border-slate-200 rounded-xl px-4 py-2.5 text-sm cursor-not-allowed">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Last Donation Date</label>
-                        <input type="date" id="edit-last-date" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                    </div>
-                </div>
-                <button type="submit" class="w-full py-3.5 bg-red-600 text-white font-extrabold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/30">
-                    Save Changes
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: BECOME A DONOR -->
-    <div id="donor-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
-            <button onclick="closeModal('donor-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                    <i data-lucide="user-plus" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-2xl font-black text-slate-900">Join Durdom-25 Society</h3>
-                <p class="text-slate-500 text-xs mt-1">Register as a voluntary blood donor in Jhenaidah.</p>
-            </div>
-            
-            <form onsubmit="handleDonorRegister(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name *</label>
-                    <input type="text" id="donor-name" required placeholder="Donor Full Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group *</label>
-                        <select id="donor-group" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
-                            <option value="">Select</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Jhenaidah Upazila *</label>
-                        <select id="donor-area" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
-                            <option value="">Select Area</option>
-                            <option value="Jhenaidah Sadar">Jhenaidah Sadar</option>
-                            <option value="Kaliganj">Kaliganj</option>
-                            <option value="Kotchandpur">Kotchandpur</option>
-                            <option value="Maheshpur">Maheshpur</option>
-                            <option value="Shailkupa">Shailkupa</option>
-                            <option value="Harinakunda">Harinakunda</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number *</label>
-                        <input type="tel" id="donor-phone" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Last Donation Date</label>
-                        <input type="date" id="donor-last-date" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                    </div>
-                </div>
-                <div class="flex items-start space-x-2 pt-2">
-                    <input type="checkbox" id="donor-eligible" required class="mt-1 rounded text-red-600 focus:ring-red-500">
-                    <label for="donor-eligible" class="text-xs text-slate-600 leading-tight">
-                        I confirm that I am in good health, weigh over 45kg, and am ready to donate blood voluntarily in Jhenaidah.
-                    </label>
-                </div>
-                <button type="submit" class="w-full py-3.5 bg-red-600 text-white font-extrabold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/30">
-                    Submit Application
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: EMERGENCY BLOOD REQUEST -->
-    <div id="emergency-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
-            <button onclick="closeModal('emergency-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                    <i data-lucide="alert-circle" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-2xl font-black text-slate-900">Post Emergency Request</h3>
-                <p class="text-slate-500 text-xs mt-1">Request urgent blood for a patient in Jhenaidah.</p>
-            </div>
-            
-            <form onsubmit="handleEmergencySubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Patient Name *</label>
-                    <input type="text" id="em-patient" required placeholder="Patient Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Blood Group Needed *</label>
-                        <select id="em-group" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
-                            <option value="">Select</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Bags Needed *</label>
-                        <input type="number" id="em-bags" min="1" max="10" required value="1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-red-500 outline-none">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Donation Date & Time Needed *</label>
-                    <input type="text" id="em-donating-time" required placeholder="e.g. Today at 4:00 PM / As soon as possible" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Hospital & Location *</label>
-                    <input type="text" id="em-location" required placeholder="e.g. Jhenaidah Sadar Hospital" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Attendant Contact Phone *</label>
-                    <input type="tel" id="em-phone" required placeholder="+880 17..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                </div>
-                <button type="submit" class="w-full py-3.5 bg-red-600 text-white font-extrabold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/30">
-                    Dispatch Emergency Alert
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: ADMIN LOGIN & PANEL -->
-    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
-            <button onclick="closeModal('admin-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <div id="admin-login-step">
-                <div class="text-center mb-6">
-                    <div class="w-12 h-12 bg-slate-100 text-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                        <i data-lucide="shield-check" class="w-6 h-6 text-red-600"></i>
-                    </div>
-                    <h3 class="text-2xl font-black text-slate-900">Admin Authentication</h3>
-                    <p class="text-slate-500 text-xs mt-1">Enter your Durdom-25 admin passkey to access controls.</p>
-                </div>
-
-                <form onsubmit="handleAdminLogin(event)" class="space-y-4 max-w-sm mx-auto">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Passkey Secret</label>
-                        <input type="password" id="admin-passkey" required placeholder="Enter passcode" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                    </div>
-                    <button type="submit" class="w-full py-3.5 bg-slate-900 text-white font-extrabold rounded-xl hover:bg-slate-800 transition">
-                        Unlock Admin Dashboard
-                    </button>
-                </form>
-            </div>
-
-            <div id="admin-dashboard-step" class="hidden">
-                <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
-                    <div>
-                        <h3 class="text-xl font-black text-slate-900">Durdom-25 Admin Panel</h3>
-                        <p class="text-xs text-slate-500">Manage cloud database records & successful donations</p>
-                    </div>
-                    <button onclick="adminLogout()" class="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
-                        Logout
-                    </button>
-                </div>
-
-                <div class="space-y-6">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider text-red-600 flex items-center gap-1.5">
-                            <i data-lucide="alert-circle" class="w-4 h-4"></i> Active Emergency Requests
-                        </h4>
-                        <div class="overflow-x-auto border border-red-200 rounded-xl mb-6 bg-red-50/30">
-                            <table class="w-full text-left text-xs text-slate-600">
-                                <thead class="bg-red-100 text-red-900 font-bold uppercase">
-                                    <tr>
-                                        <th class="p-3">Patient Name</th>
-                                        <th class="p-3">Group</th>
-                                        <th class="p-3">Bags</th>
-                                        <th class="p-3">Needed Time</th>
-                                        <th class="p-3">Hospital</th>
-                                        <th class="p-3">Contact</th>
-                                        <th class="p-3 text-right">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="admin-emergency-table"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider">Registered Donors Management</h4>
-                        <div class="overflow-x-auto border border-slate-200 rounded-xl mb-6">
-                            <table class="w-full text-left text-xs text-slate-600">
-                                <thead class="bg-slate-100 text-slate-800 font-bold uppercase">
-                                    <tr>
-                                        <th class="p-3">Name</th>
-                                        <th class="p-3">Group</th>
-                                        <th class="p-3">Upazila</th>
-                                        <th class="p-3">Phone</th>
-                                        <th class="p-3 text-right">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="admin-donor-table"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
-                            <i data-lucide="message-square" class="w-4 h-4"></i> Incoming User Messages & Inquiries
-                        </h4>
-                        <div class="overflow-x-auto border border-blue-200 rounded-xl bg-blue-50/30">
-                            <table class="w-full text-left text-xs text-slate-600">
-                                <thead class="bg-blue-100 text-blue-900 font-bold uppercase">
-                                    <tr>
-                                        <th class="p-3">Sender Name</th>
-                                        <th class="p-3">Phone</th>
-                                        <th class="p-3">Message</th>
-                                        <th class="p-3 text-right">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="admin-message-table"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TOAST FEEDBACK NOTIFICATION -->
-    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all border border-slate-700">
-        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
-        <span id="toast-text" class="text-sm font-bold">Notification message</span>
-    </div>
-
-    <!-- JAVASCRIPT & INLINE SERVICE WORKER -->
-    <script>
-        let donorsList = [];
-        let emergencyRequests = [];
-        let messagesList = [];
-        let emergencyIndex = 0;
-        let reviewIndex = 0;
-        let isInitialLoad = true;
-        let currentLoggedInDonor = null;
-
-        const compatibilityData = {
-            'A+': { give: ['A+', 'AB+'], receive: ['A+', 'A-', 'O+', 'O-'], desc: 'Common in Jhenaidah. Can receive from positive and negative A & O types.' },
-            'A-': { give: ['A+', 'A-', 'AB+', 'AB-'], receive: ['A-', 'O-'], desc: 'Universal donor for all A and AB blood types.' },
-            'B+': { give: ['B+', 'AB+'], receive: ['B+', 'B-', 'O+', 'O-'], desc: 'Very common in Bangladesh. Essential for hospital reserves.' },
-            'B-': { give: ['B+', 'B-', 'AB+', 'AB-'], receive: ['B-', 'O-'], desc: 'Rare blood type. High demand in emergency care.' },
-            'O+': { give: ['O+', 'A+', 'B+', 'AB+'], receive: ['O+', 'O-'], desc: 'Most requested blood type in emergency hospital units.' },
-            'O-': { give: ['ALL TYPES (Universal Donor)'], receive: ['O-'], desc: 'Universal Red Blood Cell Donor.' },
-            'AB+': { give: ['AB+'], receive: ['ALL TYPES (Universal Recipient)'], desc: 'Universal blood recipient.' },
-            'AB-': { give: ['AB+', 'AB-'], receive: ['AB-', 'A-', 'B-', 'O-'], desc: 'Rare blood group.' }
-        };
-
-        function openModal(id) {
-            document.getElementById(id).classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
-        }
-
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
-
-        function triggerEmergencyAlertSound() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.5);
-                gain.gain.setValueAtTime(0.3, ctx.currentTime);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.5);
-            } catch (e) {
-                console.log("Audio play prevented:", e);
-            }
-        }
-
-        function triggerSystemNotification(req) {
-            const bloodGrp = req.group || req.bloodGroup || req.blood || req.blood_group || 'Blood Needed';
-            const title = `🚨 URGENT BLOOD NEEDED: ${bloodGrp}`;
-            const options = {
-                body: `${req.bags || 1} bag(s) for ${req.patient || 'Patient'} at ${req.location || 'Jhenaidah'}. Time: ${req.donatingTime || 'ASAP'}`,
-                icon: 'https://cdn-icons-png.flaticon.com/512/1216/1216723.png',
-                requireInteraction: true
-            };
-
-            if ("Notification" in window && Notification.permission === "granted") {
-                new Notification(title, options);
-            }
-            triggerEmergencyAlertSound();
-            showToast(`🚨 New Emergency Alert: ${bloodGrp} needed for ${req.patient || 'Patient'}`);
-        }
-
-        function calculateEligibilityStatus(lastDonatedDateStr) {
-            if (!lastDonatedDateStr || lastDonatedDateStr === "Recently" || lastDonatedDateStr === "N/A") {
-                return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
-            }
-
-            const lastDate = new Date(lastDonatedDateStr);
-            if (isNaN(lastDate.getTime())) {
-                return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
-            }
-
-            const today = new Date();
-            const timeDiff = today.getTime() - lastDate.getTime();
-            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
-            
-            const requiredDays = 120;
-            if (daysDiff >= requiredDays) {
-                return { isEligible: true, badgeText: "Available", daysRemaining: 0 };
-            } else {
-                const daysLeft = requiredDays - daysDiff;
-                return { isEligible: false, badgeText: `Eligible in ${daysLeft} days`, daysRemaining: daysLeft };
-            }
-        }
-
-        window.addEventListener('firebase-ready', () => {
-            initRealtimeListeners();
-            registerDynamicServiceWorker();
-            showCompatibility('A+');
-            lucide.createIcons();
-        });
-
-        function registerDynamicServiceWorker() {
-            if ('serviceWorker' in navigator) {
-                const swCode = `
-                    self.addEventListener('push', function(event) {
-                        const data = event.data ? event.data.json() : {};
-                        const title = data.title || "🚨 Durdom-25 Blood Alert";
-                        const options = {
-                            body: data.body || "New emergency blood request posted in Jhenaidah!",
-                            icon: '/favicon.ico'
-                        };
-                        event.waitUntil(self.registration.showNotification(title, options));
-                    });
-                `;
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-
-                navigator.serviceWorker.register(swUrl)
-                    .then(reg => console.log('Dynamic Service Worker registered'))
-                    .catch(err => console.error('Service worker failed:', err));
-            }
-        }
-
-        async function requestNotificationPermission() {
-            try {
-                const permission = await Notification.requestPermission();
-                if (permission === 'granted') {
-                    showToast("🔔 Push Notifications Enabled!");
-                } else {
-                    showToast("Notification permission denied.");
-                }
-            } catch (err) {
-                showToast("Could not enable notifications.");
-            }
-        }
-
-        function initRealtimeListeners() {
-            window.onSnapshot(window.collection(window.db, "donors"), (snapshot) => {
-                donorsList = [];
-                snapshot.forEach((docSnap) => {
-                    donorsList.push({ id: docSnap.id, ...docSnap.data() });
-                });
-                renderDonors(donorsList);
-                renderAdminTable();
-                
-                const donorCountElem = document.getElementById('stat-donors-count');
-                if (donorCountElem) {
-                    donorCountElem.innerText = donorsList.length;
-                }
-
-                if (currentLoggedInDonor) {
-                    const refreshed = donorsList.find(d => d.id === currentLoggedInDonor.id);
-                    if (refreshed) {
-                        currentLoggedInDonor = refreshed;
-                        updateProfileModalUI(refreshed);
-                    }
-                }
-            });
-
-            window.onSnapshot(window.doc(window.db, "stats", "impact"), (docSnap) => {
-                const donationCountElem = document.getElementById('stat-donations-count');
-                if (donationCountElem) {
-                    if (docSnap.exists()) {
-                        donationCountElem.innerText = docSnap.data().successfulDonations || 0;
-                    } else {
-                        donationCountElem.innerText = "0";
-                    }
-                }
-            });
-
-            // ROW 1: Emergency Requests Listener
-            window.onSnapshot(window.collection(window.db, "emergencies"), (snapshot) => {
-                const previousLength = emergencyRequests.length;
-                emergencyRequests = [];
-                snapshot.forEach((docSnap) => {
-                    emergencyRequests.push({ id: docSnap.id, ...docSnap.data() });
-                });
-
-                if (!isInitialLoad && emergencyRequests.length > previousLength) {
-                    const latestReq = emergencyRequests[emergencyRequests.length - 1];
-                    triggerSystemNotification(latestReq);
-                }
-                isInitialLoad = false;
-
-                const ticker = document.getElementById('emergency-broadcast-ticker');
-                if (window.emergencyTickerInterval) {
-                    clearInterval(window.emergencyTickerInterval);
-                    window.emergencyTickerInterval = null;
-                }
-
-                if (emergencyRequests.length > 0) {
-                    ticker.classList.remove('hidden');
-                    const deskCtrls = document.getElementById('em-controls-desktop');
-                    const mobCtrls = document.getElementById('em-controls-mobile');
-                    if (emergencyRequests.length > 1) {
-                        if (deskCtrls) deskCtrls.classList.remove('hidden');
-                        if (mobCtrls) mobCtrls.classList.remove('hidden');
-                    } else {
-                        if (deskCtrls) deskCtrls.classList.add('hidden');
-                        if (mobCtrls) mobCtrls.classList.add('hidden');
-                    }
-
-                    renderCurrentEmergencySlide();
-
-                    if (emergencyRequests.length > 1) {
-                        window.emergencyTickerInterval = setInterval(() => {
-                            slideNextEmergency();
-                        }, 5000);
-                    }
-                } else {
-                    ticker.classList.add('hidden');
-                }
-
-                renderAdminEmergencyTable();
-            });
-
-            // ROW 2: User Reviews/Messages Listener
-            window.onSnapshot(window.collection(window.db, "messages"), (snapshot) => {
-                messagesList = [];
-                snapshot.forEach((docSnap) => {
-                    messagesList.push({ id: docSnap.id, ...docSnap.data() });
-                });
-
-                const ticker = document.getElementById('review-broadcast-ticker');
-                if (window.reviewTickerInterval) {
-                    clearInterval(window.reviewTickerInterval);
-                    window.reviewTickerInterval = null;
-                }
-
-                if (messagesList.length > 0) {
-                    ticker.classList.remove('hidden');
-                    const deskCtrls = document.getElementById('review-controls-desktop');
-                    const mobCtrls = document.getElementById('review-controls-mobile');
-                    if (messagesList.length > 1) {
-                        if (deskCtrls) deskCtrls.classList.remove('hidden');
-                        if (mobCtrls) mobCtrls.classList.remove('hidden');
-                    } else {
-                        if (deskCtrls) deskCtrls.classList.add('hidden');
-                        if (mobCtrls) mobCtrls.classList.add('hidden');
-                    }
-
-                    renderCurrentReviewSlide();
-
-                    if (messagesList.length > 1) {
-                        window.reviewTickerInterval = setInterval(() => {
-                            slideNextReview();
-                        }, 6000);
-                    }
-                } else {
-                    ticker.classList.add('hidden');
-                }
-
-                renderAdminMessageTable();
-            });
-        }
-
-        /* ROW 1: EMERGENCY FUNCTIONS */
-        function renderCurrentEmergencySlide() {
-            if (emergencyRequests.length === 0) return;
-            if (emergencyIndex >= emergencyRequests.length) emergencyIndex = 0;
-            if (emergencyIndex < 0) emergencyIndex = emergencyRequests.length - 1;
-
-            const currentReq = emergencyRequests[emergencyIndex];
-            
-            const bloodGroupStr = currentReq.group || currentReq.bloodGroup || currentReq.blood || currentReq.blood_group || "Blood Needed";
-            const bagStr = currentReq.bags ? `(${currentReq.bags} Bag)` : '(1 Bag)';
-            const timeStr = (currentReq.donatingTime && currentReq.donatingTime.trim() !== "") 
-                ? currentReq.donatingTime 
-                : "ASAP";
-            const patientStr = currentReq.patient || "Patient";
-            const locationStr = currentReq.location || "Jhenaidah";
-
-            const broadcastText = document.getElementById('em-broadcast-text');
-            const broadcastCallBtn = document.getElementById('em-call-btn');
-            const countBadge = document.getElementById('em-count-badge');
-
-            if (broadcastText) {
-                const fullMsg = `<span class="bg-white text-red-600 px-1.5 py-0.5 rounded font-black mr-1">${bloodGroupStr}</span> <strong>${bagStr}</strong> for <strong>${patientStr}</strong> | 📍 <strong>${locationStr}</strong> | ⏰ <strong>${timeStr}</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `;
-                broadcastText.innerHTML = fullMsg + fullMsg;
-            }
-            if (broadcastCallBtn) {
-                broadcastCallBtn.href = `tel:${currentReq.phone}`;
-            }
-            if (countBadge) {
-                countBadge.innerText = `${emergencyIndex + 1} / ${emergencyRequests.length}`;
-            }
-        }
-
-        function slideNextEmergency() {
-            if (emergencyRequests.length <= 1) return;
-            emergencyIndex = (emergencyIndex + 1) % emergencyRequests.length;
-            renderCurrentEmergencySlide();
-        }
-
-        function slidePrevEmergency() {
-            if (emergencyRequests.length <= 1) return;
-            emergencyIndex = (emergencyIndex - 1 + emergencyRequests.length) % emergencyRequests.length;
-            renderCurrentEmergencySlide();
-        }
-
-        function showEmergencyDetailsModal() {
-            if (emergencyRequests.length === 0) return;
-            const currentReq = emergencyRequests[emergencyIndex];
-
-            const bloodGrp = currentReq.group || currentReq.bloodGroup || currentReq.blood || currentReq.blood_group || 'Blood Needed';
-            
-            document.getElementById('dt-group-badge').innerText = bloodGrp;
-            document.getElementById('dt-patient-name').innerText = currentReq.patient || "Emergency Request";
-            document.getElementById('dt-bags').innerText = `${currentReq.bags || 1} Bag(s)`;
-            document.getElementById('dt-location').innerText = currentReq.location || "Jhenaidah Hospital";
-            document.getElementById('dt-time').innerText = currentReq.donatingTime || "As soon as possible";
-            document.getElementById('dt-phone').innerText = currentReq.phone || "N/A";
-            document.getElementById('dt-call-btn').href = `tel:${currentReq.phone}`;
-
-            openModal('details-modal');
-        }
-
-        /* ROW 2: USER REVIEWS FUNCTIONS */
-        function renderCurrentReviewSlide() {
-            if (messagesList.length === 0) return;
-            if (reviewIndex >= messagesList.length) reviewIndex = 0;
-            if (reviewIndex < 0) reviewIndex = messagesList.length - 1;
-
-            const currentMsg = messagesList[reviewIndex];
-            const broadcastText = document.getElementById('review-broadcast-text');
-            const countBadge = document.getElementById('review-count-badge');
-
-            if (broadcastText) {
-                const fullMsg = `💬 <strong>"${currentMsg.message}"</strong> &mdash; <span class="font-extrabold text-white underline">${currentMsg.name || 'Anonymous'}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `;
-                broadcastText.innerHTML = fullMsg + fullMsg;
-            }
-            if (countBadge) {
-                countBadge.innerText = `${reviewIndex + 1} / ${messagesList.length}`;
-            }
-        }
-
-        function slideNextReview() {
-            if (messagesList.length <= 1) return;
-            reviewIndex = (reviewIndex + 1) % messagesList.length;
-            renderCurrentReviewSlide();
-        }
-
-        function slidePrevReview() {
-            if (messagesList.length <= 1) return;
-            reviewIndex = (reviewIndex - 1 + messagesList.length) % messagesList.length;
-            renderCurrentReviewSlide();
-        }
-
-        function showReviewToast() {
-            if (messagesList.length === 0) return;
-            const msg = messagesList[reviewIndex];
-            showToast(`💬 Review by ${msg.name || 'Anonymous'}: "${msg.message}"`);
-        }
-
-        function renderDonors(items) {
-            const container = document.getElementById('donor-grid');
-            if(!container) return;
-            container.innerHTML = '';
-
-            items.forEach(donor => {
-                const statusInfo = calculateEligibilityStatus(donor.lastDonated);
-                const badgeClass = statusInfo.isEligible 
-                    ? "bg-emerald-100 text-emerald-700" 
-                    : "bg-amber-100 text-amber-800";
-                const dotClass = statusInfo.isEligible 
-                    ? "bg-emerald-500" 
-                    : "bg-amber-500";
-
-                const card = document.createElement('div');
-                card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col justify-between";
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="w-12 h-12 rounded-xl bg-red-100 text-red-600 font-black text-lg flex items-center justify-center border border-red-200">${donor.group}</span>
-                            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold ${badgeClass} flex items-center gap-1">
-                                <span class="w-1.5 h-1.5 rounded-full ${dotClass}"></span> ${statusInfo.badgeText}
-                            </span>
-                        </div>
-                        <h4 class="text-lg font-bold text-slate-900">${donor.name}</h4>
-                        <div class="text-xs text-slate-500 space-y-1.5 mt-2">
-                            <div class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> ${donor.area}, Jhenaidah</div>
-                            <div class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i> Last Donated: ${donor.lastDonated || 'N/A'}</div>
-                        </div>
-                    </div>
-                    <div class="pt-5 mt-5 border-t border-slate-100">
-                        <a href="tel:${donor.phone}" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition">
-                            <i data-lucide="phone" class="w-3.5 h-3.5"></i> Call Donor (${donor.phone})
-                        </a>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-            lucide.createIcons();
-        }
-
-        function filterDonors() {
-            const group = document.getElementById('filter-group').value;
-            const area = document.getElementById('filter-area').value;
-            const search = document.getElementById('filter-search').value.toLowerCase();
-
-            const filtered = donorsList.filter(d => {
-                const matchG = group === 'ALL' || d.group === group;
-                const matchA = area === 'ALL' || d.area === area;
-                const matchN = d.name.toLowerCase().includes(search) || d.phone.includes(search);
-                return matchG && matchA && matchN;
-            });
-            renderDonors(filtered);
-        }
-
-        function filterByArea(areaName) {
-            document.getElementById('filter-area').value = areaName;
-            filterDonors();
-            document.getElementById('find-donor').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function applyHeroFilters() {
-            document.getElementById('filter-group').value = document.getElementById('hero-select-group').value;
-            document.getElementById('filter-area').value = document.getElementById('hero-select-area').value;
-            filterDonors();
-        }
-
-        function showCompatibility(group) {
-            document.querySelectorAll('.compat-btn').forEach(btn => {
-                if(btn.getAttribute('data-group') === group) {
-                    btn.classList.add('border-red-600', 'bg-red-50');
-                } else {
-                    btn.classList.remove('border-red-600', 'bg-red-50');
-                }
-            });
-
-            const data = compatibilityData[group];
-            document.getElementById('compat-badge').innerText = group;
-            document.getElementById('compat-title').innerText = `Blood Group ${group}`;
-            document.getElementById('compat-desc').innerText = data.desc;
-
-            const giveContainer = document.getElementById('compat-give');
-            const receiveContainer = document.getElementById('compat-receive');
-
-            giveContainer.innerHTML = data.give.map(g => `<span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 font-bold text-xs rounded-lg border border-emerald-500/30">${g}</span>`).join('');
-            receiveContainer.innerHTML = data.receive.map(r => `<span class="px-3 py-1 bg-red-500/20 text-red-300 font-bold text-xs rounded-lg border border-red-500/30">${r}</span>`).join('');
-        }
-
-        async function handleDonorRegister(event) {
-            event.preventDefault();
-            const name = document.getElementById('donor-name').value;
-            const group = document.getElementById('donor-group').value;
-            const area = document.getElementById('donor-area').value;
-            const phone = document.getElementById('donor-phone').value;
-            const lastDonated = document.getElementById('donor-last-date').value || "Recently";
-
-            try {
-                await window.addDoc(window.collection(window.db, "donors"), {
-                    name,
-                    group,
-                    area,
-                    phone,
-                    status: "Available",
-                    lastDonated,
-                    createdAt: new Date()
-                });
-                closeModal('donor-modal');
-                showToast(`Welcome ${name}! Registered to Firestore cloud.`);
-                event.target.reset();
-            } catch (e) {
-                console.error("Error adding donor: ", e);
-                showToast("Error saving to database.");
-            }
-        }
-
-        async function handleDonorLogin(event) {
-            event.preventDefault();
-            const phoneInput = document.getElementById('login-phone').value.trim();
-            
-            const matchedDonor = donorsList.find(d => d.phone === phoneInput);
-            if (matchedDonor) {
-                currentLoggedInDonor = matchedDonor;
-                closeModal('donor-login-modal');
-                updateProfileModalUI(matchedDonor);
-                openModal('donor-profile-modal');
-                showToast(`Welcome back, ${matchedDonor.name}!`);
-            } else {
-                showToast("Phone number not found in registered donors.");
-            }
-        }
-
-        function updateProfileModalUI(donor) {
-            document.getElementById('dp-name').innerText = donor.name;
-            document.getElementById('dp-group-badge').innerText = donor.group;
-            document.getElementById('dp-phone').innerText = donor.phone;
-            document.getElementById('dp-area').innerText = donor.area;
-            document.getElementById('dp-last').innerText = donor.lastDonated || 'N/A';
-            
-            const eligibility = calculateEligibilityStatus(donor.lastDonated);
-            document.getElementById('dp-status').innerText = eligibility.badgeText;
-        }
-
-        function openEditProfileForm() {
-            if (!currentLoggedInDonor) return;
-            closeModal('donor-profile-modal');
-
-            document.getElementById('edit-donor-id').value = currentLoggedInDonor.id;
-            document.getElementById('edit-name').value = currentLoggedInDonor.name;
-            document.getElementById('edit-group').value = currentLoggedInDonor.group;
-            document.getElementById('edit-area').value = currentLoggedInDonor.area;
-            document.getElementById('edit-phone').value = currentLoggedInDonor.phone;
-            document.getElementById('edit-last-date').value = (currentLoggedInDonor.lastDonated && currentLoggedInDonor.lastDonated !== "Recently") ? currentLoggedInDonor.lastDonated : '';
-
-            openModal('donor-edit-modal');
-        }
-
-        async function handleDonorUpdate(event) {
-            event.preventDefault();
-            if (!currentLoggedInDonor) return;
-
-            const donorId = document.getElementById('edit-donor-id').value;
-            const updatedName = document.getElementById('edit-name').value;
-            const updatedGroup = document.getElementById('edit-group').value;
-            const updatedArea = document.getElementById('edit-area').value;
-            const updatedLastDate = document.getElementById('edit-last-date').value || "Recently";
-
-            try {
-                const donorRef = window.doc(window.db, "donors", donorId);
-                await window.updateDoc(donorRef, {
-                    name: updatedName,
-                    group: updatedGroup,
-                    area: updatedArea,
-                    lastDonated: updatedLastDate
-                });
-
-                closeModal('donor-edit-modal');
-                showToast("Profile successfully updated!");
-                
-                currentLoggedInDonor.name = updatedName;
-                currentLoggedInDonor.group = updatedGroup;
-                currentLoggedInDonor.area = updatedArea;
-                currentLoggedInDonor.lastDonated = updatedLastDate;
-
-                updateProfileModalUI(currentLoggedInDonor);
-                openModal('donor-profile-modal');
-            } catch (e) {
-                console.error("Error updating profile:", e);
-                showToast("Failed to update profile.");
-            }
-        }
-
-        async function handleEmergencySubmit(event) {
-            event.preventDefault();
-            const patient = document.getElementById('em-patient').value;
-            const group = document.getElementById('em-group').value;
-            const bags = document.getElementById('em-bags').value;
-            const donatingTime = document.getElementById('em-donating-time').value;
-            const location = document.getElementById('em-location').value;
-            const phone = document.getElementById('em-phone').value;
-
-            try {
-                await window.addDoc(window.collection(window.db, "emergencies"), {
-                    patient,
-                    group,
-                    bags,
-                    donatingTime,
-                    location,
-                    phone,
-                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    createdAt: new Date()
-                });
-                closeModal('emergency-modal');
-                showToast(`Emergency alert broadcasted!`);
-                event.target.reset();
-            } catch (e) {
-                console.error("Error adding emergency: ", e);
-                showToast("Error posting emergency.");
-            }
-        }
-
-        async function handleContactSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('msg-name').value;
-            const phone = document.getElementById('msg-phone').value;
-            const message = document.getElementById('msg-content').value;
-
-            try {
-                await window.addDoc(window.collection(window.db, "messages"), {
-                    name,
-                    phone,
-                    message,
-                    createdAt: new Date()
-                });
-                showToast("Message sent and broadcasted as a review!");
-                event.target.reset();
-            } catch (e) {
-                console.error("Error saving message: ", e);
-                showToast("Error sending message.");
-            }
-        }
-
-        function handleAdminLogin(event) {
-            event.preventDefault();
-            const passkey = document.getElementById('admin-passkey').value;
-            if (passkey === 'admin012') {
-                document.getElementById('admin-login-step').classList.add('hidden');
-                document.getElementById('admin-dashboard-step').classList.remove('hidden');
-                showToast("Admin access granted.");
-            } else {
-                showToast("Invalid admin passkey!");
-            }
-        }
-
-        function adminLogout() {
-            document.getElementById('admin-passkey').value = '';
-            document.getElementById('admin-dashboard-step').classList.add('hidden');
-            document.getElementById('admin-login-step').classList.remove('hidden');
-            closeModal('admin-modal');
-            showToast("Logged out from admin panel.");
-        }
-
-        function renderAdminTable() {
-            const tbody = document.getElementById('admin-donor-table');
-            if(!tbody) return;
-            tbody.innerHTML = '';
-            if (donorsList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">No registered donors in database.</td></tr>`;
-                return;
-            }
-
-            donorsList.forEach((donor) => {
-                const tr = document.createElement('tr');
-                tr.className = "border-b border-slate-100 hover:bg-slate-50";
-                tr.innerHTML = `
-                    <td class="p-3 font-bold text-slate-800">${donor.name}</td>
-                    <td class="p-3 font-bold text-red-600">${donor.group}</td>
-                    <td class="p-3">${donor.area}</td>
-                    <td class="p-3">${donor.phone}</td>
-                    <td class="p-3 text-right">
-                        <button onclick="deleteDonor('${donor.id}')" class="text-red-600 hover:text-red-800 font-bold text-xs underline">Delete</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function renderAdminEmergencyTable() {
-            const tbody = document.getElementById('admin-emergency-table');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-            if (emergencyRequests.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">No active emergency blood requests.</td></tr>`;
-                return;
-            }
-
-            emergencyRequests.forEach((req) => {
-                const tr = document.createElement('tr');
-                tr.className = "border-b border-red-100 hover:bg-red-50";
-                const displayTime = (req.donatingTime && req.donatingTime.trim() !== "") ? req.donatingTime : "As soon as possible";
-                const bloodGrp = req.group || req.bloodGroup || req.blood || req.blood_group || 'N/A';
-                tr.innerHTML = `
-                    <td class="p-3 font-bold text-slate-800">${req.patient}</td>
-                    <td class="p-3 font-bold text-red-600">${bloodGrp}</td>
-                    <td class="p-3 font-bold">${req.bags} Bag(s)</td>
-                    <td class="p-3 font-semibold text-red-700 bg-red-100/50 rounded-lg">${displayTime}</td>
-                    <td class="p-3">${req.location}</td>
-                    <td class="p-3 font-bold text-slate-900">${req.phone}</td>
-                    <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
-                        <button onclick="markAsSuccessfulDonation('${req.id}', '${req.patient}', '${bloodGrp}')" class="text-emerald-700 bg-emerald-100 px-2 py-1 rounded hover:bg-emerald-200 font-bold text-xs">Successful</button>
-                        <button onclick="deleteEmergency('${req.id}')" class="text-amber-800 bg-amber-100 px-2 py-1 rounded hover:bg-amber-200 font-bold text-xs">Remove</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function renderAdminMessageTable() {
-            const tbody = document.getElementById('admin-message-table');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-            if (messagesList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">No incoming messages.</td></tr>`;
-                return;
-            }
-
-            messagesList.forEach((msg) => {
-                const tr = document.createElement('tr');
-                tr.className = "border-b border-blue-100 hover:bg-blue-50";
-                tr.innerHTML = `
-                    <td class="p-3 font-bold text-slate-800 align-top">${msg.name || 'Anonymous'}</td>
-                    <td class="p-3 font-bold text-blue-600 align-top whitespace-nowrap">
-                        <a href="tel:${msg.phone}" class="hover:underline">${msg.phone || 'N/A'}</a>
-                    </td>
-                    <td class="p-3 text-slate-800 font-medium align-top whitespace-normal break-words leading-relaxed min-w-[200px]">${msg.message || ''}</td>
-                    <td class="p-3 text-right align-top">
-                        <button onclick="deleteMessage('${msg.id}')" class="text-red-600 hover:text-red-800 font-bold text-xs underline">Delete</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        async function deleteDonor(id) {
-            try {
-                await window.deleteDoc(window.doc(window.db, "donors", id));
-                showToast("Donor record deleted.");
-            } catch (e) {
-                console.error("Error deleting donor: ", e);
-            }
-        }
-
-        async function deleteEmergency(id) {
-            try {
-                await window.deleteDoc(window.doc(window.db, "emergencies", id));
-                showToast("Emergency request removed.");
-            } catch (e) {
-                console.error("Error deleting emergency: ", e);
-            }
-        }
-
-        async function deleteMessage(id) {
-            try {
-                await window.deleteDoc(window.doc(window.db, "messages", id));
-                showToast("Message deleted.");
-            } catch (e) {
-                console.error("Error deleting message: ", e);
-            }
-        }
-
-        async function markAsSuccessfulDonation(id, patient, group) {
-            try {
-                const statRef = window.doc(window.db, "stats", "impact");
-                const statSnap = await window.getDoc(statRef);
-                let currentCount = statSnap.exists() ? (statSnap.data().successfulDonations || 0) : 0;
-                await window.setDoc(statRef, { successfulDonations: currentCount + 1 }, { merge: true });
-                await window.deleteDoc(window.doc(window.db, "emergencies", id));
-                showToast(`🎉 Recorded successful donation for ${patient} (${group})!`);
-            } catch (e) {
-                console.error("Error updating stats: ", e);
-            }
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-text').innerText = msg;
-            toast.classList.add('flex');
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 4000);
-        }
-    </script>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+<div class="bg-slate-900 text-white text-xs py-2 px-4 border-b border-slate-800">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center space-x-2 flex-wrap">
+<span class="bg-red-600 text-white font-extrabold px-2 py-0.5 rounded text-[10px] uppercase animate-pulse">Hotline</span>
+<span class="text-slate-300">Durdom-25:</span>
+<span class="text-slate-200 font-semibold">Tanvir:</span><a href="tel:+8801342293635" class="text-red-400 font-bold hover:underline">01342293635</a>
+<span class="text-slate-500">|</span>
+<span class="text-slate-200 font-semibold">Miskat:</span><a href="tel:+8801756391595" class="text-red-400 font-bold hover:underline">01756391595</a>
+<span class="text-slate-500">|</span>
+<span class="text-slate-200 font-semibold">Shuvo:</span><a href="tel:+8801342307405" class="text-red-400 font-bold hover:underline">01342307405</a>
+</div>
+<div class="flex items-center space-x-4 text-slate-400 text-[11px]">
+<button onclick="requestNotificationPermission()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 shadow"><i data-lucide="bell" class="w-3 h-3"></i> Alerts</button>
+<span><i data-lucide="map-pin" class="w-3 h-3 text-red-500 inline"></i> Jhenaidah</span>
+<button onclick="openModal('admin-modal')" class="text-slate-300 font-bold ml-2 underline flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3 text-red-400"></i> Admin</button>
+</div>
+</div>
+</div>
+
+<div id="emergency-broadcast-ticker" class="hidden bg-red-600 text-white py-2 px-3 shadow-md relative z-30">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+<div class="flex items-center space-x-2">
+<span class="bg-white text-red-600 font-black px-2 py-0.5 rounded text-[11px]">🚨 EMERGENCY</span>
+<span id="em-count-badge" class="bg-red-800 text-red-100 font-extrabold px-1.5 py-0.5 rounded text-[11px]">1/1</span>
+</div>
+<div onclick="showEmergencyDetailsModal()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-bold marquee-container">
+<div id="em-broadcast-text" class="marquee-content">Loading emergencies...</div>
+</div>
+<div class="flex items-center space-x-2">
+<a id="em-call-btn" href="tel:" class="px-3 py-1 bg-white text-red-600 font-black text-xs rounded-lg">Call</a>
+<button onclick="showEmergencyDetailsModal()" class="px-2.5 py-1 bg-red-800 text-white font-bold text-xs rounded-lg">Details</button>
+</div>
+</div>
+</div>
+
+<div id="review-broadcast-ticker" class="hidden bg-indigo-900 text-white py-2 px-3 shadow-md relative z-20">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+<span class="bg-indigo-500 text-white font-black px-2 py-0.5 rounded text-[11px]">💬 REVIEW</span>
+<div onclick="showReviewToast()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-semibold marquee-container">
+<div id="review-broadcast-text" class="marquee-content text-indigo-100">Loading user feedback...</div>
+</div>
+</div>
+</div>
+
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-20">
+<a href="#" class="flex items-center space-x-3">
+<div class="relative w-12 h-12 flex-shrink-0 logo-shadow">
+<svg viewBox="0 0 200 200" class="w-full h-full">
+<path id="textPathTop" d="M 25,100 A 75,75 0 1,1 175,100" fill="none"/>
+<path id="textPathBottom" d="M 175,100 A 75,75 0 0,1 25,100" fill="none"/>
+<circle cx="100" cy="100" r="96" fill="#fff" stroke="#e2e8f0" stroke-width="4"/>
+<text class="curved-logo-text"><textPath href="#textPathTop" startOffset="50%" text-anchor="middle">Durdom-25 Blood</textPath></text>
+<text class="curved-logo-text" style="font-size:11px;fill:#dc2626"><textPath href="#textPathBottom" startOffset="50%" text-anchor="middle">Society Jhenaidah</textPath></text>
+<path d="M 100 42 C 100 42, 65 92, 65 118 C 65 137 80 152 100 152 C 120 152 135 137 135 118 C 135 92, 100 42, 100 42 Z" fill="#dc2626"/>
+</svg>
+</div>
+<div>
+<span class="text-lg font-black text-slate-900 block leading-none">Durdom-25</span>
+<span class="text-[10px] text-red-600 font-bold uppercase tracking-wider block">Blood Donation Society</span>
+</div>
+</a>
+<nav class="hidden lg:flex items-center space-x-6 text-sm font-bold text-slate-700">
+<a href="#home" class="hover:text-red-600">Home</a>
+<a href="#find-donor" class="hover:text-red-600">Donors</a>
+<a href="#coverage" class="hover:text-red-600">Coverage</a>
+<a href="#compatibility" class="hover:text-red-600">Blood Types</a>
+<a href="#contact" class="hover:text-red-600">Contact</a>
+</nav>
+<div class="hidden sm:flex items-center space-x-2">
+<button onclick="openModal('donor-login-modal')" class="px-3 py-2 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5 text-red-600"></i> Donor Login</button>
+<button onclick="openModal('emergency-modal')" class="px-3 py-2 rounded-xl border-2 border-red-600 text-red-600 font-bold text-xs">Request Blood</button>
+<button onclick="openModal('donor-modal')" class="px-3.5 py-2 rounded-xl bg-red-600 text-white font-bold text-xs shadow-md">Join DBDSJ-25</button>
+</div>
+<button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-slate-700"><i data-lucide="menu" class="w-6 h-6"></i></button>
+</div>
+<div id="mobile-menu" class="hidden lg:hidden border-t bg-white px-4 py-4 space-y-2">
+<a href="#home" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Home</a>
+<a href="#find-donor" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Donors</a>
+<a href="#coverage" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Coverage</a>
+<div class="pt-2 flex flex-col space-y-2">
+<button onclick="toggleMobileMenu();openModal('donor-login-modal')" class="w-full py-2 rounded-xl border font-bold text-sm">Donor Login</button>
+<button onclick="toggleMobileMenu();openModal('emergency-modal')" class="w-full py-2 rounded-xl border-2 border-red-600 text-red-600 font-bold text-sm">Request Blood</button>
+<button onclick="toggleMobileMenu();openModal('donor-modal')" class="w-full py-2 rounded-xl bg-red-600 text-white font-bold text-sm">Join Durdom-25</button>
+</div>
+</div>
+</header>
+
+<section id="home" class="pt-10 pb-16 bg-gradient-to-b from-red-50 to-white">
+<div class="max-w-7xl mx-auto px-4 text-center lg:text-left grid lg:grid-cols-12 gap-8 items-center">
+<div class="lg:col-span-7 space-y-5">
+<h1 class="text-3xl sm:text-5xl font-black text-slate-900 leading-tight">Durdom-25 Blood Donation Society <span class="text-red-600">Jhenaidah</span></h1>
+<p class="text-slate-600 text-sm sm:text-base">Connecting voluntary donors across Jhenaidah Sadar, Kaliganj, Kotchandpur, Maheshpur, Shailkupa, and Harinakunda.</p>
+<div class="grid grid-cols-3 gap-2 max-w-md mx-auto lg:mx-0">
+<div class="bg-white p-3 rounded-xl border text-center"><span id="stat-donors-count" class="block text-xl font-black text-red-600">0</span><span class="text-[10px] text-slate-500 font-bold uppercase">Donors</span></div>
+<div class="bg-white p-3 rounded-xl border text-center"><span id="stat-donations-count" class="block text-xl font-black text-emerald-600">0</span><span class="text-[10px] text-slate-500 font-bold uppercase">Donations</span></div>
+<div class="bg-white p-3 rounded-xl border text-center"><span class="block text-xl font-black text-slate-800">6</span><span class="text-[10px] text-slate-500 font-bold uppercase">Upazilas</span></div>
+</div>
+<div class="flex flex-col sm:flex-row gap-3 pt-2 justify-center lg:justify-start">
+<button onclick="openModal('emergency-modal')" class="px-6 py-3.5 rounded-xl bg-red-600 text-white font-extrabold text-sm shadow-lg">Emergency Blood Request</button>
+<button onclick="openModal('donor-login-modal')" class="px-6 py-3.5 rounded-xl bg-slate-900 text-white font-extrabold text-sm shadow-lg">Donor Login</button>
+<button onclick="openModal('donor-modal')" class="px-6 py-3.5 rounded-xl border border-slate-300 font-extrabold text-sm bg-white">Join Durdom-25</button>
+</div>
+</div>
+<div class="lg:col-span-5 bg-white p-6 rounded-2xl border shadow-xl max-w-md mx-auto w-full">
+<h3 class="text-lg font-black text-slate-900 text-center">Find Donors Quickly</h3>
+<div class="mt-4 space-y-3">
+<select id="hero-select-group" class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<select id="hero-select-area" class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Jhenaidah Areas</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+<a href="#find-donor" onclick="applyHeroFilters()" class="block w-full py-3 bg-slate-900 text-white font-bold text-center text-sm rounded-xl">Search Donors</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="find-donor" class="py-16 bg-slate-50">
+<div class="max-w-7xl mx-auto px-4">
+<h3 class="text-2xl font-black text-center mb-6">Available Donors in Jhenaidah</h3>
+<div class="bg-white p-4 rounded-xl border mb-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+<select id="filter-group" onchange="filterDonors()" class="border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<select id="filter-area" onchange="filterDonors()" class="border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Upazilas</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+<input type="text" id="filter-search" onkeyup="filterDonors()" placeholder="Search name or phone..." class="border rounded-xl p-2.5 text-sm font-medium">
+</div>
+<div id="donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+</div>
+</section>
+
+<section id="contact" class="py-16 bg-white border-t">
+<div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8">
+<div>
+<h3 class="text-2xl font-black mb-4">Contact Durdom-25</h3>
+<p class="text-slate-600 text-sm mb-4">Reach out to our helpline contacts directly for assistance in Jhenaidah.</p>
+<div class="space-y-2 text-sm font-bold">
+<div>Tanvir: <a href="tel:+8801342293635" class="text-red-600 underline">01342293635</a></div>
+<div>Miskat: <a href="tel:+8801756391595" class="text-red-600 underline">01756391595</a></div>
+<div>Shuvo: <a href="tel:+8801342307405" class="text-red-600 underline">01342307405</a></div>
+</div>
+</div>
+<form onsubmit="handleContactSubmit(event)" class="space-y-3 bg-slate-50 p-6 rounded-2xl border">
+<input type="text" id="msg-name" required placeholder="Your Name" class="w-full border rounded-xl p-2.5 text-sm">
+<input type="tel" id="msg-phone" required placeholder="Phone Number" class="w-full border rounded-xl p-2.5 text-sm">
+<textarea id="msg-content" rows="3" required placeholder="Your Message" class="w-full border rounded-xl p-2.5 text-sm"></textarea>
+<button type="submit" class="w-full py-3 bg-slate-900 text-white font-bold rounded-xl text-sm">Send Message</button>
+</form>
+</div>
+</section>
+
+<footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs">
+&copy; Durdom-25 Blood Donation Society Jhenaidah.
+</footer>
+
+<!-- MODALS -->
+<div id="details-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center relative">
+<button onclick="closeModal('details-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<span id="dt-group-badge" class="px-3 py-1 bg-red-600 text-white font-black text-lg rounded-xl">A+</span>
+<h3 class="text-lg font-black mt-2" id="dt-patient-name">Emergency</h3>
+<div class="text-xs text-left bg-slate-50 p-3 rounded-xl space-y-1 my-3">
+<div>Bags: <strong id="dt-bags">1</strong></div>
+<div>Location: <strong id="dt-location">-</strong></div>
+<div>Time: <strong id="dt-time" class="text-red-600">-</strong></div>
+<div>Phone: <strong id="dt-phone">-</strong></div>
+</div>
+<a id="dt-call-btn" href="tel:" class="block w-full py-2.5 bg-red-600 text-white font-bold rounded-xl text-sm">Call Attendant</a>
+</div>
+</div>
+
+<div id="donor-login-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('donor-login-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-xl font-black text-center mb-4">Donor Login</h3>
+<form onsubmit="handleDonorLogin(event)" class="space-y-3">
+<input type="tel" id="login-phone" required placeholder="Registered Phone Number" class="w-full border rounded-xl p-2.5 text-sm">
+<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Login</button>
+</form>
+</div>
+</div>
+
+<div id="donor-profile-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('donor-profile-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<div class="text-center"><span id="dp-group-badge" class="px-3 py-1 bg-red-600 text-white font-black text-lg rounded-xl">A+</span><h3 id="dp-name" class="text-lg font-black mt-1">Profile</h3></div>
+<div class="text-xs space-y-1 my-3 bg-slate-50 p-3 rounded-xl">
+<div>Phone: <strong id="dp-phone">-</strong></div>
+<div>Area: <strong id="dp-area">-</strong></div>
+<div>Last Donated: <strong id="dp-last">-</strong></div>
+<div>Status: <strong id="dp-status" class="text-emerald-600">-</strong></div>
+</div>
+<button onclick="openEditProfileForm()" class="w-full py-2.5 bg-red-600 text-white font-bold rounded-xl text-sm mb-2">Edit Profile</button>
+</div>
+</div>
+
+<div id="donor-edit-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('donor-edit-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-lg font-black text-center mb-3">Edit Profile</h3>
+<form onsubmit="handleDonorUpdate(event)" class="space-y-3">
+<input type="hidden" id="edit-donor-id">
+<input type="text" id="edit-name" required placeholder="Name" class="w-full border rounded-xl p-2 text-sm">
+<select id="edit-group" class="w-full border rounded-xl p-2 text-sm font-bold"><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<select id="edit-area" class="w-full border rounded-xl p-2 text-sm font-bold"><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+<input type="date" id="edit-last-date" class="w-full border rounded-xl p-2 text-sm">
+<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Save</button>
+</form>
+</div>
+</div>
+
+<div id="donor-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('donor-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-xl font-black text-center mb-3">Join Durdom-25</h3>
+<form onsubmit="handleDonorRegister(event)" class="space-y-3">
+<input type="text" id="donor-name" required placeholder="Full Name" class="w-full border rounded-xl p-2.5 text-sm">
+<select id="donor-group" required class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="">Group</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<select id="donor-area" required class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="">Area</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+<input type="tel" id="donor-phone" required placeholder="Phone" class="w-full border rounded-xl p-2.5 text-sm">
+<input type="date" id="donor-last-date" class="w-full border rounded-xl p-2.5 text-sm">
+<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Register</button>
+</form>
+</div>
+</div>
+
+<div id="emergency-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('emergency-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-xl font-black text-center mb-3">Emergency Request</h3>
+<form onsubmit="handleEmergencySubmit(event)" class="space-y-3">
+<input type="text" id="em-patient" required placeholder="Patient Name" class="w-full border rounded-xl p-2.5 text-sm">
+<select id="em-group" required class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="">Group Needed</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<input type="number" id="em-bags" min="1" max="10" value="1" required class="w-full border rounded-xl p-2.5 text-sm">
+<input type="text" id="em-donating-time" required placeholder="Time (e.g. ASAP)" class="w-full border rounded-xl p-2.5 text-sm">
+<input type="text" id="em-location" required placeholder="Hospital / Location" class="w-full border rounded-xl p-2.5 text-sm">
+<input type="tel" id="em-phone" required placeholder="Contact Phone" class="w-full border rounded-xl p-2.5 text-sm">
+<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Post Request</button>
+</form>
+</div>
+</div>
+
+<div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
+<button onclick="closeModal('admin-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<div id="admin-login-step">
+<h3 class="text-xl font-black text-center mb-3">Admin Panel</h3>
+<form onsubmit="handleAdminLogin(event)" class="space-y-3 max-w-xs mx-auto">
+<input type="password" id="admin-passkey" required placeholder="Passkey" class="w-full border rounded-xl p-2.5 text-sm">
+<button type="submit" class="w-full py-3 bg-slate-900 text-white font-bold rounded-xl text-sm">Unlock</button>
+</form>
+</div>
+<div id="admin-dashboard-step" class="hidden space-y-4 text-xs">
+<div class="flex justify-between items-center"><h4 class="font-bold text-sm">Admin Dashboard</h4><button onclick="adminLogout()" class="text-red-600 font-bold">Logout</button></div>
+<div>
+<h5 class="font-bold text-red-600 mb-1">Active Emergencies</h5>
+<table class="w-full border text-left">
+<thead class="bg-slate-100"><tr><th class="p-2">Patient</th><th class="p-2">Group</th><th class="p-2">Action</th></tr></thead>
+<tbody id="admin-emergency-table"></tbody>
+</table>
+</div>
+<div>
+<h5 class="font-bold mb-1">Donors</h5>
+<table class="w-full border text-left">
+<thead class="bg-slate-100"><tr><th class="p-2">Name</th><th class="p-2">Phone</th><th class="p-2">Action</th></tr></thead>
+<tbody id="admin-donor-table"></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-bold">
+<span id="toast-text">Notification</span>
+</div>
+
+<script>
+let donorsList=[],emergencyRequests=[],messagesList=[],emergencyIndex=0,reviewIndex=0,currentLoggedInDonor=null;
+function openModal(id){document.getElementById(id).classList.remove('hidden');lucide.createIcons();}
+function closeModal(id){document.getElementById(id).classList.add('hidden');}
+function toggleMobileMenu(){document.getElementById('mobile-menu').classList.toggle('hidden');}
+
+function calculateEligibilityStatus(dateStr){
+if(!dateStr||dateStr==="Recently"||dateStr==="N/A")return{isEligible:true,badgeText:"Available"};
+const d=new Date(dateStr);if(isNaN(d.getTime()))return{isEligible:true,badgeText:"Available"};
+const diff=Math.floor((new Date()-d)/(1000*3600*24));
+return diff>=120?{isEligible:true,badgeText:"Available"}:{isEligible:false,badgeText:`Eligible in ${120-diff}d`};
+}
+
+window.addEventListener('firebase-ready',()=>{initRealtimeListeners();lucide.createIcons();});
+
+function initRealtimeListeners(){
+window.onSnapshot(window.collection(window.db,"donors"),(snap)=>{
+donorsList=[];snap.forEach(d=>donorsList.push({id:d.id,...d.data()}));
+renderDonors(donorsList);renderAdminTable();
+const cnt=document.getElementById('stat-donors-count');if(cnt)cnt.innerText=donorsList.length;
+});
+
+window.onSnapshot(window.doc(window.db,"stats","impact"),(snap)=>{
+const cnt=document.getElementById('stat-donations-count');
+if(cnt)cnt.innerText=snap.exists()?snap.data().successfulDonations||0:0;
+});
+
+window.onSnapshot(window.collection(window.db,"emergencies"),(snap)=>{
+emergencyRequests=[];snap.forEach(d=>emergencyRequests.push({id:d.id,...d.data()}));
+const ticker=document.getElementById('emergency-broadcast-ticker');
+if(emergencyRequests.length>0){ticker.classList.remove('hidden');renderCurrentEmergencySlide();}
+else{ticker.classList.add('hidden');}
+renderAdminEmergencyTable();
+});
+
+window.onSnapshot(window.collection(window.db,"messages"),(snap)=>{
+messagesList=[];snap.forEach(d=>messagesList.push({id:d.id,...d.data()}));
+const ticker=document.getElementById('review-broadcast-ticker');
+if(messagesList.length>0){ticker.classList.remove('hidden');renderCurrentReviewSlide();}
+else{ticker.classList.add('hidden');}
+});
+}
+
+function renderCurrentEmergencySlide(){
+if(!emergencyRequests.length)return;
+const req=emergencyRequests[emergencyIndex]||emergencyRequests[0];
+const text=document.getElementById('em-broadcast-text');
+const call=document.getElementById('em-call-btn');
+if(text)text.innerHTML=`🚨 <strong>${req.group||'Blood'}</strong> (${req.bags||1} Bag) for <strong>${req.patient||'Patient'}</strong> at ${req.location||'Jhenaidah'}`;
+if(call)call.href=`tel:${req.phone}`;
+}
+
+function renderCurrentReviewSlide(){
+if(!messagesList.length)return;
+const msg=messagesList[reviewIndex]||messagesList[0];
+const text=document.getElementById('review-broadcast-text');
+if(text)text.innerHTML=`💬 "${msg.message}" &mdash; <strong>${msg.name||'Anonymous'}</strong>`;
+}
+
+function showEmergencyDetailsModal(){
+if(!emergencyRequests.length)return;
+const req=emergencyRequests[emergencyIndex]||emergencyRequests[0];
+document.getElementById('dt-group-badge').innerText=req.group||'Blood';
+document.getElementById('dt-patient-name').innerText=req.patient||'Patient';
+document.getElementById('dt-bags').innerText=`${req.bags||1} Bag(s)`;
+document.getElementById('dt-location').innerText=req.location||'Jhenaidah';
+document.getElementById('dt-time').innerText=req.donatingTime||'ASAP';
+document.getElementById('dt-phone').innerText=req.phone||'-';
+document.getElementById('dt-call-btn').href=`tel:${req.phone}`;
+openModal('details-modal');
+}
+
+function showReviewToast(){
+if(messagesList.length)showToast(`💬 ${messagesList[reviewIndex].name}: "${messagesList[reviewIndex].message}"`);
+}
+
+function renderDonors(items){
+const c=document.getElementById('donor-grid');if(!c)return;c.innerHTML='';
+items.forEach(d=>{
+const status=calculateEligibilityStatus(d.lastDonated);
+const el=document.createElement('div');
+el.className="bg-white p-4 rounded-xl border shadow-sm flex flex-col justify-between";
+el.innerHTML=`
+<div>
+<div class="flex justify-between items-center mb-2"><span class="w-10 h-10 rounded-lg bg-red-100 text-red-600 font-black flex items-center justify-center">${d.group}</span><span class="text-xs font-bold ${status.isEligible?'text-emerald-600':'text-amber-600'}">${status.badgeText}</span></div>
+<h4 class="font-bold text-slate-900">${d.name}</h4>
+<div class="text-xs text-slate-500 mt-1">📍 ${d.area}, Jhenaidah</div>
+</div>
+<a href="tel:${d.phone}" class="mt-4 block text-center py-2 bg-slate-900 text-white font-bold text-xs rounded-lg">Call (${d.phone})</a>
+`;
+c.appendChild(el);
+});
+}
+
+function filterDonors(){
+const g=document.getElementById('filter-group').value;
+const a=document.getElementById('filter-area').value;
+const s=document.getElementById('filter-search').value.toLowerCase();
+renderDonors(donorsList.filter(d=>(g==='ALL'||d.group===g)&&(a==='ALL'||d.area===a)&&(d.name.toLowerCase().includes(s)||d.phone.includes(s))));
+}
+
+function applyHeroFilters(){
+document.getElementById('filter-group').value=document.getElementById('hero-select-group').value;
+document.getElementById('filter-area').value=document.getElementById('hero-select-area').value;
+filterDonors();
+}
+
+async function handleDonorRegister(e){
+e.preventDefault();
+await window.addDoc(window.collection(window.db,"donors"),{
+name:document.getElementById('donor-name').value,
+group:document.getElementById('donor-group').value,
+area:document.getElementById('donor-area').value,
+phone:document.getElementById('donor-phone').value,
+lastDonated:document.getElementById('donor-last-date').value||"Recently",
+createdAt:new Date()
+});
+closeModal('donor-modal');showToast("Registered successfully!");e.target.reset();
+}
+
+function handleDonorLogin(e){
+e.preventDefault();
+const p=document.getElementById('login-phone').value.trim();
+const found=donorsList.find(d=>d.phone===p);
+if(found){
+currentLoggedInDonor=found;closeModal('donor-login-modal');
+document.getElementById('dp-name').innerText=found.name;
+document.getElementById('dp-group-badge').innerText=found.group;
+document.getElementById('dp-phone').innerText=found.phone;
+document.getElementById('dp-area').innerText=found.area;
+document.getElementById('dp-last').innerText=found.lastDonated||'N/A';
+document.getElementById('dp-status').innerText=calculateEligibilityStatus(found.lastDonated).badgeText;
+openModal('donor-profile-modal');
+}else{showToast("Phone number not registered.");}
+}
+
+function openEditProfileForm(){
+if(!currentLoggedInDonor)return;
+closeModal('donor-profile-modal');
+document.getElementById('edit-donor-id').value=currentLoggedInDonor.id;
+document.getElementById('edit-name').value=currentLoggedInDonor.name;
+document.getElementById('edit-group').value=currentLoggedInDonor.group;
+document.getElementById('edit-area').value=currentLoggedInDonor.area;
+document.getElementById('edit-last-date').value=(currentLoggedInDonor.lastDonated&&currentLoggedInDonor.lastDonated!=="Recently")?currentLoggedInDonor.lastDonated:'';
+openModal('donor-edit-modal');
+}
+
+async function handleDonorUpdate(e){
+e.preventDefault();
+const id=document.getElementById('edit-donor-id').value;
+await window.updateDoc(window.doc(window.db,"donors",id),{
+name:document.getElementById('edit-name').value,
+group:document.getElementById('edit-group').value,
+area:document.getElementById('edit-area').value,
+lastDonated:document.getElementById('edit-last-date').value||"Recently"
+});
+closeModal('donor-edit-modal');showToast("Profile updated!");
+}
+
+async function handleEmergencySubmit(e){
+e.preventDefault();
+await window.addDoc(window.collection(window.db,"emergencies"),{
+patient:document.getElementById('em-patient').value,
+group:document.getElementById('em-group').value,
+bags:document.getElementById('em-bags').value,
+donatingTime:document.getElementById('em-donating-time').value,
+location:document.getElementById('em-location').value,
+phone:document.getElementById('em-phone').value,
+createdAt:new Date()
+});
+closeModal('emergency-modal');showToast("Emergency posted!");e.target.reset();
+}
+
+async function handleContactSubmit(e){
+e.preventDefault();
+await window.addDoc(window.collection(window.db,"messages"),{
+name:document.getElementById('msg-name').value,
+phone:document.getElementById('msg-phone').value,
+message:document.getElementById('msg-content').value,
+createdAt:new Date()
+});
+showToast("Message sent!");e.target.reset();
+}
+
+function handleAdminLogin(e){
+e.preventDefault();
+if(document.getElementById('admin-passkey').value==='admin012'){
+document.getElementById('admin-login-step').classList.add('hidden');
+document.getElementById('admin-dashboard-step').classList.remove('hidden');
+}else{showToast("Invalid passkey!");}
+}
+
+function adminLogout(){
+document.getElementById('admin-dashboard-step').classList.add('hidden');
+document.getElementById('admin-login-step').classList.remove('hidden');
+closeModal('admin-modal');
+}
+
+function renderAdminTable(){
+const t=document.getElementById('admin-donor-table');if(!t)return;t.innerHTML='';
+donorsList.forEach(d=>{
+t.innerHTML+=`<tr class="border-b"><td class="p-2 font-bold">${d.name}</td><td class="p-2">${d.phone}</td><td class="p-2"><button onclick="deleteDonor('${d.id}')" class="text-red-600 font-bold">Delete</button></td></tr>`;
+});
+}
+
+function renderAdminEmergencyTable(){
+const t=document.getElementById('admin-emergency-table');if(!t)return;t.innerHTML='';
+emergencyRequests.forEach(r=>{
+t.innerHTML+=`<tr class="border-b"><td class="p-2 font-bold">${r.patient}</td><td class="p-2 text-red-600 font-bold">${r.group}</td><td class="p-2"><button onclick="markAsSuccessfulDonation('${r.id}')" class="text-emerald-600 font-bold mr-2">Done</button><button onclick="deleteEmergency('${r.id}')" class="text-red-600 font-bold">Remove</button></td></tr>`;
+});
+}
+
+async function deleteDonor(id){await window.deleteDoc(window.doc(window.db,"donors",id));showToast("Deleted.");}
+async function deleteEmergency(id){await window.deleteDoc(window.doc(window.db,"emergencies",id));showToast("Removed.");}
+async function markAsSuccessfulDonation(id){
+const ref=window.doc(window.db,"stats","impact");
+const snap=await window.getDoc(ref);
+const cnt=snap.exists()?(snap.data().successfulDonations||0):0;
+await window.setDoc(ref,{successfulDonations:cnt+1},{merge:true});
+await deleteEmergency(id);
+showToast("Marked successful!");
+}
+
+function showToast(m){
+const t=document.getElementById('toast');
+document.getElementById('toast-text').innerText=m;
+t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),3000);
+}
+function requestNotificationPermission(){Notification.requestPermission();}
+</script>
 </body>
 </html>
