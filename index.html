@@ -59,4 +59,718 @@ html{scroll-behavior:smooth}
 <span id="em-count-badge" class="bg-red-800 text-red-100 font-extrabold px-1.5 py-0.5 rounded text-[11px]">1/1</span>
 </div>
 <div onclick="showEmergencyDetailsModal()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-bold marquee-container">
-<div id="em-broadcast-text
+<div id="em-broadcast-text" class="marquee-content">Loading emergencies...</div>
+</div>
+<div class="flex items-center space-x-2">
+<a id="em-call-btn" href="tel:" class="px-3 py-1 bg-white text-red-600 font-black text-xs rounded-lg">Call</a>
+<button onclick="showEmergencyDetailsModal()" class="px-2.5 py-1 bg-red-800 text-white font-bold text-xs rounded-lg">Details</button>
+</div>
+</div>
+</div>
+
+<div id="review-broadcast-ticker" class="hidden bg-indigo-900 text-white py-2 px-3 shadow-md relative z-20">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+<span class="bg-indigo-500 text-white font-black px-2 py-0.5 rounded text-[11px]">💬 REVIEW</span>
+<div onclick="showReviewToast()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-semibold marquee-container">
+<div id="review-broadcast-text" class="marquee-content text-indigo-100">Loading user feedback...</div>
+</div>
+</div>
+</div>
+
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-20">
+<a href="#" class="flex items-center space-x-3">
+<div class="relative w-12 h-12 flex-shrink-0 logo-shadow">
+<svg viewBox="0 0 200 200" class="w-full h-full">
+<path id="textPathTop" d="M 25,100 A 75,75 0 1,1 175,100" fill="none"/>
+<path id="textPathBottom" d="M 175,100 A 75,75 0 0,1 25,100" fill="none"/>
+<circle cx="100" cy="100" r="96" fill="#fff" stroke="#e2e8f0" stroke-width="4"/>
+<text class="curved-logo-text"><textPath href="#textPathTop" startOffset="50%" text-anchor="middle">Durdom-25 Blood</textPath></text>
+<text class="curved-logo-text" style="font-size:11px;fill:#dc2626"><textPath href="#textPathBottom" startOffset="50%" text-anchor="middle">Society Jhenaidah</textPath></text>
+<path d="M 100 42 C 100 42, 65 92, 65 118 C 65 137 80 152 100 152 C 120 152 135 137 135 118 C 135 92, 100 42, 100 42 Z" fill="#dc2626"/>
+</svg>
+</div>
+<div>
+<span class="text-lg font-black text-slate-900 block leading-none">Durdom-25</span>
+<span class="text-[10px] text-red-600 font-bold uppercase tracking-wider block">Blood Donation Society</span>
+</div>
+</a>
+<nav class="hidden lg:flex items-center space-x-6 text-sm font-bold text-slate-700">
+<a href="#home" class="hover:text-red-600">Home</a>
+<a href="#find-donor" class="hover:text-red-600">Donors</a>
+<a href="#compatibility" class="hover:text-red-600">Blood Types</a>
+<a href="#archive" class="hover:text-red-600">Archive</a>
+<a href="#contact" class="hover:text-red-600">Contact</a>
+</nav>
+<div class="hidden sm:flex items-center space-x-2">
+<button onclick="openModal('donor-login-modal')" class="px-3 py-2 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5 text-red-600"></i> Donor Login</button>
+<button onclick="openModal('emergency-modal')" class="px-3 py-2 rounded-xl border-2 border-red-600 text-red-600 font-bold text-xs">Request Blood</button>
+<button onclick="openModal('donor-modal')" class="px-3.5 py-2 rounded-xl bg-red-600 text-white font-bold text-xs shadow-md">Join DBDSJ-25</button>
+</div>
+<button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-slate-700"><i data-lucide="menu" class="w-6 h-6"></i></button>
+</div>
+<div id="mobile-menu" class="hidden lg:hidden border-t bg-white px-4 py-4 space-y-2">
+<a href="#home" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Home</a>
+<a href="#find-donor" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Donors</a>
+<a href="#compatibility" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Blood Types</a>
+<a href="#archive" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Archive</a>
+<a href="#contact" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Contact</a>
+<div class="pt-2 flex flex-col space-y-2">
+<button onclick="toggleMobileMenu();openModal('donor-login-modal')" class="w-full py-2 rounded-xl border font-bold text-sm">Donor Login</button>
+<button onclick="toggleMobileMenu();openModal('emergency-modal')" class="w-full py-2 rounded-xl border-2 border-red-600 text-red-600 font-bold text-sm">Request Blood</button>
+<button onclick="toggleMobileMenu();openModal('donor-modal')" class="w-full py-2 rounded-xl bg-red-600 text-white font-bold text-sm">Join Durdom-25</button>
+</div>
+</div>
+</header>
+
+<section id="home" class="pt-10 pb-16 bg-gradient-to-b from-red-50 to-white">
+<div class="max-w-7xl mx-auto px-4 text-center lg:text-left grid lg:grid-cols-12 gap-8 items-center">
+<div class="lg:col-span-7 space-y-5">
+<h1 class="text-3xl sm:text-5xl font-black text-slate-900 leading-tight">Durdom-25 Blood Donation Society <span class="text-red-600">Jhenaidah</span></h1>
+<p class="text-slate-600 text-sm sm:text-base">Connecting voluntary donors across Jhenaidah Sadar, Kaliganj, Kotchandpur, Maheshpur, Shailkupa, and Harinakunda.</p>
+<div class="grid grid-cols-3 gap-2 max-w-md mx-auto lg:mx-0">
+<div class="bg-white p-3 rounded-xl border text-center"><span id="stat-donors-count" class="block text-xl font-black text-red-600">0</span><span class="text-[10px] text-slate-500 font-bold uppercase">Donors</span></div>
+<div class="bg-white p-3 rounded-xl border text-center"><span id="stat-donations-count" class="block text-xl font-black text-emerald-600">0</span><span class="text-[10px] text-slate-500 font-bold uppercase">Donations</span></div>
+<div class="bg-white p-3 rounded-xl border text-center"><span class="block text-xl font-black text-slate-800">6</span><span class="text-[10px] text-slate-500 font-bold uppercase">Upazilas</span></div>
+</div>
+<div class="flex flex-col sm:flex-row gap-3 pt-2 justify-center lg:justify-start">
+<button onclick="openModal('emergency-modal')" class="px-6 py-3.5 rounded-xl bg-red-600 text-white font-extrabold text-sm shadow-lg">Emergency Blood Request</button>
+<button onclick="openModal('donor-login-modal')" class="px-6 py-3.5 rounded-xl bg-slate-900 text-white font-extrabold text-sm shadow-lg">Donor Login</button>
+<button onclick="openModal('donor-modal')" class="px-6 py-3.5 rounded-xl border border-slate-300 font-extrabold text-sm bg-white">Join Durdom-25</button>
+</div>
+</div>
+<div class="lg:col-span-5 bg-white p-6 rounded-2xl border shadow-xl max-w-md mx-auto w-full">
+<h3 class="text-lg font-black text-slate-900 text-center">Find Donors Quickly</h3>
+<div class="mt-4 space-y-3">
+<select id="hero-select-group" class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<select id="hero-select-area" class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Jhenaidah Areas</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+<a href="#find-donor" onclick="applyHeroFilters()" class="block w-full py-3 bg-slate-900 text-white font-bold text-center text-sm rounded-xl">Search Donors</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="find-donor" class="py-16 bg-slate-50">
+<div class="max-w-7xl mx-auto px-4">
+<h3 class="text-2xl font-black text-center mb-6">Available Donors in Jhenaidah</h3>
+<div class="bg-white p-4 rounded-xl border mb-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+<select id="filter-group" onchange="filterDonors()" class="border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<select id="filter-area" onchange="filterDonors()" class="border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Upazilas</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+<input type="text" id="filter-search" onkeyup="filterDonors()" placeholder="Search name or phone..." class="border rounded-xl p-2.5 text-sm font-medium">
+</div>
+<div id="donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+</div>
+</section>
+
+<!-- WHO CAN GIVE BLOOD TO WHOM (COMPATIBILITY MATRIX) -->
+<section id="compatibility" class="py-16 bg-white border-t">
+<div class="max-w-7xl mx-auto px-4">
+<div class="text-center mb-8">
+<h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-1">Blood Knowledge</h2>
+<h3 class="text-2xl font-black text-slate-900">Who Can Give Blood to Whom?</h3>
+<p class="text-slate-500 text-xs mt-1">Click on any blood group to view compatible donors and recipients.</p>
+</div>
+
+<div class="grid lg:grid-cols-12 gap-6 items-start">
+<div class="lg:col-span-5 grid grid-cols-4 gap-2">
+<button onclick="showCompatibility('A+')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500 active-compat" data-group="A+">A+</button>
+<button onclick="showCompatibility('A-')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="A-">A-</button>
+<button onclick="showCompatibility('B+')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="B+">B+</button>
+<button onclick="showCompatibility('B-')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="B-">B-</button>
+<button onclick="showCompatibility('O+')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="O+">O+</button>
+<button onclick="showCompatibility('O-')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="O-">O-</button>
+<button onclick="showCompatibility('AB+')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="AB+">AB+</button>
+<button onclick="showCompatibility('AB-')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="AB-">AB-</button>
+</div>
+
+<div class="lg:col-span-7 bg-slate-900 text-white rounded-2xl p-6 shadow-lg">
+<div class="flex items-center space-x-3 pb-4 border-b border-slate-800">
+<div id="compat-badge" class="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center font-black text-xl text-white">A+</div>
+<div>
+<h4 id="compat-title" class="text-lg font-bold">Blood Group A Positive</h4>
+<p id="compat-desc" class="text-slate-400 text-xs">Common blood type in Jhenaidah.</p>
+</div>
+</div>
+
+<div class="grid md:grid-cols-2 gap-4 pt-4">
+<div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60">
+<span class="text-xs font-bold uppercase text-emerald-400 block mb-2">↗️ Can Give Blood To</span>
+<div id="compat-give" class="flex flex-wrap gap-1.5"></div>
+</div>
+<div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60">
+<span class="text-xs font-bold uppercase text-red-400 block mb-2">↙️ Can Receive Blood From</span>
+<div id="compat-receive" class="flex flex-wrap gap-1.5"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DONOR ARCHIVE / WALL OF HONOR SECTION -->
+<section id="archive" class="py-16 bg-slate-50 border-t">
+<div class="max-w-7xl mx-auto px-4">
+<div class="text-center mb-8">
+<h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-1">Wall of Honor</h2>
+<h3 class="text-2xl font-black text-slate-900">Donor Archive & Successful Donations</h3>
+<p class="text-slate-500 text-xs mt-1">Honoring the life-saving voluntary blood donors of Jhenaidah.</p>
+</div>
+<div id="archive-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="text-center text-xs text-slate-400 col-span-full py-6">Loading donor archive...</div>
+</div>
+</div>
+</section>
+
+<!-- CONTACT & USER MESSAGE/REVIEW FORM SECTION -->
+<section id="contact" class="py-16 bg-white border-t">
+<div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8">
+<div>
+<h3 class="text-2xl font-black mb-4">Contact Durdom-25</h3>
+<p class="text-slate-600 text-sm mb-4">Reach out to our helpline contacts directly or leave a review message for the live ticker banner.</p>
+<div class="space-y-2 text-sm font-bold bg-slate-50 p-4 rounded-2xl border border-slate-200">
+<div>Tanvir: <a href="tel:+8801342293635" class="text-red-600 underline">01342293635</a></div>
+<div>Miskat: <a href="tel:+8801756391595" class="text-red-600 underline">01756391595</a></div>
+<div>Shuvo: <a href="tel:+8801342307405" class="text-red-600 underline">01342307405</a></div>
+</div>
+</div>
+<form onsubmit="handleContactSubmit(event)" class="space-y-3 bg-slate-50 p-6 rounded-2xl border">
+<h4 class="text-base font-black text-slate-900">Send Message or Review</h4>
+<input type="text" id="msg-name" required placeholder="Your Full Name" class="w-full border rounded-xl p-2.5 text-sm">
+<input type="tel" id="msg-phone" required placeholder="Phone Number" class="w-full border rounded-xl p-2.5 text-sm">
+<textarea id="msg-content" rows="3" required placeholder="Write your message or feedback review here..." class="w-full border rounded-xl p-2.5 text-sm"></textarea>
+<button type="submit" class="w-full py-3 bg-slate-900 text-white font-bold rounded-xl text-sm hover:bg-slate-800 transition">Submit Message & Publish Review</button>
+</form>
+</div>
+</section>
+
+<footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs">
+&copy; Durdom-25 Blood Donation Society Jhenaidah.
+</footer>
+
+<!-- MODALS -->
+<div id="details-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center relative">
+<button onclick="closeModal('details-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<span id="dt-group-badge" class="px-3 py-1 bg-red-600 text-white font-black text-lg rounded-xl">A+</span>
+<h3 class="text-lg font-black mt-2" id="dt-patient-name">Emergency</h3>
+<div class="text-xs text-left bg-slate-50 p-3 rounded-xl space-y-1 my-3">
+<div>Bags: <strong id="dt-bags">1</strong></div>
+<div>Location: <strong id="dt-location">-</strong></div>
+<div>Time: <strong id="dt-time" class="text-red-600">-</strong></div>
+<div>Phone: <strong id="dt-phone">-</strong></div>
+</div>
+<a id="dt-call-btn" href="tel:" class="block w-full py-2.5 bg-red-600 text-white font-bold rounded-xl text-sm">Call Attendant</a>
+</div>
+</div>
+
+<div id="donor-login-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('donor-login-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-xl font-black text-center mb-4">Donor Login</h3>
+<form onsubmit="handleDonorLogin(event)" class="space-y-3">
+<input type="tel" id="login-phone" required placeholder="Registered Phone Number" class="w-full border rounded-xl p-2.5 text-sm">
+<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Login</button>
+</form>
+</div>
+</div>
+
+<div id="donor-profile-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('donor-profile-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<div class="text-center"><span id="dp-group-badge" class="px-3 py-1 bg-red-600 text-white font-black text-lg rounded-xl">A+</span><h3 id="dp-name" class="text-lg font-black mt-1">Profile</h3></div>
+<div class="text-xs space-y-1 my-3 bg-slate-50 p-3 rounded-xl">
+<div>Phone: <strong id="dp-phone">-</strong></div>
+<div>Area: <strong id="dp-area">-</strong></div>
+<div>Last Donated: <strong id="dp-last">-</strong></div>
+<div>Status: <strong id="dp-status" class="text-emerald-600">-</strong></div>
+</div>
+<div class="space-y-2">
+<button onclick="openDonorHistoryModal()" class="w-full py-2.5 bg-slate-900 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5">📜 View Donation History</button>
+<button onclick="openEditProfileForm()" class="w-full py-2.5 bg-red-600 text-white font-bold rounded-xl text-xs">Edit Profile Details</button>
+</div>
+</div>
+</div>
+
+<div id="donor-history-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-md w-full p-6 relative max-h-[85vh] overflow-y-auto">
+<button onclick="closeModal('donor-history-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-lg font-black text-center mb-1">Donation History Timeline</h3>
+<p class="text-xs text-slate-500 text-center mb-4" id="dh-donor-name">Donor Name</p>
+
+<form onsubmit="handleAddHistoryRecord(event)" class="bg-red-50 p-3 rounded-xl border border-red-200 mb-4 space-y-2">
+<span class="text-xs font-bold text-red-700 block">➕ Log New Completed Donation</span>
+<input type="date" id="dh-new-date" required class="w-full border rounded-lg p-2 text-xs">
+<input type="text" id="dh-new-location" placeholder="Hospital / Location (e.g. Sadar Hosp)" required class="w-full border rounded-lg p-2 text-xs">
+<input type="text" id="dh-new-patient" placeholder="Patient Name (Optional)" class="w-full border rounded-lg p-2 text-xs">
+<button type="submit" class="w-full py-2 bg-red-600 text-white font-bold text-xs rounded-lg">Add to My History & Public Archive</button>
+</form>
+
+<div id="dh-history-list" class="space-y-2">
+<div class="text-center text-xs text-slate-400 py-4">Loading history...</div>
+</div>
+</div>
+</div>
+
+<div id="donor-edit-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('donor-edit-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-lg font-black text-center mb-3">Edit Profile</h3>
+<form onsubmit="handleDonorUpdate(event)" class="space-y-3">
+<input type="hidden" id="edit-donor-id">
+<input type="text" id="edit-name" required placeholder="Name" class="w-full border rounded-xl p-2 text-sm">
+<select id="edit-group" class="w-full border rounded-xl p-2 text-sm font-bold"><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<select id="edit-area" class="w-full border rounded-xl p-2 text-sm font-bold"><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+<input type="date" id="edit-last-date" class="w-full border rounded-xl p-2 text-sm">
+<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Save</button>
+</form>
+</div>
+</div>
+
+<div id="donor-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('donor-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-xl font-black text-center mb-3">Join Durdom-25</h3>
+<form onsubmit="handleDonorRegister(event)" class="space-y-3">
+<input type="text" id="donor-name" required placeholder="Full Name" class="w-full border rounded-xl p-2.5 text-sm">
+<select id="donor-group" required class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="">Group</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<select id="donor-area" required class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="">Area</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+<input type="tel" id="donor-phone" required placeholder="Phone" class="w-full border rounded-xl p-2.5 text-sm">
+<input type="date" id="donor-last-date" class="w-full border rounded-xl p-2.5 text-sm">
+<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Register</button>
+</form>
+</div>
+</div>
+
+<div id="emergency-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
+<button onclick="closeModal('emergency-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<h3 class="text-xl font-black text-center mb-3">Emergency Request</h3>
+<form onsubmit="handleEmergencySubmit(event)" class="space-y-3">
+<input type="text" id="em-patient" required placeholder="Patient Name" class="w-full border rounded-xl p-2.5 text-sm">
+<select id="em-group" required class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="">Group Needed</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<input type="number" id="em-bags" min="1" max="10" value="1" required class="w-full border rounded-xl p-2.5 text-sm">
+<input type="text" id="em-donating-time" required placeholder="Time (e.g. ASAP)" class="w-full border rounded-xl p-2.5 text-sm">
+<input type="text" id="em-location" required placeholder="Hospital / Location" class="w-full border rounded-xl p-2.5 text-sm">
+<input type="tel" id="em-phone" required placeholder="Contact Phone" class="w-full border rounded-xl p-2.5 text-sm">
+<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Post Request</button>
+</form>
+</div>
+</div>
+
+<div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
+<button onclick="closeModal('admin-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
+<div id="admin-login-step">
+<h3 class="text-xl font-black text-center mb-3">Admin Panel</h3>
+<form onsubmit="handleAdminLogin(event)" class="space-y-3 max-w-xs mx-auto">
+<input type="password" id="admin-passkey" required placeholder="Passkey" class="w-full border rounded-xl p-2.5 text-sm">
+<button type="submit" class="w-full py-3 bg-slate-900 text-white font-bold rounded-xl text-sm">Unlock</button>
+</form>
+</div>
+<div id="admin-dashboard-step" class="hidden space-y-4 text-xs">
+<div class="flex justify-between items-center"><h4 class="font-bold text-sm">Admin Dashboard</h4><button onclick="adminLogout()" class="text-red-600 font-bold">Logout</button></div>
+<div>
+<h5 class="font-bold text-red-600 mb-1">Active Emergencies</h5>
+<table class="w-full border text-left">
+<thead class="bg-slate-100"><tr><th class="p-2">Patient</th><th class="p-2">Group</th><th class="p-2">Action</th></tr></thead>
+<tbody id="admin-emergency-table"></tbody>
+</table>
+</div>
+<div>
+<h5 class="font-bold mb-1">Donors</h5>
+<table class="w-full border text-left">
+<thead class="bg-slate-100"><tr><th class="p-2">Name</th><th class="p-2">Phone</th><th class="p-2">Action</th></tr></thead>
+<tbody id="admin-donor-table"></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-bold">
+<span id="toast-text">Notification</span>
+</div>
+
+<script>
+let donorsList=[],emergencyRequests=[],messagesList=[],emergencyIndex=0,reviewIndex=0,currentLoggedInDonor=null;
+
+const compatibilityData = {
+    'A+': { give: ['A+', 'AB+'], receive: ['A+', 'A-', 'O+', 'O-'], desc: 'Common blood group in Jhenaidah.' },
+    'A-': { give: ['A+', 'A-', 'AB+', 'AB-'], receive: ['A-', 'O-'], desc: 'Universal donor for A and AB blood types.' },
+    'B+': { give: ['B+', 'AB+'], receive: ['B+', 'B-', 'O+', 'O-'], desc: 'Very common in Bangladesh.' },
+    'B-': { give: ['B+', 'B-', 'AB+', 'AB-'], receive: ['B-', 'O-'], desc: 'Rare blood type.' },
+    'O+': { give: ['O+', 'A+', 'B+', 'AB+'], receive: ['O+', 'O-'], desc: 'Most requested blood type in hospitals.' },
+    'O-': { give: ['ALL TYPES (Universal)'], receive: ['O-'], desc: 'Universal Red Blood Cell Donor.' },
+    'AB+': { give: ['AB+'], receive: ['ALL TYPES (Universal)'], desc: 'Universal recipient.' },
+    'AB-': { give: ['AB+', 'AB-'], receive: ['AB-', 'A-', 'B-', 'O-'], desc: 'Rare blood group.' }
+};
+
+function openModal(id){document.getElementById(id).classList.remove('hidden');lucide.createIcons();}
+function closeModal(id){document.getElementById(id).classList.add('hidden');}
+function toggleMobileMenu(){document.getElementById('mobile-menu').classList.toggle('hidden');}
+
+function calculateEligibilityStatus(dateStr){
+if(!dateStr||dateStr==="Recently"||dateStr==="N/A")return{isEligible:true,badgeText:"Available"};
+const d=new Date(dateStr);if(isNaN(d.getTime()))return{isEligible:true,badgeText:"Available"};
+const diff=Math.floor((new Date()-d)/(1000*3600*24));
+return diff>=120?{isEligible:true,badgeText:"Available"}:{isEligible:false,badgeText:`Eligible in ${120-diff}d`};
+}
+
+window.addEventListener('firebase-ready',()=>{
+initRealtimeListeners();
+showCompatibility('A+');
+lucide.createIcons();
+});
+
+function initRealtimeListeners(){
+window.onSnapshot(window.collection(window.db,"donors"),(snap)=>{
+donorsList=[];snap.forEach(d=>donorsList.push({id:d.id,...d.data()}));
+renderDonors(donorsList);renderAdminTable();
+const cnt=document.getElementById('stat-donors-count');if(cnt)cnt.innerText=donorsList.length;
+});
+
+window.onSnapshot(window.doc(window.db,"stats","impact"),(snap)=>{
+const cnt=document.getElementById('stat-donations-count');
+if(cnt)cnt.innerText=snap.exists()?snap.data().successfulDonations||0:0;
+});
+
+window.onSnapshot(window.collection(window.db,"emergencies"),(snap)=>{
+emergencyRequests=[];snap.forEach(d=>emergencyRequests.push({id:d.id,...d.data()}));
+const ticker=document.getElementById('emergency-broadcast-ticker');
+if(emergencyRequests.length>0){ticker.classList.remove('hidden');renderCurrentEmergencySlide();}
+else{ticker.classList.add('hidden');}
+renderAdminEmergencyTable();
+});
+
+window.onSnapshot(window.collection(window.db,"messages"),(snap)=>{
+messagesList=[];snap.forEach(d=>messagesList.push({id:d.id,...d.data()}));
+const ticker=document.getElementById('review-broadcast-ticker');
+if(messagesList.length>0){ticker.classList.remove('hidden');renderCurrentReviewSlide();}
+else{ticker.classList.add('hidden');}
+});
+
+window.onSnapshot(window.collection(window.db,"donation_history"),(snap)=>{
+const archiveList=[];
+snap.forEach(d=>archiveList.push({id:d.id,...d.data()}));
+renderArchive(archiveList);
+});
+}
+
+function showCompatibility(group){
+document.querySelectorAll('.compat-btn').forEach(btn=>{
+if(btn.getAttribute('data-group')===group){
+btn.classList.add('border-red-600','bg-red-50');
+}else{
+btn.classList.remove('border-red-600','bg-red-50');
+}
+});
+
+const data=compatibilityData[group];
+document.getElementById('compat-badge').innerText=group;
+document.getElementById('compat-title').innerText=`Blood Group ${group}`;
+document.getElementById('compat-desc').innerText=data.desc;
+
+const giveContainer=document.getElementById('compat-give');
+const receiveContainer=document.getElementById('compat-receive');
+
+giveContainer.innerHTML=data.give.map(g=>`<span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 font-bold text-xs rounded-lg border border-emerald-500/30">${g}</span>`).join('');
+receiveContainer.innerHTML=data.receive.map(r=>`<span class="px-2.5 py-1 bg-red-500/20 text-red-300 font-bold text-xs rounded-lg border border-red-500/30">${r}</span>`).join('');
+}
+
+function renderArchive(items){
+const c=document.getElementById('archive-grid');if(!c)return;c.innerHTML='';
+if(items.length===0){
+c.innerHTML=`<div class="text-center text-xs text-slate-400 col-span-full py-6">No archive records yet.</div>`;
+return;
+}
+items.sort((a,b)=>(b.createdAt?.toMillis()||0)-(a.createdAt?.toMillis()||0));
+items.forEach(item=>{
+const card=document.createElement('div');
+card.className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs space-y-2 shadow-sm";
+card.innerHTML=`
+<div class="flex justify-between items-center">
+<span class="font-extrabold text-slate-900 text-sm">❤️ ${item.donorName||'Anonymous Donor'}</span>
+<span class="bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-md text-[11px]">${item.date||'Recent'}</span>
+</div>
+<div class="text-slate-600 space-y-1">
+<div>📍 <strong>Location:</strong> ${item.location||'Jhenaidah'}</div>
+${item.patient?`<div>🏥 <strong>Patient:</strong> ${item.patient}</div>`:''}
+</div>
+`;
+c.appendChild(card);
+});
+}
+
+function renderCurrentEmergencySlide(){
+if(!emergencyRequests.length)return;
+const req=emergencyRequests[emergencyIndex]||emergencyRequests[0];
+const text=document.getElementById('em-broadcast-text');
+const call=document.getElementById('em-call-btn');
+if(text)text.innerHTML=`🚨 <strong>${req.group||'Blood'}</strong> (${req.bags||1} Bag) for <strong>${req.patient||'Patient'}</strong> at ${req.location||'Jhenaidah'}`;
+if(call)call.href=`tel:${req.phone}`;
+}
+
+function renderCurrentReviewSlide(){
+if(!messagesList.length)return;
+const msg=messagesList[reviewIndex]||messagesList[0];
+const text=document.getElementById('review-broadcast-text');
+if(text)text.innerHTML=`💬 "${msg.message}" &mdash; <strong>${msg.name||'Anonymous'}</strong>`;
+}
+
+function showEmergencyDetailsModal(){
+if(!emergencyRequests.length)return;
+const req=emergencyRequests[emergencyIndex]||emergencyRequests[0];
+document.getElementById('dt-group-badge').innerText=req.group||'Blood';
+document.getElementById('dt-patient-name').innerText=req.patient||'Patient';
+document.getElementById('dt-bags').innerText=`${req.bags||1} Bag(s)`;
+document.getElementById('dt-location').innerText=req.location||'Jhenaidah';
+document.getElementById('dt-time').innerText=req.donatingTime||'ASAP';
+document.getElementById('dt-phone').innerText=req.phone||'-';
+document.getElementById('dt-call-btn').href=`tel:${req.phone}`;
+openModal('details-modal');
+}
+
+function showReviewToast(){
+if(messagesList.length)showToast(`💬 ${messagesList[reviewIndex].name}: "${messagesList[reviewIndex].message}"`);
+}
+
+function renderDonors(items){
+const c=document.getElementById('donor-grid');if(!c)return;c.innerHTML='';
+items.forEach(d=>{
+const status=calculateEligibilityStatus(d.lastDonated);
+const el=document.createElement('div');
+el.className="bg-white p-4 rounded-xl border shadow-sm flex flex-col justify-between";
+el.innerHTML=`
+<div>
+<div class="flex justify-between items-center mb-2"><span class="w-10 h-10 rounded-lg bg-red-100 text-red-600 font-black flex items-center justify-center">${d.group}</span><span class="text-xs font-bold ${status.isEligible?'text-emerald-600':'text-amber-600'}">${status.badgeText}</span></div>
+<h4 class="font-bold text-slate-900">${d.name}</h4>
+<div class="text-xs text-slate-500 mt-1">📍 ${d.area}, Jhenaidah</div>
+</div>
+<a href="tel:${d.phone}" class="mt-4 block text-center py-2 bg-slate-900 text-white font-bold text-xs rounded-lg">Call (${d.phone})</a>
+`;
+c.appendChild(el);
+});
+}
+
+function filterDonors(){
+const g=document.getElementById('filter-group').value;
+const a=document.getElementById('filter-area').value;
+const s=document.getElementById('filter-search').value.toLowerCase();
+renderDonors(donorsList.filter(d=>(g==='ALL'||d.group===g)&&(a==='ALL'||d.area===a)&&(d.name.toLowerCase().includes(s)||d.phone.includes(s))));
+}
+
+function applyHeroFilters(){
+document.getElementById('filter-group').value=document.getElementById('hero-select-group').value;
+document.getElementById('filter-area').value=document.getElementById('hero-select-area').value;
+filterDonors();
+}
+
+async function handleDonorRegister(e){
+e.preventDefault();
+await window.addDoc(window.collection(window.db,"donors"),{
+name:document.getElementById('donor-name').value,
+group:document.getElementById('donor-group').value,
+area:document.getElementById('donor-area').value,
+phone:document.getElementById('donor-phone').value,
+lastDonated:document.getElementById('donor-last-date').value||"Recently",
+createdAt:new Date()
+});
+closeModal('donor-modal');showToast("Registered successfully!");e.target.reset();
+}
+
+function handleDonorLogin(e){
+e.preventDefault();
+const p=document.getElementById('login-phone').value.trim();
+const found=donorsList.find(d=>d.phone===p);
+if(found){
+currentLoggedInDonor=found;closeModal('donor-login-modal');
+document.getElementById('dp-name').innerText=found.name;
+document.getElementById('dp-group-badge').innerText=found.group;
+document.getElementById('dp-phone').innerText=found.phone;
+document.getElementById('dp-area').innerText=found.area;
+document.getElementById('dp-last').innerText=found.lastDonated||'N/A';
+document.getElementById('dp-status').innerText=calculateEligibilityStatus(found.lastDonated).badgeText;
+openModal('donor-profile-modal');
+}else{showToast("Phone number not registered.");}
+}
+
+async function openDonorHistoryModal(){
+if(!currentLoggedInDonor)return;
+closeModal('donor-profile-modal');
+document.getElementById('dh-donor-name').innerText=`Donor: ${currentLoggedInDonor.name} (${currentLoggedInDonor.phone})`;
+openModal('donor-history-modal');
+loadDonorHistory();
+}
+
+async function loadDonorHistory(){
+const listEl=document.getElementById('dh-history-list');
+listEl.innerHTML='<div class="text-center text-xs text-slate-400 py-4">Loading timeline...</div>';
+
+try{
+const q=window.query(window.collection(window.db,"donation_history"),window.where("phone","==",currentLoggedInDonor.phone));
+const snap=await window.getDocs(q);
+listEl.innerHTML='';
+
+if(snap.empty){
+listEl.innerHTML='<div class="text-center text-xs text-slate-400 py-3">No history records logged yet. Add your past donation above!</div>';
+return;
+}
+
+snap.forEach(d=>{
+const data=d.data();
+const item=document.createElement('div');
+item.className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs flex justify-between items-center";
+item.innerHTML=`
+<div>
+<div class="font-bold text-slate-800">📍 ${data.location||'Jhenaidah'}</div>
+<div class="text-[11px] text-slate-500">${data.patient?`For: ${data.patient}`:''}</div>
+</div>
+<div class="text-right">
+<span class="font-extrabold text-red-600 block">${data.date}</span>
+<button onclick="deleteHistoryRecord('${d.id}')" class="text-[10px] text-slate-400 hover:text-red-600 underline">Delete</button>
+</div>
+`;
+listEl.appendChild(item);
+});
+}catch(err){
+console.error("Error loading history:",err);
+listEl.innerHTML='<div class="text-center text-xs text-red-500 py-3">Failed to load history.</div>';
+}
+}
+
+async function handleAddHistoryRecord(e){
+e.preventDefault();
+if(!currentLoggedInDonor)return;
+
+const date=document.getElementById('dh-new-date').value;
+const location=document.getElementById('dh-new-location').value;
+const patient=document.getElementById('dh-new-patient').value;
+
+try{
+await window.addDoc(window.collection(window.db,"donation_history"),{
+phone:currentLoggedInDonor.phone,
+donorName:currentLoggedInDonor.name,
+date,
+location,
+patient,
+createdAt:new Date()
+});
+
+await window.updateDoc(window.doc(window.db,"donors",currentLoggedInDonor.id),{
+lastDonated:date
+});
+currentLoggedInDonor.lastDonated=date;
+
+showToast("Donation record saved to history & public archive!");
+e.target.reset();
+loadDonorHistory();
+}catch(err){
+console.error("Error adding record:",err);
+showToast("Failed to save history record.");
+}
+}
+
+async function deleteHistoryRecord(id){
+try{
+await window.deleteDoc(window.doc(window.db,"donation_history",id));
+showToast("Record removed.");
+loadDonorHistory();
+}catch(e){console.error(e);}
+}
+
+function openEditProfileForm(){
+if(!currentLoggedInDonor)return;
+closeModal('donor-profile-modal');
+document.getElementById('edit-donor-id').value=currentLoggedInDonor.id;
+document.getElementById('edit-name').value=currentLoggedInDonor.name;
+document.getElementById('edit-group').value=currentLoggedInDonor.group;
+document.getElementById('edit-area').value=currentLoggedInDonor.area;
+document.getElementById('edit-last-date').value=(currentLoggedInDonor.lastDonated&&currentLoggedInDonor.lastDonated!=="Recently")?currentLoggedInDonor.lastDonated:'';
+openModal('donor-edit-modal');
+}
+
+async function handleDonorUpdate(e){
+e.preventDefault();
+const id=document.getElementById('edit-donor-id').value;
+await window.updateDoc(window.doc(window.db,"donors",id),{
+name:document.getElementById('edit-name').value,
+group:document.getElementById('edit-group').value,
+area:document.getElementById('edit-area').value,
+lastDonated:document.getElementById('edit-last-date').value||"Recently"
+});
+closeModal('donor-edit-modal');showToast("Profile updated!");
+}
+
+async function handleEmergencySubmit(e){
+e.preventDefault();
+await window.addDoc(window.collection(window.db,"emergencies"),{
+patient:document.getElementById('em-patient').value,
+group:document.getElementById('em-group').value,
+bags:document.getElementById('em-bags').value,
+donatingTime:document.getElementById('em-donating-time').value,
+location:document.getElementById('em-location').value,
+phone:document.getElementById('em-phone').value,
+createdAt:new Date()
+});
+closeModal('emergency-modal');showToast("Emergency posted!");e.target.reset();
+}
+
+async function handleContactSubmit(e){
+e.preventDefault();
+await window.addDoc(window.collection(window.db,"messages"),{
+name:document.getElementById('msg-name').value,
+phone:document.getElementById('msg-phone').value,
+message:document.getElementById('msg-content').value,
+createdAt:new Date()
+});
+showToast("Message sent and published to ticker review!");e.target.reset();
+}
+
+function handleAdminLogin(e){
+e.preventDefault();
+if(document.getElementById('admin-passkey').value==='admin012'){
+document.getElementById('admin-login-step').classList.add('hidden');
+document.getElementById('admin-dashboard-step').classList.remove('hidden');
+}else{showToast("Invalid passkey!");}
+}
+
+function adminLogout(){
+document.getElementById('admin-dashboard-step').classList.add('hidden');
+document.getElementById('admin-login-step').classList.remove('hidden');
+closeModal('admin-modal');
+}
+
+function renderAdminTable(){
+const t=document.getElementById('admin-donor-table');if(!t)return;t.innerHTML='';
+donorsList.forEach(d=>{
+t.innerHTML+=`<tr class="border-b"><td class="p-2 font-bold">${d.name}</td><td class="p-2">${d.phone}</td><td class="p-2"><button onclick="deleteDonor('${d.id}')" class="text-red-600 font-bold">Delete</button></td></tr>`;
+});
+}
+
+function renderAdminEmergencyTable(){
+const t=document.getElementById('admin-emergency-table');if(!t)return;t.innerHTML='';
+emergencyRequests.forEach(r=>{
+t.innerHTML+=`<tr class="border-b"><td class="p-2 font-bold">${r.patient}</td><td class="p-2 text-red-600 font-bold">${r.group}</td><td class="p-2"><button onclick="markAsSuccessfulDonation('${r.id}')" class="text-emerald-600 font-bold mr-2">Done</button><button onclick="deleteEmergency('${r.id}')" class="text-red-600 font-bold">Remove</button></td></tr>`;
+});
+}
+
+async function deleteDonor(id){await window.deleteDoc(window.doc(window.db,"donors",id));showToast("Deleted.");}
+async function deleteEmergency(id){await window.deleteDoc(window.doc(window.db,"emergencies",id));showToast("Removed.");}
+async function markAsSuccessfulDonation(id){
+const ref=window.doc(window.db,"stats","impact");
+const snap=await window.getDoc(ref);
+const cnt=snap.exists()?(snap.data().successfulDonations||0):0;
+await window.setDoc(ref,{successfulDonations:cnt+1},{merge:true});
+await deleteEmergency(id);
+showToast("Marked successful!");
+}
+
+function showToast(m){
+const t=document.getElementById('toast');
+document.getElementById('toast-text').innerText=m;
+t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),3000);
+}
+function requestNotificationPermission(){Notification.requestPermission();}
+</script>
+</body>
+</html>
