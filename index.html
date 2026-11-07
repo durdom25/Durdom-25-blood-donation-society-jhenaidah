@@ -383,6 +383,13 @@ html{scroll-behavior:smooth}
 <tbody id="admin-donor-table"></tbody>
 </table>
 </div>
+<div>
+<h5 class="font-bold text-indigo-600 mb-1">User Reviews & Messages</h5>
+<table class="w-full border text-left">
+<thead class="bg-slate-100"><tr><th class="p-2">Name</th><th class="p-2">Message</th><th class="p-2">Action</th></tr></thead>
+<tbody id="admin-message-table"></tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -447,6 +454,7 @@ messagesList=[];snap.forEach(d=>messagesList.push({id:d.id,...d.data()}));
 const ticker=document.getElementById('review-broadcast-ticker');
 if(messagesList.length>0){ticker.classList.remove('hidden');renderCurrentReviewSlide();}
 else{ticker.classList.add('hidden');}
+renderAdminMessageTable();
 });
 
 window.onSnapshot(window.collection(window.db,"donation_history"),(snap)=>{
@@ -754,8 +762,21 @@ t.innerHTML+=`<tr class="border-b"><td class="p-2 font-bold">${r.patient}</td><t
 });
 }
 
+function renderAdminMessageTable(){
+const t=document.getElementById('admin-message-table');if(!t)return;t.innerHTML='';
+if(messagesList.length===0){
+t.innerHTML=`<tr><td colspan="3" class="p-2 text-center text-slate-400">No reviews yet.</td></tr>`;
+return;
+}
+messagesList.forEach(m=>{
+t.innerHTML+=`<tr class="border-b"><td class="p-2 font-bold">${m.name||'Anonymous'}</td><td class="p-2 truncate max-w-[150px]">${m.message}</td><td class="p-2"><button onclick="deleteMessage('${m.id}')" class="text-red-600 font-bold">Delete</button></td></tr>`;
+});
+}
+
 async function deleteDonor(id){await window.deleteDoc(window.doc(window.db,"donors",id));showToast("Deleted.");}
 async function deleteEmergency(id){await window.deleteDoc(window.doc(window.db,"emergencies",id));showToast("Removed.");}
+async function deleteMessage(id){await window.deleteDoc(window.doc(window.db,"messages",id));showToast("Review deleted.");}
+
 async function markAsSuccessfulDonation(id){
 const ref=window.doc(window.db,"stats","impact");
 const snap=await window.getDoc(ref);
