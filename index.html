@@ -227,15 +227,15 @@ body{font-family:'Inter',sans-serif}
 </div>
 </section>
 
-<!-- Donor Archive / Wall of Honor Section (Person Wise) -->
+<!-- Compact Wall of Honor Section -->
 <section id="archive" class="py-20 bg-slate-50/60 border-t border-slate-200/60">
 <div class="max-w-7xl mx-auto px-4">
 <div class="text-center mb-10">
 <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-1">Wall of Honor</h2>
 <h3 class="text-2xl sm:text-3xl font-black text-slate-900">Donor Archive & Successful Donations</h3>
-<p class="text-slate-500 text-xs sm:text-sm mt-1">Honoring the life-saving voluntary blood donors of Jhenaidah (Person-wise records).</p>
+<p class="text-slate-500 text-xs sm:text-sm mt-1">Honoring the life-saving voluntary blood donors of Jhenaidah.</p>
 </div>
-<div id="archive-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div id="archive-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 <div class="text-center text-xs text-slate-400 col-span-full py-8">Loading donor archive...</div>
 </div>
 </div>
@@ -334,7 +334,7 @@ body{font-family:'Inter',sans-serif}
 <p class="text-xs text-slate-500" id="pdh-donor-phone">-</p>
 </div>
 <div id="pdh-history-list" class="space-y-2.5 pt-2">
-<div class="text-center text-xs text-slate-400 py-6">Loading history...</div>
+<div class="text-center text-xs text-slate-400 py-6">Loading timeline...</div>
 </div>
 </div>
 </div>
@@ -597,6 +597,7 @@ giveContainer.innerHTML=data.give.map(g=>`<span class="px-3 py-1 bg-emerald-500/
 receiveContainer.innerHTML=data.receive.map(r=>`<span class="px-3 py-1 bg-red-500/20 text-red-300 font-bold text-xs rounded-xl border border-red-500/30">${r}</span>`).join('');
 }
 
+// Compact Wall of Honor (Person-wise with popup modal history)
 function renderArchive(items){
 const c=document.getElementById('archive-grid');if(!c)return;c.innerHTML='';
 if(items.length===0){
@@ -604,7 +605,6 @@ c.innerHTML=`<div class="text-center text-xs text-slate-400 col-span-full py-8">
 return;
 }
 
-// Group donations person-wise (by donorName or phone)
 const grouped={};
 items.forEach(item=>{
 const key=item.phone||item.donorName||'Anonymous';
@@ -618,42 +618,26 @@ donations:[]
 grouped[key].donations.push(item);
 });
 
-// Sort donations for each person by date (latest first)
 Object.values(grouped).forEach(person=>{
 person.donations.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
-});
+const latestDate=person.donations[0]?.date||'Recent';
 
-Object.values(personGroup => personGroup).forEach(person=>{
 const card=document.createElement('div');
-card.className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4 hover:shadow-md transition";
-
-let historyHtml='';
-person.donations.forEach(d=>{
-historyHtml+=`
-<div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 flex justify-between items-center text-xs">
-<div>
-<div class="font-bold text-slate-800">📍 ${d.location||'Jhenaidah'}</div>
-${d.patient?`<div class="text-[11px] text-slate-500">Patient: ${d.patient}</div>`:''}
-</div>
-<span class="bg-red-50 text-red-700 font-bold px-2.5 py-1 rounded-lg text-[11px] border border-red-100">${d.date||'Recent'}</span>
-</div>
-`;
-});
+card.className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs hover:shadow-md transition flex items-center justify-between";
 
 card.innerHTML=`
-<div class="flex justify-between items-center pb-3 border-b border-slate-100">
-<div class="flex items-center gap-2.5">
-<span class="w-9 h-9 rounded-xl bg-red-50 text-red-600 font-black flex items-center justify-center border border-red-100">❤️</span>
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 font-black flex items-center justify-center border border-red-100 text-sm shadow-2xs">❤️</div>
 <div>
-<h4 class="font-black text-slate-900 text-base">${person.name}</h4>
-<span class="text-[11px] text-slate-400">${person.phone||''}</span>
+<h4 class="font-black text-slate-900 text-sm leading-snug">${person.name}</h4>
+<div class="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
+<span class="font-bold text-red-600">${person.donations.length} Donation(s)</span>
+<span class="text-slate-300">•</span>
+<span>Latest: ${latestDate}</span>
 </div>
 </div>
-<span class="bg-red-600 text-white font-black px-2.5 py-1 rounded-xl text-xs shadow-xs">${person.donations.length} Donation(s)</span>
 </div>
-<div class="space-y-2">
-${historyHtml}
-</div>
+<button onclick="openPublicDonorHistory('${encodeURIComponent(person.name)}','${person.phone}','Blood Donor')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[11px] rounded-xl transition">History</button>
 `;
 c.appendChild(card);
 });
@@ -716,16 +700,23 @@ c.appendChild(el);
 async function openPublicDonorHistory(encodedName, phone, group){
 const name = decodeURIComponent(encodedName);
 document.getElementById('pdh-donor-name').innerText = name;
-document.getElementById('pdh-donor-phone').innerText = `Phone: ${phone}`;
-document.getElementById('pdh-group-badge').innerText = group;
+document.getElementById('pdh-donor-phone').innerText = phone ? `Phone: ${phone}` : '';
+document.getElementById('pdh-group-badge').innerText = group || 'Donor';
 openModal('public-donor-history-modal');
 
 const listEl = document.getElementById('pdh-history-list');
 listEl.innerHTML = '<div class="text-center text-xs text-slate-400 py-6">Loading timeline...</div>';
 
 try{
+let snap;
+if(phone){
 const q = window.query(window.collection(window.db,"donation_history"), window.where("phone","==",phone));
-const snap = await window.getDocs(q);
+snap = await window.getDocs(q);
+}else{
+const q = window.query(window.collection(window.db,"donation_history"), window.where("donorName","==",name));
+snap = await window.getDocs(q);
+}
+
 listEl.innerHTML = '';
 
 if(snap.empty){
