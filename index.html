@@ -227,15 +227,15 @@ body{font-family:'Inter',sans-serif}
 </div>
 </section>
 
-<!-- Donor Archive / Wall of Honor Section -->
+<!-- Donor Archive / Wall of Honor Section (Person Wise) -->
 <section id="archive" class="py-20 bg-slate-50/60 border-t border-slate-200/60">
 <div class="max-w-7xl mx-auto px-4">
 <div class="text-center mb-10">
 <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-1">Wall of Honor</h2>
 <h3 class="text-2xl sm:text-3xl font-black text-slate-900">Donor Archive & Successful Donations</h3>
-<p class="text-slate-500 text-xs sm:text-sm mt-1">Honoring the life-saving voluntary blood donors of Jhenaidah.</p>
+<p class="text-slate-500 text-xs sm:text-sm mt-1">Honoring the life-saving voluntary blood donors of Jhenaidah (Person-wise records).</p>
 </div>
-<div id="archive-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+<div id="archive-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 <div class="text-center text-xs text-slate-400 col-span-full py-8">Loading donor archive...</div>
 </div>
 </div>
@@ -324,7 +324,7 @@ body{font-family:'Inter',sans-serif}
 </div>
 </div>
 
-<!-- PUBLIC DONOR HISTORY TIMELINE MODAL (Triggered by clicking donor name) -->
+<!-- PUBLIC DONOR HISTORY TIMELINE MODAL -->
 <div id="public-donor-history-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
 <div class="bg-white rounded-3xl max-w-md w-full p-7 relative max-h-[85vh] overflow-y-auto shadow-2xl border border-slate-100">
 <button onclick="closeModal('public-donor-history-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
@@ -603,18 +603,56 @@ if(items.length===0){
 c.innerHTML=`<div class="text-center text-xs text-slate-400 col-span-full py-8">No archive records yet.</div>`;
 return;
 }
-items.sort((a,b)=>(b.createdAt?.toMillis()||0)-(a.createdAt?.toMillis()||0));
+
+// Group donations person-wise (by donorName or phone)
+const grouped={};
 items.forEach(item=>{
+const key=item.phone||item.donorName||'Anonymous';
+if(!grouped[key]){
+grouped[key]={
+name:item.donorName||'Anonymous Donor',
+phone:item.phone||'',
+donations:[]
+};
+}
+grouped[key].donations.push(item);
+});
+
+// Sort donations for each person by date (latest first)
+Object.values(grouped).forEach(person=>{
+person.donations.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+});
+
+Object.values(personGroup => personGroup).forEach(person=>{
 const card=document.createElement('div');
-card.className="bg-white p-5 rounded-2xl border border-slate-200/80 text-xs space-y-2.5 shadow-xs hover:shadow-md transition";
-card.innerHTML=`
-<div class="flex justify-between items-center">
-<span class="font-extrabold text-slate-900 text-sm">❤️ ${item.donorName||'Anonymous Donor'}</span>
-<span class="bg-red-50 text-red-700 font-bold px-2.5 py-1 rounded-lg text-[11px] border border-red-100">${item.date||'Recent'}</span>
+card.className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4 hover:shadow-md transition";
+
+let historyHtml='';
+person.donations.forEach(d=>{
+historyHtml+=`
+<div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 flex justify-between items-center text-xs">
+<div>
+<div class="font-bold text-slate-800">📍 ${d.location||'Jhenaidah'}</div>
+${d.patient?`<div class="text-[11px] text-slate-500">Patient: ${d.patient}</div>`:''}
 </div>
-<div class="text-slate-600 space-y-1 pt-1 border-t border-slate-100">
-<div>📍 <strong>Location:</strong> ${item.location||'Jhenaidah'}</div>
-${item.patient?`<div>🏥 <strong>Patient:</strong> ${item.patient}</div>`:''}
+<span class="bg-red-50 text-red-700 font-bold px-2.5 py-1 rounded-lg text-[11px] border border-red-100">${d.date||'Recent'}</span>
+</div>
+`;
+});
+
+card.innerHTML=`
+<div class="flex justify-between items-center pb-3 border-b border-slate-100">
+<div class="flex items-center gap-2.5">
+<span class="w-9 h-9 rounded-xl bg-red-50 text-red-600 font-black flex items-center justify-center border border-red-100">❤️</span>
+<div>
+<h4 class="font-black text-slate-900 text-base">${person.name}</h4>
+<span class="text-[11px] text-slate-400">${person.phone||''}</span>
+</div>
+</div>
+<span class="bg-red-600 text-white font-black px-2.5 py-1 rounded-xl text-xs shadow-xs">${person.donations.length} Donation(s)</span>
+</div>
+<div class="space-y-2">
+${historyHtml}
 </div>
 `;
 c.appendChild(card);
