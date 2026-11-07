@@ -171,7 +171,7 @@ body{font-family:'Inter',sans-serif}
 <div class="text-center mb-10">
 <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-1">Directory</h2>
 <h3 class="text-2xl sm:text-3xl font-black text-slate-900">Available Donors in Jhenaidah</h3>
-<p class="text-slate-500 text-xs sm:text-sm mt-1">Direct contact numbers for active voluntary blood donors.</p>
+<p class="text-slate-500 text-xs sm:text-sm mt-1">Tap on any donor's name to view their complete donation history timeline.</p>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs mb-8 grid grid-cols-1 md:grid-cols-3 gap-3.5">
 <select id="filter-group" onchange="filterDonors()" class="border border-slate-200 rounded-xl p-3 text-xs font-semibold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
@@ -320,6 +320,21 @@ body{font-family:'Inter',sans-serif}
 <div class="space-y-2.5">
 <button onclick="openDonorHistoryModal()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md transition">📜 View Donation History</button>
 <button onclick="openEditProfileForm()" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-md transition">Edit Profile Details</button>
+</div>
+</div>
+</div>
+
+<!-- PUBLIC DONOR HISTORY TIMELINE MODAL (Triggered by clicking donor name) -->
+<div id="public-donor-history-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-md w-full p-7 relative max-h-[85vh] overflow-y-auto shadow-2xl border border-slate-100">
+<button onclick="closeModal('public-donor-history-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
+<div class="text-center mb-4">
+<span id="pdh-group-badge" class="inline-block px-3 py-1 bg-red-600 text-white font-black text-sm rounded-lg mb-1">A+</span>
+<h3 class="text-lg font-black text-slate-900 tracking-tight" id="pdh-donor-name">Donor History</h3>
+<p class="text-xs text-slate-500" id="pdh-donor-phone">-</p>
+</div>
+<div id="pdh-history-list" class="space-y-2.5 pt-2">
+<div class="text-center text-xs text-slate-400 py-6">Loading history...</div>
 </div>
 </div>
 </div>
@@ -651,13 +666,54 @@ el.innerHTML=`
 <span class="w-11 h-11 rounded-xl bg-red-50 text-red-600 font-black flex items-center justify-center border border-red-100 shadow-2xs">${d.group}</span>
 <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${status.isEligible?'bg-emerald-50 text-emerald-700 border border-emerald-100':'bg-amber-50 text-amber-700 border border-amber-100'}">${status.badgeText}</span>
 </div>
-<h4 class="font-black text-slate-900 text-base">${d.name}</h4>
+<h4 class="font-black text-slate-900 text-base cursor-pointer hover:text-red-600 transition" onclick="openPublicDonorHistory('${encodeURIComponent(d.name)}','${d.phone}','${d.group}')">${d.name} 🔍</h4>
 <div class="text-xs text-slate-500 mt-1 flex items-center gap-1">📍 ${d.area}, Jhenaidah</div>
 </div>
 <a href="tel:${d.phone}" class="mt-5 block text-center py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition">Call (${d.phone})</a>
 `;
 c.appendChild(el);
 });
+}
+
+async function openPublicDonorHistory(encodedName, phone, group){
+const name = decodeURIComponent(encodedName);
+document.getElementById('pdh-donor-name').innerText = name;
+document.getElementById('pdh-donor-phone').innerText = `Phone: ${phone}`;
+document.getElementById('pdh-group-badge').innerText = group;
+openModal('public-donor-history-modal');
+
+const listEl = document.getElementById('pdh-history-list');
+listEl.innerHTML = '<div class="text-center text-xs text-slate-400 py-6">Loading timeline...</div>';
+
+try{
+const q = window.query(window.collection(window.db,"donation_history"), window.where("phone","==",phone));
+const snap = await window.getDocs(q);
+listEl.innerHTML = '';
+
+if(snap.empty){
+listEl.innerHTML = '<div class="text-center text-xs text-slate-400 py-4">No donation history recorded yet.</div>';
+return;
+}
+
+snap.forEach(d=>{
+const data = d.data();
+const item = document.createElement('div');
+item.className = "bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-xs flex justify-between items-center shadow-2xs";
+item.innerHTML = `
+<div>
+<div class="font-bold text-slate-800">📍 ${data.location||'Jhenaidah'}</div>
+<div class="text-[11px] text-slate-500">${data.patient?`For: ${data.patient}`:''}</div>
+</div>
+<div class="text-right font-extrabold text-red-600">
+${data.date}
+</div>
+`;
+listEl.appendChild(item);
+});
+}catch(err){
+console.error("Error loading public history:", err);
+listEl.innerHTML = '<div class="text-center text-xs text-red-500 py-4">Failed to load history.</div>';
+}
 }
 
 function filterDonors(){
