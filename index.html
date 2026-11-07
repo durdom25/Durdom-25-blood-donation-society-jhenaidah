@@ -315,7 +315,7 @@ body{font-family:'Inter',sans-serif}
 <div class="flex justify-between"><span>Phone:</span> <strong id="dp-phone" class="text-slate-800">-</strong></div>
 <div class="flex justify-between"><span>Upazila:</span> <strong id="dp-area" class="text-slate-800">-</strong></div>
 <div class="flex justify-between"><span>Last Donated:</span> <strong id="dp-last" class="text-slate-800">-</strong></div>
-<div class="flex justify-between"><span>Eligibility Status:</span> <strong id="dp-status" class="text-emerald-600 font-bold">-</strong></div>
+<div class="flex justify-between"><span>Availability Status:</span> <strong id="dp-status" class="text-emerald-600 font-bold">-</strong></div>
 </div>
 <div class="space-y-2.5">
 <button onclick="openDonorHistoryModal()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md transition">📜 View Donation History</button>
@@ -517,7 +517,7 @@ function calculateEligibilityStatus(dateStr){
 if(!dateStr||dateStr==="Recently"||dateStr==="N/A")return{isEligible:true,badgeText:"Available"};
 const d=new Date(dateStr);if(isNaN(d.getTime()))return{isEligible:true,badgeText:"Available"};
 const diff=Math.floor((new Date()-d)/(1000*3600*24));
-return diff>=120?{isEligible:true,badgeText:"Available"}:{isEligible:false,badgeText:`Eligible in ${120-diff}d`};
+return diff>=120?{isEligible:true,badgeText:"Available"}:{isEligible:false,badgeText:`Available in ${120-diff}d`};
 }
 
 window.addEventListener('firebase-ready',()=>{
