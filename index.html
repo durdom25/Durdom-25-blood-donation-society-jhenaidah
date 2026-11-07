@@ -21,65 +21,70 @@ window.query=query;window.where=where;window.orderBy=orderBy;
 window.dispatchEvent(new Event('firebase-ready'));
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 html{scroll-behavior:smooth}
-.logo-shadow{filter:drop-shadow(0px 4px 10px rgba(220,38,38,.3))}
+body{font-family:'Inter',sans-serif}
+.logo-shadow{filter:drop-shadow(0px 4px 12px rgba(220,38,38,.25))}
 .curved-logo-text{font-family:'Inter',sans-serif;font-weight:800;fill:#b91c1c;font-size:11px;letter-spacing:.8px;text-transform:uppercase}
 .marquee-container{overflow:hidden;white-space:nowrap}
-.marquee-content{display:inline-block;white-space:nowrap;animation:marquee 16s linear infinite}
+.marquee-content{display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite}
 .marquee-container:hover .marquee-content{animation-play-state:paused}
 @keyframes marquee{0%{transform:translateX(0%)}100%{transform:translateX(-50%)}}
 </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+<body class="bg-slate-50/50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
 
-<div class="bg-slate-900 text-white text-xs py-2 px-4 border-b border-slate-800">
+<!-- Top Utility Bar -->
+<div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
 <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
 <div class="flex items-center space-x-2 flex-wrap">
-<span class="bg-red-600 text-white font-extrabold px-2 py-0.5 rounded text-[10px] uppercase animate-pulse">Hotline</span>
-<span class="text-slate-300">Durdom-25:</span>
-<span class="text-slate-200 font-semibold">Tanvir:</span><a href="tel:+8801342293635" class="text-red-400 font-bold hover:underline">01342293635</a>
-<span class="text-slate-500">|</span>
-<span class="text-slate-200 font-semibold">Miskat:</span><a href="tel:+8801756391595" class="text-red-400 font-bold hover:underline">01756391595</a>
-<span class="text-slate-500">|</span>
-<span class="text-slate-200 font-semibold">Shuvo:</span><a href="tel:+8801342307405" class="text-red-400 font-bold hover:underline">01342307405</a>
+<span class="bg-red-600 text-white font-black px-2 py-0.5 rounded text-[10px] uppercase tracking-wider animate-pulse">Hotline</span>
+<span class="text-slate-400">Durdom-25:</span>
+<span class="text-white font-medium">Tanvir:</span><a href="tel:+8801342293635" class="text-red-400 font-bold hover:underline">01342293635</a>
+<span class="text-slate-600">|</span>
+<span class="text-white font-medium">Miskat:</span><a href="tel:+8801756391595" class="text-red-400 font-bold hover:underline">01756391595</a>
+<span class="text-slate-600">|</span>
+<span class="text-white font-medium">Shuvo:</span><a href="tel:+8801342307405" class="text-red-400 font-bold hover:underline">01342307405</a>
 </div>
 <div class="flex items-center space-x-4 text-slate-400 text-[11px]">
-<button onclick="requestNotificationPermission()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 shadow"><i data-lucide="bell" class="w-3 h-3"></i> Alerts</button>
-<span><i data-lucide="map-pin" class="w-3 h-3 text-red-500 inline"></i> Jhenaidah</span>
-<button onclick="openModal('admin-modal')" class="text-slate-300 font-bold ml-2 underline flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3 text-red-400"></i> Admin</button>
+<button onclick="requestNotificationPermission()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-2.5 py-1 rounded-md flex items-center gap-1 shadow-sm transition"><i data-lucide="bell" class="w-3 h-3"></i> Alerts</button>
+<span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-red-500"></i> Jhenaidah</span>
+<button onclick="openModal('admin-modal')" class="text-slate-300 font-semibold hover:text-white flex items-center gap-1 transition"><i data-lucide="lock" class="w-3 h-3 text-red-400"></i> Admin</button>
 </div>
 </div>
 </div>
 
+<!-- Emergency Ticker Banner -->
 <div id="emergency-broadcast-ticker" class="hidden bg-red-600 text-white py-2 px-3 shadow-md relative z-30">
 <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
 <div class="flex items-center space-x-2">
-<span class="bg-white text-red-600 font-black px-2 py-0.5 rounded text-[11px]">🚨 EMERGENCY</span>
-<span id="em-count-badge" class="bg-red-800 text-red-100 font-extrabold px-1.5 py-0.5 rounded text-[11px]">1/1</span>
+<span class="bg-white text-red-600 font-black px-2 py-0.5 rounded text-[11px] shadow-sm">🚨 EMERGENCY</span>
+<span id="em-count-badge" class="bg-red-800 text-red-100 font-bold px-1.5 py-0.5 rounded text-[11px]">1/1</span>
 </div>
-<div onclick="showEmergencyDetailsModal()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-bold marquee-container">
+<div onclick="showEmergencyDetailsModal()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-semibold marquee-container">
 <div id="em-broadcast-text" class="marquee-content">Loading emergencies...</div>
 </div>
 <div class="flex items-center space-x-2">
-<a id="em-call-btn" href="tel:" class="px-3 py-1 bg-white text-red-600 font-black text-xs rounded-lg">Call</a>
-<button onclick="showEmergencyDetailsModal()" class="px-2.5 py-1 bg-red-800 text-white font-bold text-xs rounded-lg">Details</button>
+<a id="em-call-btn" href="tel:" class="px-3 py-1 bg-white text-red-600 font-black text-xs rounded-md shadow-sm hover:bg-slate-100 transition">Call</a>
+<button onclick="showEmergencyDetailsModal()" class="px-2.5 py-1 bg-red-800 hover:bg-red-900 text-white font-semibold text-xs rounded-md transition">Details</button>
 </div>
 </div>
 </div>
 
+<!-- Review Ticker Banner -->
 <div id="review-broadcast-ticker" class="hidden bg-indigo-900 text-white py-2 px-3 shadow-md relative z-20">
 <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-<span class="bg-indigo-500 text-white font-black px-2 py-0.5 rounded text-[11px]">💬 REVIEW</span>
-<div onclick="showReviewToast()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-semibold marquee-container">
+<span class="bg-indigo-500 text-white font-black px-2 py-0.5 rounded text-[11px] shadow-sm">💬 REVIEW</span>
+<div onclick="showReviewToast()" class="w-full sm:flex-1 cursor-pointer overflow-hidden text-xs sm:text-sm font-medium marquee-container">
 <div id="review-broadcast-text" class="marquee-content text-indigo-100">Loading user feedback...</div>
 </div>
 </div>
 </div>
 
-<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+<!-- Main Navbar -->
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
 <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-20">
-<a href="#" class="flex items-center space-x-3">
+<a href="#" class="flex items-center space-x-3 group">
 <div class="relative w-12 h-12 flex-shrink-0 logo-shadow">
 <svg viewBox="0 0 200 200" class="w-full h-full">
 <path id="textPathTop" d="M 25,100 A 75,75 0 1,1 175,100" fill="none"/>
@@ -91,115 +96,130 @@ html{scroll-behavior:smooth}
 </svg>
 </div>
 <div>
-<span class="text-lg font-black text-slate-900 block leading-none">Durdom-25</span>
-<span class="text-[10px] text-red-600 font-bold uppercase tracking-wider block">Blood Donation Society</span>
+<span class="text-lg font-black text-slate-900 block leading-none tracking-tight">Durdom-25</span>
+<span class="text-[10px] text-red-600 font-bold uppercase tracking-wider block mt-0.5">Blood Donation Society</span>
 </div>
 </a>
-<nav class="hidden lg:flex items-center space-x-6 text-sm font-bold text-slate-700">
-<a href="#home" class="hover:text-red-600">Home</a>
-<a href="#find-donor" class="hover:text-red-600">Donors</a>
-<a href="#compatibility" class="hover:text-red-600">Blood Types</a>
-<a href="#archive" class="hover:text-red-600">Archive</a>
-<a href="#contact" class="hover:text-red-600">Contact</a>
+<nav class="hidden lg:flex items-center space-x-7 text-sm font-semibold text-slate-600">
+<a href="#home" class="hover:text-red-600 transition">Home</a>
+<a href="#find-donor" class="hover:text-red-600 transition">Donors</a>
+<a href="#compatibility" class="hover:text-red-600 transition">Blood Types</a>
+<a href="#archive" class="hover:text-red-600 transition">Archive</a>
+<a href="#contact" class="hover:text-red-600 transition">Contact</a>
 </nav>
-<div class="hidden sm:flex items-center space-x-2">
-<button onclick="openModal('donor-login-modal')" class="px-3 py-2 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5 text-red-600"></i> Donor Login</button>
-<button onclick="openModal('emergency-modal')" class="px-3 py-2 rounded-xl border-2 border-red-600 text-red-600 font-bold text-xs">Request Blood</button>
-<button onclick="openModal('donor-modal')" class="px-3.5 py-2 rounded-xl bg-red-600 text-white font-bold text-xs shadow-md">Join DBDSJ-25</button>
+<div class="hidden sm:flex items-center space-x-2.5">
+<button onclick="openModal('donor-login-modal')" class="px-3.5 py-2 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs hover:border-slate-300 hover:bg-slate-50 transition flex items-center gap-1.5 shadow-2xs"><i data-lucide="user" class="w-3.5 h-3.5 text-red-600"></i> Donor Login</button>
+<button onclick="openModal('emergency-modal')" class="px-3.5 py-2 rounded-xl border border-red-200 text-red-600 font-semibold text-xs hover:bg-red-50/50 transition">Request Blood</button>
+<button onclick="openModal('donor-modal')" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-xs shadow-sm transition">Join DBDSJ-25</button>
 </div>
-<button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-slate-700"><i data-lucide="menu" class="w-6 h-6"></i></button>
+<button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-slate-700 focus:outline-hidden"><i data-lucide="menu" class="w-6 h-6"></i></button>
 </div>
-<div id="mobile-menu" class="hidden lg:hidden border-t bg-white px-4 py-4 space-y-2">
-<a href="#home" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Home</a>
-<a href="#find-donor" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Donors</a>
-<a href="#compatibility" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Blood Types</a>
-<a href="#archive" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Archive</a>
-<a href="#contact" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-bold">Contact</a>
-<div class="pt-2 flex flex-col space-y-2">
-<button onclick="toggleMobileMenu();openModal('donor-login-modal')" class="w-full py-2 rounded-xl border font-bold text-sm">Donor Login</button>
-<button onclick="toggleMobileMenu();openModal('emergency-modal')" class="w-full py-2 rounded-xl border-2 border-red-600 text-red-600 font-bold text-sm">Request Blood</button>
-<button onclick="toggleMobileMenu();openModal('donor-modal')" class="w-full py-2 rounded-xl bg-red-600 text-white font-bold text-sm">Join Durdom-25</button>
+<div id="mobile-menu" class="hidden lg:hidden border-t bg-white px-5 py-4 space-y-3 shadow-lg">
+<a href="#home" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-medium">Home</a>
+<a href="#find-donor" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-medium">Donors</a>
+<a href="#compatibility" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-medium">Blood Types</a>
+<a href="#archive" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-medium">Archive</a>
+<a href="#contact" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-medium">Contact</a>
+<div class="pt-3 border-t flex flex-col space-y-2">
+<button onclick="toggleMobileMenu();openModal('donor-login-modal')" class="w-full py-2.5 rounded-xl border font-semibold text-xs">Donor Login</button>
+<button onclick="toggleMobileMenu();openModal('emergency-modal')" class="w-full py-2.5 rounded-xl border border-red-200 text-red-600 font-semibold text-xs">Request Blood</button>
+<button onclick="toggleMobileMenu();openModal('donor-modal')" class="w-full py-2.5 rounded-xl bg-red-600 text-white font-semibold text-xs">Join Durdom-25</button>
 </div>
 </div>
 </header>
 
-<section id="home" class="pt-10 pb-16 bg-gradient-to-b from-red-50 to-white">
-<div class="max-w-7xl mx-auto px-4 text-center lg:text-left grid lg:grid-cols-12 gap-8 items-center">
-<div class="lg:col-span-7 space-y-5">
-<h1 class="text-3xl sm:text-5xl font-black text-slate-900 leading-tight">Durdom-25 Blood Donation Society <span class="text-red-600">Jhenaidah</span></h1>
-<p class="text-slate-600 text-sm sm:text-base">Connecting voluntary donors across Jhenaidah Sadar, Kaliganj, Kotchandpur, Maheshpur, Shailkupa, and Harinakunda.</p>
-<div class="grid grid-cols-3 gap-2 max-w-md mx-auto lg:mx-0">
-<div class="bg-white p-3 rounded-xl border text-center"><span id="stat-donors-count" class="block text-xl font-black text-red-600">0</span><span class="text-[10px] text-slate-500 font-bold uppercase">Donors</span></div>
-<div class="bg-white p-3 rounded-xl border text-center"><span id="stat-donations-count" class="block text-xl font-black text-emerald-600">0</span><span class="text-[10px] text-slate-500 font-bold uppercase">Donations</span></div>
-<div class="bg-white p-3 rounded-xl border text-center"><span class="block text-xl font-black text-slate-800">6</span><span class="text-[10px] text-slate-500 font-bold uppercase">Upazilas</span></div>
+<!-- Hero Section -->
+<section id="home" class="pt-12 pb-20 bg-gradient-to-b from-red-50/60 via-slate-50 to-white">
+<div class="max-w-7xl mx-auto px-4 text-center lg:text-left grid lg:grid-cols-12 gap-10 items-center">
+<div class="lg:col-span-7 space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100/80 text-red-700 text-xs font-semibold">
+<span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span> Active Volunteer Network in Jhenaidah
 </div>
-<div class="flex flex-col sm:flex-row gap-3 pt-2 justify-center lg:justify-start">
-<button onclick="openModal('emergency-modal')" class="px-6 py-3.5 rounded-xl bg-red-600 text-white font-extrabold text-sm shadow-lg">Emergency Blood Request</button>
-<button onclick="openModal('donor-login-modal')" class="px-6 py-3.5 rounded-xl bg-slate-900 text-white font-extrabold text-sm shadow-lg">Donor Login</button>
-<button onclick="openModal('donor-modal')" class="px-6 py-3.5 rounded-xl border border-slate-300 font-extrabold text-sm bg-white">Join Durdom-25</button>
+<h1 class="text-3xl sm:text-5xl font-black text-slate-900 leading-tight tracking-tight">Durdom-25 Blood Donation Society <span class="text-red-600">Jhenaidah</span></h1>
+<p class="text-slate-600 text-sm sm:text-base leading-relaxed">Connecting voluntary blood donors instantly across Jhenaidah Sadar, Kaliganj, Kotchandpur, Maheshpur, Shailkupa, and Harinakunda.</p>
+<div class="grid grid-cols-3 gap-3 max-w-md mx-auto lg:mx-0 pt-2">
+<div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs text-center"><span id="stat-donors-count" class="block text-2xl font-black text-red-600">0</span><span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Donors</span></div>
+<div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs text-center"><span id="stat-donations-count" class="block text-2xl font-black text-emerald-600">0</span><span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Donations</span></div>
+<div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs text-center"><span class="block text-2xl font-black text-slate-800">6</span><span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Upazilas</span></div>
 </div>
-</div>
-<div class="lg:col-span-5 bg-white p-6 rounded-2xl border shadow-xl max-w-md mx-auto w-full">
-<h3 class="text-lg font-black text-slate-900 text-center">Find Donors Quickly</h3>
-<div class="mt-4 space-y-3">
-<select id="hero-select-group" class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
-<select id="hero-select-area" class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Jhenaidah Areas</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
-<a href="#find-donor" onclick="applyHeroFilters()" class="block w-full py-3 bg-slate-900 text-white font-bold text-center text-sm rounded-xl">Search Donors</a>
+<div class="flex flex-col sm:flex-row gap-3.5 pt-3 justify-center lg:justify-start">
+<button onclick="openModal('emergency-modal')" class="px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-lg shadow-red-600/20 transition flex items-center justify-center gap-2">Emergency Blood Request</button>
+<button onclick="openModal('donor-login-modal')" class="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition">Donor Login</button>
+<button onclick="openModal('donor-modal')" class="px-6 py-3.5 rounded-xl border border-slate-300 hover:bg-white text-slate-700 font-bold text-xs bg-white/80 transition">Join Durdom-25</button>
 </div>
 </div>
+<div class="lg:col-span-5 bg-white p-7 rounded-3xl border border-slate-200/80 shadow-xl shadow-slate-200/50 max-w-md mx-auto w-full space-y-4">
+<h3 class="text-base font-black text-slate-900 text-center">Find Donors Quickly</h3>
+<div class="space-y-3">
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Blood Group</label>
+<select id="hero-select-group" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-semibold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
 </div>
-</section>
-
-<section id="find-donor" class="py-16 bg-slate-50">
-<div class="max-w-7xl mx-auto px-4">
-<h3 class="text-2xl font-black text-center mb-6">Available Donors in Jhenaidah</h3>
-<div class="bg-white p-4 rounded-xl border mb-6 grid grid-cols-1 md:grid-cols-3 gap-3">
-<select id="filter-group" onchange="filterDonors()" class="border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
-<select id="filter-area" onchange="filterDonors()" class="border rounded-xl p-2.5 text-sm font-bold"><option value="ALL">All Upazilas</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
-<input type="text" id="filter-search" onkeyup="filterDonors()" placeholder="Search name or phone..." class="border rounded-xl p-2.5 text-sm font-medium">
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Upazila / Area</label>
+<select id="hero-select-area" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-semibold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="ALL">All Jhenaidah Areas</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
 </div>
-<div id="donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+<a href="#find-donor" onclick="applyHeroFilters()" class="block w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-center text-xs rounded-xl shadow-md transition">Search Donors Now</a>
+</div>
+</div>
 </div>
 </section>
 
-<!-- WHO CAN GIVE BLOOD TO WHOM (COMPATIBILITY MATRIX) -->
-<section id="compatibility" class="py-16 bg-white border-t">
+<!-- Donors Directory Section -->
+<section id="find-donor" class="py-20 bg-slate-50/60 border-t border-slate-200/60">
 <div class="max-w-7xl mx-auto px-4">
-<div class="text-center mb-8">
+<div class="text-center mb-10">
+<h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-1">Directory</h2>
+<h3 class="text-2xl sm:text-3xl font-black text-slate-900">Available Donors in Jhenaidah</h3>
+<p class="text-slate-500 text-xs sm:text-sm mt-1">Direct contact numbers for active voluntary blood donors.</p>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs mb-8 grid grid-cols-1 md:grid-cols-3 gap-3.5">
+<select id="filter-group" onchange="filterDonors()" class="border border-slate-200 rounded-xl p-3 text-xs font-semibold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+<select id="filter-area" onchange="filterDonors()" class="border border-slate-200 rounded-xl p-3 text-xs font-semibold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="ALL">All Upazilas</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+<input type="text" id="filter-search" onkeyup="filterDonors()" placeholder="Search name or phone..." class="border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<div id="donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+</div>
+</section>
+
+<!-- Blood Group Compatibility Section -->
+<section id="compatibility" class="py-20 bg-white border-t border-slate-200/60">
+<div class="max-w-7xl mx-auto px-4">
+<div class="text-center mb-10">
 <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-1">Blood Knowledge</h2>
-<h3 class="text-2xl font-black text-slate-900">Who Can Give Blood to Whom?</h3>
-<p class="text-slate-500 text-xs mt-1">Click on any blood group to view compatible donors and recipients.</p>
+<h3 class="text-2xl sm:text-3xl font-black text-slate-900">Who Can Give Blood to Whom?</h3>
+<p class="text-slate-500 text-xs sm:text-sm mt-1">Click on any blood group to view compatible donors and recipients.</p>
 </div>
 
-<div class="grid lg:grid-cols-12 gap-6 items-start">
-<div class="lg:col-span-5 grid grid-cols-4 gap-2">
-<button onclick="showCompatibility('A+')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500 active-compat" data-group="A+">A+</button>
-<button onclick="showCompatibility('A-')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="A-">A-</button>
-<button onclick="showCompatibility('B+')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="B+">B+</button>
-<button onclick="showCompatibility('B-')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="B-">B-</button>
-<button onclick="showCompatibility('O+')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="O+">O+</button>
-<button onclick="showCompatibility('O-')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="O-">O-</button>
-<button onclick="showCompatibility('AB+')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="AB+">AB+</button>
-<button onclick="showCompatibility('AB-')" class="compat-btn p-3 rounded-xl border-2 font-black text-slate-800 bg-white hover:border-red-500" data-group="AB-">AB-</button>
+<div class="grid lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-5 grid grid-cols-4 gap-2.5">
+<button onclick="showCompatibility('A+')" class="compat-btn p-3.5 rounded-2xl border-2 border-slate-200 font-black text-sm text-slate-800 bg-white hover:border-red-500 transition shadow-2xs" data-group="A+">A+</button>
+<button onclick="showCompatibility('A-')" class="compat-btn p-3.5 rounded-2xl border-2 border-slate-200 font-black text-sm text-slate-800 bg-white hover:border-red-500 transition shadow-2xs" data-group="A-">A-</button>
+<button onclick="showCompatibility('B+')" class="compat-btn p-3.5 rounded-2xl border-2 border-slate-200 font-black text-sm text-slate-800 bg-white hover:border-red-500 transition shadow-2xs" data-group="B+">B+</button>
+<button onclick="showCompatibility('B-')" class="compat-btn p-3.5 rounded-2xl border-2 border-slate-200 font-black text-sm text-slate-800 bg-white hover:border-red-500 transition shadow-2xs" data-group="B-">B-</button>
+<button onclick="showCompatibility('O+')" class="compat-btn p-3.5 rounded-2xl border-2 border-slate-200 font-black text-sm text-slate-800 bg-white hover:border-red-500 transition shadow-2xs" data-group="O+">O+</button>
+<button onclick="showCompatibility('O-')" class="compat-btn p-3.5 rounded-2xl border-2 border-slate-200 font-black text-sm text-slate-800 bg-white hover:border-red-500 transition shadow-2xs" data-group="O-">O-</button>
+<button onclick="showCompatibility('AB+')" class="compat-btn p-3.5 rounded-2xl border-2 border-slate-200 font-black text-sm text-slate-800 bg-white hover:border-red-500 transition shadow-2xs" data-group="AB+">AB+</button>
+<button onclick="showCompatibility('AB-')" class="compat-btn p-3.5 rounded-2xl border-2 border-slate-200 font-black text-sm text-slate-800 bg-white hover:border-red-500 transition shadow-2xs" data-group="AB-">AB-</button>
 </div>
 
-<div class="lg:col-span-7 bg-slate-900 text-white rounded-2xl p-6 shadow-lg">
-<div class="flex items-center space-x-3 pb-4 border-b border-slate-800">
-<div id="compat-badge" class="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center font-black text-xl text-white">A+</div>
+<div class="lg:col-span-7 bg-slate-900 text-white rounded-3xl p-7 shadow-xl">
+<div class="flex items-center space-x-4 pb-5 border-b border-slate-800">
+<div id="compat-badge" class="w-14 h-14 rounded-2xl bg-red-600 flex items-center justify-center font-black text-2xl text-white shadow-md">A+</div>
 <div>
-<h4 id="compat-title" class="text-lg font-bold">Blood Group A Positive</h4>
-<p id="compat-desc" class="text-slate-400 text-xs">Common blood type in Jhenaidah.</p>
+<h4 id="compat-title" class="text-xl font-bold tracking-tight">Blood Group A Positive</h4>
+<p id="compat-desc" class="text-slate-400 text-xs mt-0.5">Common blood type in Jhenaidah.</p>
 </div>
 </div>
 
-<div class="grid md:grid-cols-2 gap-4 pt-4">
-<div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60">
-<span class="text-xs font-bold uppercase text-emerald-400 block mb-2">↗️ Can Give Blood To</span>
-<div id="compat-give" class="flex flex-wrap gap-1.5"></div>
+<div class="grid md:grid-cols-2 gap-5 pt-5">
+<div class="bg-slate-800/70 p-5 rounded-2xl border border-slate-700/60 shadow-inner">
+<span class="text-xs font-bold uppercase tracking-wider text-emerald-400 block mb-2.5">↗️ Can Give Blood To</span>
+<div id="compat-give" class="flex flex-wrap gap-2"></div>
 </div>
-<div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60">
-<span class="text-xs font-bold uppercase text-red-400 block mb-2">↙️ Can Receive Blood From</span>
-<div id="compat-receive" class="flex flex-wrap gap-1.5"></div>
+<div class="bg-slate-800/70 p-5 rounded-2xl border border-slate-700/60 shadow-inner">
+<span class="text-xs font-bold uppercase tracking-wider text-red-400 block mb-2.5">↙️ Can Receive Blood From</span>
+<div id="compat-receive" class="flex flex-wrap gap-2"></div>
 </div>
 </div>
 </div>
@@ -207,194 +227,271 @@ html{scroll-behavior:smooth}
 </div>
 </section>
 
-<!-- DONOR ARCHIVE / WALL OF HONOR SECTION -->
-<section id="archive" class="py-16 bg-slate-50 border-t">
+<!-- Donor Archive / Wall of Honor Section -->
+<section id="archive" class="py-20 bg-slate-50/60 border-t border-slate-200/60">
 <div class="max-w-7xl mx-auto px-4">
-<div class="text-center mb-8">
+<div class="text-center mb-10">
 <h2 class="text-xs font-extrabold uppercase tracking-widest text-red-600 mb-1">Wall of Honor</h2>
-<h3 class="text-2xl font-black text-slate-900">Donor Archive & Successful Donations</h3>
-<p class="text-slate-500 text-xs mt-1">Honoring the life-saving voluntary blood donors of Jhenaidah.</p>
+<h3 class="text-2xl sm:text-3xl font-black text-slate-900">Donor Archive & Successful Donations</h3>
+<p class="text-slate-500 text-xs sm:text-sm mt-1">Honoring the life-saving voluntary blood donors of Jhenaidah.</p>
 </div>
-<div id="archive-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-<div class="text-center text-xs text-slate-400 col-span-full py-6">Loading donor archive...</div>
+<div id="archive-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+<div class="text-center text-xs text-slate-400 col-span-full py-8">Loading donor archive...</div>
 </div>
 </div>
 </section>
 
-<!-- CONTACT & USER MESSAGE/REVIEW FORM SECTION -->
-<section id="contact" class="py-16 bg-white border-t">
-<div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8">
-<div>
-<h3 class="text-2xl font-black mb-4">Contact Durdom-25</h3>
-<p class="text-slate-600 text-sm mb-4">Reach out to our helpline contacts directly or leave a review message for the live ticker banner.</p>
-<div class="space-y-2 text-sm font-bold bg-slate-50 p-4 rounded-2xl border border-slate-200">
-<div>Tanvir: <a href="tel:+8801342293635" class="text-red-600 underline">01342293635</a></div>
-<div>Miskat: <a href="tel:+8801756391595" class="text-red-600 underline">01756391595</a></div>
-<div>Shuvo: <a href="tel:+8801342307405" class="text-red-600 underline">01342307405</a></div>
+<!-- Contact & User Review Form Section -->
+<section id="contact" class="py-20 bg-white border-t border-slate-200/60">
+<div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+<div class="space-y-4">
+<h3 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Contact Durdom-25</h3>
+<p class="text-slate-600 text-sm leading-relaxed">Reach out to our hotline contacts directly or leave a review message for the live ticker banner.</p>
+<div class="space-y-3 text-xs sm:text-sm font-semibold bg-slate-50 p-6 rounded-2xl border border-slate-200/80 shadow-2xs">
+<div class="flex justify-between items-center pb-2.5 border-b border-slate-200/60"><span>Tanvir:</span> <a href="tel:+8801342293635" class="text-red-600 hover:underline">01342293635</a></div>
+<div class="flex justify-between items-center pb-2.5 border-b border-slate-200/60"><span>Miskat:</span> <a href="tel:+8801756391595" class="text-red-600 hover:underline">01756391595</a></div>
+<div class="flex justify-between items-center"><span>Shuvo:</span> <a href="tel:+8801342307405" class="text-red-600 hover:underline">01342307405</a></div>
 </div>
 </div>
-<form onsubmit="handleContactSubmit(event)" class="space-y-3 bg-slate-50 p-6 rounded-2xl border">
+<form onsubmit="handleContactSubmit(event)" class="space-y-4 bg-slate-50/70 p-7 rounded-3xl border border-slate-200/80 shadow-sm">
 <h4 class="text-base font-black text-slate-900">Send Message or Review</h4>
-<input type="text" id="msg-name" required placeholder="Your Full Name" class="w-full border rounded-xl p-2.5 text-sm">
-<input type="tel" id="msg-phone" required placeholder="Phone Number" class="w-full border rounded-xl p-2.5 text-sm">
-<textarea id="msg-content" rows="3" required placeholder="Write your message or feedback review here..." class="w-full border rounded-xl p-2.5 text-sm"></textarea>
-<button type="submit" class="w-full py-3 bg-slate-900 text-white font-bold rounded-xl text-sm hover:bg-slate-800 transition">Submit Message & Publish Review</button>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Full Name</label>
+<input type="text" id="msg-name" required placeholder="Your Full Name" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-white focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Phone Number</label>
+<input type="tel" id="msg-phone" required placeholder="Phone Number" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-white focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Message / Review</label>
+<textarea id="msg-content" rows="3" required placeholder="Write your message or feedback review here..." class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-white focus:outline-hidden focus:border-red-500 resize-none"></textarea>
+</div>
+<button type="submit" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs shadow-md transition">Submit Message & Publish Review</button>
 </form>
 </div>
 </section>
 
-<footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs">
-&copy; Durdom-25 Blood Donation Society Jhenaidah.
+<footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs border-t border-slate-800">
+&copy; Durdom-25 Blood Donation Society Jhenaidah. All rights reserved.
 </footer>
 
 <!-- MODALS -->
-<div id="details-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
-<div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center relative">
-<button onclick="closeModal('details-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
-<span id="dt-group-badge" class="px-3 py-1 bg-red-600 text-white font-black text-lg rounded-xl">A+</span>
-<h3 class="text-lg font-black mt-2" id="dt-patient-name">Emergency</h3>
-<div class="text-xs text-left bg-slate-50 p-3 rounded-xl space-y-1 my-3">
-<div>Bags: <strong id="dt-bags">1</strong></div>
-<div>Location: <strong id="dt-location">-</strong></div>
-<div>Time: <strong id="dt-time" class="text-red-600">-</strong></div>
-<div>Phone: <strong id="dt-phone">-</strong></div>
+<div id="details-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-sm w-full p-7 text-center relative shadow-2xl border border-slate-100">
+<button onclick="closeModal('details-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
+<span id="dt-group-badge" class="inline-block px-4 py-1.5 bg-red-600 text-white font-black text-base rounded-xl shadow-md">A+</span>
+<h3 class="text-xl font-black text-slate-900 mt-3 tracking-tight" id="dt-patient-name">Emergency</h3>
+<div class="text-xs text-left bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2 my-4">
+<div class="flex justify-between"><span>Required Bags:</span> <strong id="dt-bags" class="text-slate-800">1</strong></div>
+<div class="flex justify-between"><span>Location:</span> <strong id="dt-location" class="text-slate-800">-</strong></div>
+<div class="flex justify-between"><span>Urgency Time:</span> <strong id="dt-time" class="text-red-600 font-bold">-</strong></div>
+<div class="flex justify-between"><span>Contact Phone:</span> <strong id="dt-phone" class="text-slate-800">-</strong></div>
 </div>
-<a id="dt-call-btn" href="tel:" class="block w-full py-2.5 bg-red-600 text-white font-bold rounded-xl text-sm">Call Attendant</a>
+<a id="dt-call-btn" href="tel:" class="block w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-md shadow-red-600/20 transition">Call Attendant Now</a>
 </div>
 </div>
 
-<div id="donor-login-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
-<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
-<button onclick="closeModal('donor-login-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
-<h3 class="text-xl font-black text-center mb-4">Donor Login</h3>
-<form onsubmit="handleDonorLogin(event)" class="space-y-3">
-<input type="tel" id="login-phone" required placeholder="Registered Phone Number" class="w-full border rounded-xl p-2.5 text-sm">
-<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Login</button>
+<div id="donor-login-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-sm w-full p-7 relative shadow-2xl border border-slate-100">
+<button onclick="closeModal('donor-login-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
+<h3 class="text-xl font-black text-slate-900 text-center mb-1 tracking-tight">Donor Login</h3>
+<p class="text-xs text-slate-500 text-center mb-5">Enter your registered phone number</p>
+<form onsubmit="handleDonorLogin(event)" class="space-y-4">
+<input type="tel" id="login-phone" required placeholder="Registered Phone Number" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+<button type="submit" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-md shadow-red-600/20 transition">Login to Profile</button>
 </form>
 </div>
 </div>
 
-<div id="donor-profile-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
-<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
-<button onclick="closeModal('donor-profile-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
-<div class="text-center"><span id="dp-group-badge" class="px-3 py-1 bg-red-600 text-white font-black text-lg rounded-xl">A+</span><h3 id="dp-name" class="text-lg font-black mt-1">Profile</h3></div>
-<div class="text-xs space-y-1 my-3 bg-slate-50 p-3 rounded-xl">
-<div>Phone: <strong id="dp-phone">-</strong></div>
-<div>Area: <strong id="dp-area">-</strong></div>
-<div>Last Donated: <strong id="dp-last">-</strong></div>
-<div>Status: <strong id="dp-status" class="text-emerald-600">-</strong></div>
+<div id="donor-profile-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-sm w-full p-7 relative shadow-2xl border border-slate-100">
+<button onclick="closeModal('donor-profile-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
+<div class="text-center">
+<span id="dp-group-badge" class="inline-block px-4 py-1.5 bg-red-600 text-white font-black text-base rounded-xl shadow-md">A+</span>
+<h3 id="dp-name" class="text-xl font-black text-slate-900 mt-2 tracking-tight">Profile</h3>
+</div>
+<div class="text-xs space-y-2 my-5 bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+<div class="flex justify-between"><span>Phone:</span> <strong id="dp-phone" class="text-slate-800">-</strong></div>
+<div class="flex justify-between"><span>Upazila:</span> <strong id="dp-area" class="text-slate-800">-</strong></div>
+<div class="flex justify-between"><span>Last Donated:</span> <strong id="dp-last" class="text-slate-800">-</strong></div>
+<div class="flex justify-between"><span>Eligibility Status:</span> <strong id="dp-status" class="text-emerald-600 font-bold">-</strong></div>
+</div>
+<div class="space-y-2.5">
+<button onclick="openDonorHistoryModal()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md transition">📜 View Donation History</button>
+<button onclick="openEditProfileForm()" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-md transition">Edit Profile Details</button>
+</div>
+</div>
+</div>
+
+<div id="donor-history-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-md w-full p-7 relative max-h-[85vh] overflow-y-auto shadow-2xl border border-slate-100">
+<button onclick="closeModal('donor-history-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
+<h3 class="text-lg font-black text-slate-900 text-center mb-1 tracking-tight">Donation History Timeline</h3>
+<p class="text-xs text-slate-500 text-center mb-5" id="dh-donor-name">Donor Name</p>
+
+<form onsubmit="handleAddHistoryRecord(event)" class="bg-red-50/70 p-4 rounded-2xl border border-red-200/80 mb-5 space-y-3">
+<span class="text-xs font-bold text-red-700 block">➕ Log New Completed Donation</span>
+<div>
+<label class="block text-[11px] font-semibold text-slate-600 mb-1">Donation Date</label>
+<input type="date" id="dh-new-date" required class="w-full border border-red-200 rounded-xl p-2.5 text-xs font-medium bg-white focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-[11px] font-semibold text-slate-600 mb-1">Hospital / Location</label>
+<input type="text" id="dh-new-location" placeholder="e.g. Sadar Hospital Jhenaidah" required class="w-full border border-red-200 rounded-xl p-2.5 text-xs font-medium bg-white focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-[11px] font-semibold text-slate-600 mb-1">Patient Name (Optional)</label>
+<input type="text" id="dh-new-patient" placeholder="Patient Name" class="w-full border border-red-200 rounded-xl p-2.5 text-xs font-medium bg-white focus:outline-hidden focus:border-red-500">
+</div>
+<button type="submit" class="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl shadow-md transition">Add to My History & Public Archive</button>
+</form>
+
+<div id="dh-history-list" class="space-y-2.5">
+<div class="text-center text-xs text-slate-400 py-6">Loading history...</div>
+</div>
+</div>
+</div>
+
+<div id="donor-edit-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-sm w-full p-7 relative shadow-2xl border border-slate-100">
+<button onclick="closeModal('donor-edit-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
+<h3 class="text-xl font-black text-slate-900 text-center mb-4 tracking-tight">Edit Profile</h3>
+<form onsubmit="handleDonorUpdate(event)" class="space-y-3.5">
+<input type="hidden" id="edit-donor-id">
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Full Name</label>
+<input type="text" id="edit-name" required placeholder="Name" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Blood Group</label>
+<select id="edit-group" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-bold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Upazila / Area</label>
+<select id="edit-area" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-bold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Last Donated Date</label>
+<input type="date" id="edit-last-date" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<button type="submit" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-md shadow-red-600/20 transition">Save Changes</button>
+</form>
+</div>
+</div>
+
+<div id="donor-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-sm w-full p-7 relative shadow-2xl border border-slate-100">
+<button onclick="closeModal('donor-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
+<h3 class="text-xl font-black text-slate-900 text-center mb-4 tracking-tight">Join Durdom-25</h3>
+<form onsubmit="handleDonorRegister(event)" class="space-y-3.5">
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Full Name</label>
+<input type="text" id="donor-name" required placeholder="Full Name" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Blood Group</label>
+<select id="donor-group" required class="w-full border border-slate-200 rounded-xl p-3 text-xs font-bold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="">Select Group</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Upazila / Area</label>
+<select id="donor-area" required class="w-full border border-slate-200 rounded-xl p-3 text-xs font-bold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="">Select Area</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Phone Number</label>
+<input type="tel" id="donor-phone" required placeholder="Phone Number" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Last Donated Date (Optional)</label>
+<input type="date" id="donor-last-date" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<button type="submit" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-md shadow-red-600/20 transition">Register as Donor</button>
+</form>
+</div>
+</div>
+
+<div id="emergency-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-sm w-full p-7 relative shadow-2xl border border-slate-100">
+<button onclick="closeModal('emergency-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
+<h3 class="text-xl font-black text-slate-900 text-center mb-4 tracking-tight">Emergency Blood Request</h3>
+<form onsubmit="handleEmergencySubmit(event)" class="space-y-3.5">
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Patient Name</label>
+<input type="text" id="em-patient" required placeholder="Patient Name" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Blood Group Needed</label>
+<select id="em-group" required class="w-full border border-slate-200 rounded-xl p-3 text-xs font-bold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="">Select Group</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Number of Bags</label>
+<input type="number" id="em-bags" min="1" max="10" value="1" required class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Time Needed</label>
+<input type="text" id="em-donating-time" required placeholder="e.g. Today 4 PM / ASAP" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Hospital / Location</label>
+<input type="text" id="em-location" required placeholder="e.g. Sadar Hospital Jhenaidah" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 mb-1">Contact Phone Number</label>
+<input type="tel" id="em-phone" required placeholder="Contact Phone" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
+</div>
+<button type="submit" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-md shadow-red-600/20 transition">Post Emergency Request</button>
+</form>
+</div>
+</div>
+
+<div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+<div class="bg-white rounded-3xl max-w-2xl w-full p-7 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100">
+<button onclick="closeModal('admin-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
+<div id="admin-login-step">
+<h3 class="text-xl font-black text-slate-900 text-center mb-2 tracking-tight">Admin Panel</h3>
+<p class="text-xs text-slate-500 text-center mb-5">Enter administrator passkey to continue</p>
+<form onsubmit="handleAdminLogin(event)" class="space-y-4 max-w-xs mx-auto">
+<input type="password" id="admin-passkey" required placeholder="Passkey" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500 text-center">
+<button type="submit" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs shadow-md transition">Unlock Panel</button>
+</form>
+</div>
+<div id="admin-dashboard-step" class="hidden space-y-6 text-xs">
+<div class="flex justify-between items-center pb-3 border-b border-slate-200">
+<h4 class="font-black text-base text-slate-900">Admin Dashboard</h4>
+<button onclick="adminLogout()" class="text-red-600 font-bold hover:underline">Logout</button>
 </div>
 <div class="space-y-2">
-<button onclick="openDonorHistoryModal()" class="w-full py-2.5 bg-slate-900 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5">📜 View Donation History</button>
-<button onclick="openEditProfileForm()" class="w-full py-2.5 bg-red-600 text-white font-bold rounded-xl text-xs">Edit Profile Details</button>
-</div>
-</div>
-</div>
-
-<div id="donor-history-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
-<div class="bg-white rounded-2xl max-w-md w-full p-6 relative max-h-[85vh] overflow-y-auto">
-<button onclick="closeModal('donor-history-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
-<h3 class="text-lg font-black text-center mb-1">Donation History Timeline</h3>
-<p class="text-xs text-slate-500 text-center mb-4" id="dh-donor-name">Donor Name</p>
-
-<form onsubmit="handleAddHistoryRecord(event)" class="bg-red-50 p-3 rounded-xl border border-red-200 mb-4 space-y-2">
-<span class="text-xs font-bold text-red-700 block">➕ Log New Completed Donation</span>
-<input type="date" id="dh-new-date" required class="w-full border rounded-lg p-2 text-xs">
-<input type="text" id="dh-new-location" placeholder="Hospital / Location (e.g. Sadar Hosp)" required class="w-full border rounded-lg p-2 text-xs">
-<input type="text" id="dh-new-patient" placeholder="Patient Name (Optional)" class="w-full border rounded-lg p-2 text-xs">
-<button type="submit" class="w-full py-2 bg-red-600 text-white font-bold text-xs rounded-lg">Add to My History & Public Archive</button>
-</form>
-
-<div id="dh-history-list" class="space-y-2">
-<div class="text-center text-xs text-slate-400 py-4">Loading history...</div>
-</div>
-</div>
-</div>
-
-<div id="donor-edit-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
-<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
-<button onclick="closeModal('donor-edit-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
-<h3 class="text-lg font-black text-center mb-3">Edit Profile</h3>
-<form onsubmit="handleDonorUpdate(event)" class="space-y-3">
-<input type="hidden" id="edit-donor-id">
-<input type="text" id="edit-name" required placeholder="Name" class="w-full border rounded-xl p-2 text-sm">
-<select id="edit-group" class="w-full border rounded-xl p-2 text-sm font-bold"><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
-<select id="edit-area" class="w-full border rounded-xl p-2 text-sm font-bold"><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
-<input type="date" id="edit-last-date" class="w-full border rounded-xl p-2 text-sm">
-<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Save</button>
-</form>
-</div>
-</div>
-
-<div id="donor-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
-<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
-<button onclick="closeModal('donor-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
-<h3 class="text-xl font-black text-center mb-3">Join Durdom-25</h3>
-<form onsubmit="handleDonorRegister(event)" class="space-y-3">
-<input type="text" id="donor-name" required placeholder="Full Name" class="w-full border rounded-xl p-2.5 text-sm">
-<select id="donor-group" required class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="">Group</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
-<select id="donor-area" required class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="">Area</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
-<input type="tel" id="donor-phone" required placeholder="Phone" class="w-full border rounded-xl p-2.5 text-sm">
-<input type="date" id="donor-last-date" class="w-full border rounded-xl p-2.5 text-sm">
-<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Register</button>
-</form>
-</div>
-</div>
-
-<div id="emergency-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
-<div class="bg-white rounded-2xl max-w-sm w-full p-6 relative">
-<button onclick="closeModal('emergency-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
-<h3 class="text-xl font-black text-center mb-3">Emergency Request</h3>
-<form onsubmit="handleEmergencySubmit(event)" class="space-y-3">
-<input type="text" id="em-patient" required placeholder="Patient Name" class="w-full border rounded-xl p-2.5 text-sm">
-<select id="em-group" required class="w-full border rounded-xl p-2.5 text-sm font-bold"><option value="">Group Needed</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
-<input type="number" id="em-bags" min="1" max="10" value="1" required class="w-full border rounded-xl p-2.5 text-sm">
-<input type="text" id="em-donating-time" required placeholder="Time (e.g. ASAP)" class="w-full border rounded-xl p-2.5 text-sm">
-<input type="text" id="em-location" required placeholder="Hospital / Location" class="w-full border rounded-xl p-2.5 text-sm">
-<input type="tel" id="em-phone" required placeholder="Contact Phone" class="w-full border rounded-xl p-2.5 text-sm">
-<button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-sm">Post Request</button>
-</form>
-</div>
-</div>
-
-<div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 flex items-center justify-center p-4">
-<div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
-<button onclick="closeModal('admin-modal')" class="absolute top-3 right-3 text-slate-400">✕</button>
-<div id="admin-login-step">
-<h3 class="text-xl font-black text-center mb-3">Admin Panel</h3>
-<form onsubmit="handleAdminLogin(event)" class="space-y-3 max-w-xs mx-auto">
-<input type="password" id="admin-passkey" required placeholder="Passkey" class="w-full border rounded-xl p-2.5 text-sm">
-<button type="submit" class="w-full py-3 bg-slate-900 text-white font-bold rounded-xl text-sm">Unlock</button>
-</form>
-</div>
-<div id="admin-dashboard-step" class="hidden space-y-4 text-xs">
-<div class="flex justify-between items-center"><h4 class="font-bold text-sm">Admin Dashboard</h4><button onclick="adminLogout()" class="text-red-600 font-bold">Logout</button></div>
-<div>
-<h5 class="font-bold text-red-600 mb-1">Active Emergencies</h5>
-<table class="w-full border text-left">
-<thead class="bg-slate-100"><tr><th class="p-2">Patient</th><th class="p-2">Group</th><th class="p-2">Action</th></tr></thead>
+<h5 class="font-bold text-red-600 text-sm flex items-center gap-1.5">🚨 Active Emergencies</h5>
+<div class="border border-slate-200 rounded-2xl overflow-hidden">
+<table class="w-full text-left">
+<thead class="bg-slate-100 text-slate-600"><tr><th class="p-3">Patient</th><th class="p-3">Group</th><th class="p-3 text-right">Action</th></tr></thead>
 <tbody id="admin-emergency-table"></tbody>
 </table>
 </div>
-<div>
-<h5 class="font-bold mb-1">Donors</h5>
-<table class="w-full border text-left">
-<thead class="bg-slate-100"><tr><th class="p-2">Name</th><th class="p-2">Phone</th><th class="p-2">Action</th></tr></thead>
+</div>
+<div class="space-y-2">
+<h5 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">👥 Registered Donors</h5>
+<div class="border border-slate-200 rounded-2xl overflow-hidden max-h-48 overflow-y-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-100 text-slate-600 sticky top-0"><tr><th class="p-3">Name</th><th class="p-3">Phone</th><th class="p-3 text-right">Action</th></tr></thead>
 <tbody id="admin-donor-table"></tbody>
 </table>
 </div>
-<div>
-<h5 class="font-bold text-indigo-600 mb-1">User Reviews & Messages</h5>
-<table class="w-full border text-left">
-<thead class="bg-slate-100"><tr><th class="p-2">Name</th><th class="p-2">Message</th><th class="p-2">Action</th></tr></thead>
+</div>
+<div class="space-y-2">
+<h5 class="font-bold text-indigo-600 text-sm flex items-center gap-1.5">💬 User Reviews & Messages</h5>
+<div class="border border-slate-200 rounded-2xl overflow-hidden max-h-48 overflow-y-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-100 text-slate-600 sticky top-0"><tr><th class="p-3">Name</th><th class="p-3">Message</th><th class="p-3 text-right">Action</th></tr></thead>
 <tbody id="admin-message-table"></tbody>
 </table>
 </div>
 </div>
 </div>
 </div>
+</div>
 
-<div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-bold">
+<div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl text-xs font-bold border border-slate-800">
 <span id="toast-text">Notification</span>
 </div>
 
@@ -467,9 +564,9 @@ renderArchive(archiveList);
 function showCompatibility(group){
 document.querySelectorAll('.compat-btn').forEach(btn=>{
 if(btn.getAttribute('data-group')===group){
-btn.classList.add('border-red-600','bg-red-50');
+btn.classList.add('border-red-600','bg-red-50/50','text-red-600','shadow-xs');
 }else{
-btn.classList.remove('border-red-600','bg-red-50');
+btn.classList.remove('border-red-600','bg-red-50/50','text-red-600','shadow-xs');
 }
 });
 
@@ -481,26 +578,26 @@ document.getElementById('compat-desc').innerText=data.desc;
 const giveContainer=document.getElementById('compat-give');
 const receiveContainer=document.getElementById('compat-receive');
 
-giveContainer.innerHTML=data.give.map(g=>`<span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 font-bold text-xs rounded-lg border border-emerald-500/30">${g}</span>`).join('');
-receiveContainer.innerHTML=data.receive.map(r=>`<span class="px-2.5 py-1 bg-red-500/20 text-red-300 font-bold text-xs rounded-lg border border-red-500/30">${r}</span>`).join('');
+giveContainer.innerHTML=data.give.map(g=>`<span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 font-bold text-xs rounded-xl border border-emerald-500/30">${g}</span>`).join('');
+receiveContainer.innerHTML=data.receive.map(r=>`<span class="px-3 py-1 bg-red-500/20 text-red-300 font-bold text-xs rounded-xl border border-red-500/30">${r}</span>`).join('');
 }
 
 function renderArchive(items){
 const c=document.getElementById('archive-grid');if(!c)return;c.innerHTML='';
 if(items.length===0){
-c.innerHTML=`<div class="text-center text-xs text-slate-400 col-span-full py-6">No archive records yet.</div>`;
+c.innerHTML=`<div class="text-center text-xs text-slate-400 col-span-full py-8">No archive records yet.</div>`;
 return;
 }
 items.sort((a,b)=>(b.createdAt?.toMillis()||0)-(a.createdAt?.toMillis()||0));
 items.forEach(item=>{
 const card=document.createElement('div');
-card.className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs space-y-2 shadow-sm";
+card.className="bg-white p-5 rounded-2xl border border-slate-200/80 text-xs space-y-2.5 shadow-xs hover:shadow-md transition";
 card.innerHTML=`
 <div class="flex justify-between items-center">
 <span class="font-extrabold text-slate-900 text-sm">❤️ ${item.donorName||'Anonymous Donor'}</span>
-<span class="bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-md text-[11px]">${item.date||'Recent'}</span>
+<span class="bg-red-50 text-red-700 font-bold px-2.5 py-1 rounded-lg text-[11px] border border-red-100">${item.date||'Recent'}</span>
 </div>
-<div class="text-slate-600 space-y-1">
+<div class="text-slate-600 space-y-1 pt-1 border-t border-slate-100">
 <div>📍 <strong>Location:</strong> ${item.location||'Jhenaidah'}</div>
 ${item.patient?`<div>🏥 <strong>Patient:</strong> ${item.patient}</div>`:''}
 </div>
@@ -547,14 +644,17 @@ const c=document.getElementById('donor-grid');if(!c)return;c.innerHTML='';
 items.forEach(d=>{
 const status=calculateEligibilityStatus(d.lastDonated);
 const el=document.createElement('div');
-el.className="bg-white p-4 rounded-xl border shadow-sm flex flex-col justify-between";
+el.className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between";
 el.innerHTML=`
 <div>
-<div class="flex justify-between items-center mb-2"><span class="w-10 h-10 rounded-lg bg-red-100 text-red-600 font-black flex items-center justify-center">${d.group}</span><span class="text-xs font-bold ${status.isEligible?'text-emerald-600':'text-amber-600'}">${status.badgeText}</span></div>
-<h4 class="font-bold text-slate-900">${d.name}</h4>
-<div class="text-xs text-slate-500 mt-1">📍 ${d.area}, Jhenaidah</div>
+<div class="flex justify-between items-center mb-3">
+<span class="w-11 h-11 rounded-xl bg-red-50 text-red-600 font-black flex items-center justify-center border border-red-100 shadow-2xs">${d.group}</span>
+<span class="text-xs font-bold px-2.5 py-1 rounded-lg ${status.isEligible?'bg-emerald-50 text-emerald-700 border border-emerald-100':'bg-amber-50 text-amber-700 border border-amber-100'}">${status.badgeText}</span>
 </div>
-<a href="tel:${d.phone}" class="mt-4 block text-center py-2 bg-slate-900 text-white font-bold text-xs rounded-lg">Call (${d.phone})</a>
+<h4 class="font-black text-slate-900 text-base">${d.name}</h4>
+<div class="text-xs text-slate-500 mt-1 flex items-center gap-1">📍 ${d.area}, Jhenaidah</div>
+</div>
+<a href="tel:${d.phone}" class="mt-5 block text-center py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition">Call (${d.phone})</a>
 `;
 c.appendChild(el);
 });
@@ -612,7 +712,7 @@ loadDonorHistory();
 
 async function loadDonorHistory(){
 const listEl=document.getElementById('dh-history-list');
-listEl.innerHTML='<div class="text-center text-xs text-slate-400 py-4">Loading timeline...</div>';
+listEl.innerHTML='<div class="text-center text-xs text-slate-400 py-6">Loading timeline...</div>';
 
 try{
 const q=window.query(window.collection(window.db,"donation_history"),window.where("phone","==",currentLoggedInDonor.phone));
@@ -620,14 +720,14 @@ const snap=await window.getDocs(q);
 listEl.innerHTML='';
 
 if(snap.empty){
-listEl.innerHTML='<div class="text-center text-xs text-slate-400 py-3">No history records logged yet. Add your past donation above!</div>';
+listEl.innerHTML='<div class="text-center text-xs text-slate-400 py-4">No history records logged yet. Add your past donation above!</div>';
 return;
 }
 
 snap.forEach(d=>{
 const data=d.data();
 const item=document.createElement('div');
-item.className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs flex justify-between items-center";
+item.className="bg-white p-3.5 rounded-2xl border border-slate-200 text-xs flex justify-between items-center shadow-2xs";
 item.innerHTML=`
 <div>
 <div class="font-bold text-slate-800">📍 ${data.location||'Jhenaidah'}</div>
@@ -642,7 +742,7 @@ listEl.appendChild(item);
 });
 }catch(err){
 console.error("Error loading history:",err);
-listEl.innerHTML='<div class="text-center text-xs text-red-500 py-3">Failed to load history.</div>';
+listEl.innerHTML='<div class="text-center text-xs text-red-500 py-4">Failed to load history.</div>';
 }
 }
 
@@ -751,25 +851,25 @@ closeModal('admin-modal');
 function renderAdminTable(){
 const t=document.getElementById('admin-donor-table');if(!t)return;t.innerHTML='';
 donorsList.forEach(d=>{
-t.innerHTML+=`<tr class="border-b"><td class="p-2 font-bold">${d.name}</td><td class="p-2">${d.phone}</td><td class="p-2"><button onclick="deleteDonor('${d.id}')" class="text-red-600 font-bold">Delete</button></td></tr>`;
+t.innerHTML+=`<tr class="border-b border-slate-100 hover:bg-slate-50"><td class="p-3 font-bold text-slate-800">${d.name}</td><td class="p-3 text-slate-600">${d.phone}</td><td class="p-3 text-right"><button onclick="deleteDonor('${d.id}')" class="text-red-600 font-bold hover:underline">Delete</button></td></tr>`;
 });
 }
 
 function renderAdminEmergencyTable(){
 const t=document.getElementById('admin-emergency-table');if(!t)return;t.innerHTML='';
 emergencyRequests.forEach(r=>{
-t.innerHTML+=`<tr class="border-b"><td class="p-2 font-bold">${r.patient}</td><td class="p-2 text-red-600 font-bold">${r.group}</td><td class="p-2"><button onclick="markAsSuccessfulDonation('${r.id}')" class="text-emerald-600 font-bold mr-2">Done</button><button onclick="deleteEmergency('${r.id}')" class="text-red-600 font-bold">Remove</button></td></tr>`;
+t.innerHTML+=`<tr class="border-b border-slate-100 hover:bg-slate-50"><td class="p-3 font-bold text-slate-800">${r.patient}</td><td class="p-3 text-red-600 font-bold">${r.group}</td><td class="p-3 text-right"><button onclick="markAsSuccessfulDonation('${r.id}')" class="text-emerald-600 font-bold mr-3 hover:underline">Done</button><button onclick="deleteEmergency('${r.id}')" class="text-red-600 font-bold hover:underline">Remove</button></td></tr>`;
 });
 }
 
 function renderAdminMessageTable(){
 const t=document.getElementById('admin-message-table');if(!t)return;t.innerHTML='';
 if(messagesList.length===0){
-t.innerHTML=`<tr><td colspan="3" class="p-2 text-center text-slate-400">No reviews yet.</td></tr>`;
+t.innerHTML=`<tr><td colspan="3" class="p-3 text-center text-slate-400">No reviews yet.</td></tr>`;
 return;
 }
 messagesList.forEach(m=>{
-t.innerHTML+=`<tr class="border-b"><td class="p-2 font-bold">${m.name||'Anonymous'}</td><td class="p-2 truncate max-w-[150px]">${m.message}</td><td class="p-2"><button onclick="deleteMessage('${m.id}')" class="text-red-600 font-bold">Delete</button></td></tr>`;
+t.innerHTML+=`<tr class="border-b border-slate-100 hover:bg-slate-50"><td class="p-3 font-bold text-slate-800">${m.name||'Anonymous'}</td><td class="p-3 text-slate-600 truncate max-w-[150px]">${m.message}</td><td class="p-3 text-right"><button onclick="deleteMessage('${m.id}')" class="text-red-600 font-bold hover:underline">Delete</button></td></tr>`;
 });
 }
 
