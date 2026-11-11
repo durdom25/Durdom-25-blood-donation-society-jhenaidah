@@ -597,7 +597,6 @@ giveContainer.innerHTML=data.give.map(g=>`<span class="px-3 py-1 bg-emerald-500/
 receiveContainer.innerHTML=data.receive.map(r=>`<span class="px-3 py-1 bg-red-500/20 text-red-300 font-bold text-xs rounded-xl border border-red-500/30">${r}</span>`).join('');
 }
 
-// Compact Wall of Honor (Person-wise with popup modal history)
 function renderArchive(items){
 const c=document.getElementById('archive-grid');if(!c)return;c.innerHTML='';
 if(items.length===0){
@@ -689,7 +688,10 @@ el.innerHTML=`
 <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${status.isEligible?'bg-emerald-50 text-emerald-700 border border-emerald-100':'bg-amber-50 text-amber-700 border border-amber-100'}">${status.badgeText}</span>
 </div>
 <h4 class="font-black text-slate-900 text-base cursor-pointer hover:text-red-600 transition" onclick="openPublicDonorHistory('${encodeURIComponent(d.name)}','${d.phone}','${d.group}')">${d.name} 🔍</h4>
-<div class="text-xs text-slate-500 mt-1 flex items-center gap-1">📍 ${d.area}, Jhenaidah</div>
+<div class="text-xs text-slate-500 mt-1 flex flex-col gap-0.5">
+<span>📍 ${d.area}, Jhenaidah</span>
+<span class="font-medium text-slate-600">🩸 Last Donated: <strong class="text-slate-900">${d.lastDonated && d.lastDonated !== "Recently" ? d.lastDonated : 'N/A'}</strong></span>
+</div>
 </div>
 <a href="tel:${d.phone}" class="mt-5 block text-center py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition">Call (${d.phone})</a>
 `;
