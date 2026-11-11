@@ -618,6 +618,7 @@ grouped[key].donations.push(item);
 });
 
 Object.values(grouped).forEach(person=>{
+// Sort donations from latest to oldest
 person.donations.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
 const latestDate=person.donations[0]?.date||'Recent';
 
@@ -726,8 +727,14 @@ listEl.innerHTML = '<div class="text-center text-xs text-slate-400 py-4">No dona
 return;
 }
 
-snap.forEach(d=>{
-const data = d.data();
+// Convert snapshot docs to array and sort from latest to oldest
+let historyRecords = [];
+snap.forEach(d => {
+historyRecords.push({ id: d.id, ...d.data() });
+});
+historyRecords.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+
+historyRecords.forEach(data => {
 const item = document.createElement('div');
 item.className = "bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-xs flex justify-between items-center shadow-2xs";
 item.innerHTML = `
@@ -811,8 +818,13 @@ listEl.innerHTML='<div class="text-center text-xs text-slate-400 py-4">No histor
 return;
 }
 
+let historyRecords=[];
 snap.forEach(d=>{
-const data=d.data();
+historyRecords.push({id:d.id,...d.data()});
+});
+historyRecords.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+
+historyRecords.forEach(data=>{
 const item=document.createElement('div');
 item.className="bg-white p-3.5 rounded-2xl border border-slate-200 text-xs flex justify-between items-center shadow-2xs";
 item.innerHTML=`
@@ -822,7 +834,7 @@ item.innerHTML=`
 </div>
 <div class="text-right">
 <span class="font-extrabold text-red-600 block">${data.date}</span>
-<button onclick="deleteHistoryRecord('${d.id}')" class="text-[10px] text-slate-400 hover:text-red-600 underline">Delete</button>
+<button onclick="deleteHistoryRecord('${data.id}')" class="text-[10px] text-slate-400 hover:text-red-600 underline">Delete</button>
 </div>
 `;
 listEl.appendChild(item);
