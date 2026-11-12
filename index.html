@@ -548,11 +548,6 @@ renderDonors(donorsList);renderAdminTable();
 const cnt=document.getElementById('stat-donors-count');if(cnt)cnt.innerText=donorsList.length;
 });
 
-window.onSnapshot(window.doc(window.db,"stats","impact"),(snap)=>{
-const cnt=document.getElementById('stat-donations-count');
-if(cnt)cnt.innerText=snap.exists()?snap.data().successfulDonations||0:0;
-});
-
 window.onSnapshot(window.collection(window.db,"emergencies"),(snap)=>{
 emergencyRequests=[];snap.forEach(d=>emergencyRequests.push({id:d.id,...d.data()}));
 const ticker=document.getElementById('emergency-broadcast-ticker');
@@ -569,9 +564,15 @@ else{ticker.classList.add('hidden');}
 renderAdminMessageTable();
 });
 
+// Listen to donation_history: sum up total records for hero stat & render Wall of Honor
 window.onSnapshot(window.collection(window.db,"donation_history"),(snap)=>{
 const archiveList=[];
 snap.forEach(d=>archiveList.push({id:d.id,...d.data()}));
+
+// Reset donation count to 0 and sum up total donation_history records
+const cnt=document.getElementById('stat-donations-count');
+if(cnt)cnt.innerText=archiveList.length;
+
 renderArchive(archiveList);
 });
 }
@@ -618,7 +619,6 @@ grouped[key].donations.push(item);
 });
 
 Object.values(grouped).forEach(person=>{
-// Sort donations from latest to oldest
 person.donations.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
 const latestDate=person.donations[0]?.date||'Recent';
 
@@ -727,7 +727,6 @@ listEl.innerHTML = '<div class="text-center text-xs text-slate-400 py-4">No dona
 return;
 }
 
-// Convert snapshot docs to array and sort from latest to oldest
 let historyRecords = [];
 snap.forEach(d => {
 historyRecords.push({ id: d.id, ...d.data() });
@@ -834,7 +833,7 @@ item.innerHTML=`
 </div>
 <div class="text-right">
 <span class="font-extrabold text-red-600 block">${data.date}</span>
-<button onclick="deleteHistoryRecord('${data.id}')" class="text-[10px] text-slate-400 hover:text-red-600 underline">Delete</button>
+<button onclick="deleteHistoryRecord('${d.id}')" class="text-[10px] text-slate-400 hover:text-red-600 underline">Delete</button>
 </div>
 `;
 listEl.appendChild(item);
@@ -977,12 +976,8 @@ async function deleteEmergency(id){await window.deleteDoc(window.doc(window.db,"
 async function deleteMessage(id){await window.deleteDoc(window.doc(window.db,"messages",id));showToast("Review deleted.");}
 
 async function markAsSuccessfulDonation(id){
-const ref=window.doc(window.db,"stats","impact");
-const snap=await window.getDoc(ref);
-const cnt=snap.exists()?(snap.data().successfulDonations||0):0;
-await window.setDoc(ref,{successfulDonations:cnt+1},{merge:true});
 await deleteEmergency(id);
-showToast("Marked successful!");
+showToast("Emergency closed!");
 }
 
 function showToast(m){
