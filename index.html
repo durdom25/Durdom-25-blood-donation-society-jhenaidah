@@ -541,11 +541,32 @@ showCompatibility('A+');
 lucide.createIcons();
 });
 
+function updateDonationsCount(){
+const cnt=document.getElementById('stat-donations-count');
+if(!cnt)return;
+
+// Count 1 for each history record
+let total=donationHistoryList.length;
+
+// Add 1 for any donor who has a profile lastDonated date set, but NO records in donation_history
+donorsList.forEach(d=>{
+if(d.lastDonated && d.lastDonated !== "Recently" && d.lastDonated !== "N/A"){
+const hasHistory = donationHistoryList.some(h => (d.phone && h.phone === d.phone) || (h.donorName && h.donorName.toLowerCase() === d.name.toLowerCase()));
+if(!hasHistory){
+total += 1;
+}
+}
+});
+
+cnt.innerText = total;
+}
+
 function initRealtimeListeners(){
 window.onSnapshot(window.collection(window.db,"donors"),(snap)=>{
 donorsList=[];snap.forEach(d=>donorsList.push({id:d.id,...d.data()}));
 renderDonors(donorsList);renderAdminTable();
 const cnt=document.getElementById('stat-donors-count');if(cnt)cnt.innerText=donorsList.length;
+updateDonationsCount();
 });
 
 window.onSnapshot(window.collection(window.db,"emergencies"),(snap)=>{
@@ -568,9 +589,7 @@ window.onSnapshot(window.collection(window.db,"donation_history"),(snap)=>{
 donationHistoryList=[];
 snap.forEach(d=>donationHistoryList.push({id:d.id,...d.data()}));
 
-const cnt=document.getElementById('stat-donations-count');
-if(cnt)cnt.innerText=donationHistoryList.length;
-
+updateDonationsCount();
 renderDonors(donorsList);
 renderArchive(donationHistoryList);
 });
@@ -678,7 +697,6 @@ if(messagesList.length)showToast(`💬 ${messagesList[reviewIndex].name}: "${mes
 function renderDonors(items){
 const c=document.getElementById('donor-grid');if(!c)return;c.innerHTML='';
 items.forEach(d=>{
-// Find latest date from donationHistoryList for this donor
 const donorHistory = donationHistoryList.filter(h => (d.phone && h.phone === d.phone) || (h.donorName && h.donorName.toLowerCase() === d.name.toLowerCase()));
 donorHistory.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
 const latestDonationDate = donorHistory.length > 0 ? donorHistory[0].date : d.lastDonated;
