@@ -174,11 +174,11 @@ body{font-family:'Inter',sans-serif}
 <p class="text-slate-500 text-xs sm:text-sm mt-1">Tap on any donor's name to view their complete donation history timeline.</p>
 </div>
 
-<!-- Recently Registered Donors Showcase (Last 7 Days) -->
+<!-- Recently Registered Donors Showcase (Last 7 Days from Registration Date) -->
 <div id="recent-donors-section" class="hidden mb-12">
 <div class="flex items-center gap-2 mb-4">
 <span class="text-lg">🌟</span>
-<h4 class="text-base font-black text-slate-900">Recently Registered Donors (Last 7 Days)</h4>
+<h4 class="text-base font-black text-slate-900">New Donors (Registered Within Last 7 Days)</h4>
 </div>
 <div id="recent-donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
 </div>
@@ -711,9 +711,10 @@ if(!container||!grid)return;
 const now=new Date();
 const recentItems=items.filter(d=>{
 if(!d.createdAt)return false;
-const createdDate=d.createdAt.toDate ? d.createdAt.toDate() : new Date(d.createdAt);
-const diffDays=(now-createdDate)/(1000*3600*24);
-return diffDays<=7;
+const regDate=d.createdAt.toDate ? d.createdAt.toDate() : new Date(d.createdAt);
+if(isNaN(regDate.getTime()))return false;
+const diffDays=(now-regDate)/(1000*3600*24);
+return diffDays>=0 && diffDays<=7;
 });
 
 if(recentItems.length===0){
@@ -724,19 +725,28 @@ return;
 container.classList.remove('hidden');
 grid.innerHTML='';
 
+recentItems.sort((a,b)=>{
+const dateA=a.createdAt.toDate?a.createdAt.toDate():new Date(a.createdAt);
+const dateB=b.createdAt.toDate?b.createdAt.toDate():new Date(b.createdAt);
+return dateB-dateA;
+});
+
 recentItems.forEach(d=>{
 const donorHistory=donationHistoryList.filter(h=>(d.phone&&h.phone===d.phone)||(h.donorName&&h.donorName.toLowerCase()===d.name.toLowerCase()));
 donorHistory.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
 const latestDonationDate=donorHistory.length>0?donorHistory[0].date:d.lastDonated;
 
-const status=calculateEligibilityStatus(latestDonationDate);
+const regDate=d.createdAt.toDate?d.createdAt.toDate():new Date(d.createdAt);
+const daysAgo=Math.floor((now-regDate)/(1000*3600*24));
+const badgeLabel=daysAgo===0?'Registered Today':`Registered ${daysAgo}d ago`;
+
 const el=document.createElement('div');
 el.className="bg-white p-5 rounded-2xl border-2 border-red-500/40 shadow-md hover:shadow-lg transition flex flex-col justify-between";
 el.innerHTML=`
 <div>
 <div class="flex justify-between items-center mb-3">
 <span class="w-11 h-11 rounded-xl bg-red-600 text-white font-black flex items-center justify-center shadow-xs">${d.group}</span>
-<span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-red-50 text-red-700 border border-red-200">✨ New (7d)</span>
+<span class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-red-50 text-red-700 border border-red-200">✨ ${badgeLabel}</span>
 </div>
 <h4 class="font-black text-slate-900 text-base cursor-pointer hover:text-red-600 transition" onclick="openPublicDonorHistory('${encodeURIComponent(d.name)}','${d.phone}','${d.group}')">${d.name} 🔍</h4>
 <div class="text-xs text-slate-500 mt-1 flex flex-col gap-0.5">
