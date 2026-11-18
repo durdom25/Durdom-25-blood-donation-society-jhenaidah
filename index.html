@@ -173,16 +173,6 @@ body{font-family:'Inter',sans-serif}
 <h3 class="text-2xl sm:text-3xl font-black text-slate-900">Available Donors in Jhenaidah</h3>
 <p class="text-slate-500 text-xs sm:text-sm mt-1">Tap on any donor's name to view their complete donation history timeline.</p>
 </div>
-
-<!-- Recently Registered Donors Showcase (Last 7 Days from Registration Date) -->
-<div id="recent-donors-section" class="hidden mb-12">
-<div class="flex items-center gap-2 mb-4">
-<span class="text-lg">🌟</span>
-<h4 class="text-base font-black text-slate-900">New Donors (Registered Within Last 7 Days)</h4>
-</div>
-<div id="recent-donor-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-</div>
-
 <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs mb-8 grid grid-cols-1 md:grid-cols-3 gap-3.5">
 <select id="filter-group" onchange="filterDonors()" class="border border-slate-200 rounded-xl p-3 text-xs font-semibold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="ALL">All Groups</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
 <select id="filter-area" onchange="filterDonors()" class="border border-slate-200 rounded-xl p-3 text-xs font-semibold bg-slate-50/50 focus:outline-hidden focus:border-red-500"><option value="ALL">All Upazilas</option><option value="Jhenaidah Sadar">Jhenaidah Sadar</option><option value="Kaliganj">Kaliganj</option><option value="Kotchandpur">Kotchandpur</option><option value="Maheshpur">Maheshpur</option><option value="Shailkupa">Shailkupa</option><option value="Harinakunda">Harinakunda</option></select>
@@ -572,7 +562,7 @@ cnt.innerText = total;
 function initRealtimeListeners(){
 window.onSnapshot(window.collection(window.db,"donors"),(snap)=>{
 donorsList=[];snap.forEach(d=>donorsList.push({id:d.id,...d.data()}));
-renderDonors(donorsList);renderRecentDonors(donorsList);renderAdminTable();
+renderDonors(donorsList);renderAdminTable();
 const cnt=document.getElementById('stat-donors-count');if(cnt)cnt.innerText=donorsList.length;
 updateDonationsCount();
 });
@@ -599,7 +589,6 @@ snap.forEach(d=>donationHistoryList.push({id:d.id,...d.data()}));
 
 updateDonationsCount();
 renderDonors(donorsList);
-renderRecentDonors(donorsList);
 renderArchive(donationHistoryList);
 });
 }
@@ -703,82 +692,40 @@ function showReviewToast(){
 if(messagesList.length)showToast(`💬 ${messagesList[reviewIndex].name}: "${messagesList[reviewIndex].message}"`);
 }
 
-function renderRecentDonors(items){
-const container=document.getElementById('recent-donors-section');
-const grid=document.getElementById('recent-donor-grid');
-if(!container||!grid)return;
-
-const now=new Date();
-const recentItems=items.filter(d=>{
-if(!d.createdAt)return false;
-const regDate=d.createdAt.toDate ? d.createdAt.toDate() : new Date(d.createdAt);
-if(isNaN(regDate.getTime()))return false;
-const diffDays=(now-regDate)/(1000*3600*24);
-return diffDays>=0 && diffDays<=7;
-});
-
-if(recentItems.length===0){
-container.classList.add('hidden');
-return;
-}
-
-container.classList.remove('hidden');
-grid.innerHTML='';
-
-recentItems.sort((a,b)=>{
-const dateA=a.createdAt.toDate?a.createdAt.toDate():new Date(a.createdAt);
-const dateB=b.createdAt.toDate?b.createdAt.toDate():new Date(b.createdAt);
-return dateB-dateA;
-});
-
-recentItems.forEach(d=>{
-const donorHistory=donationHistoryList.filter(h=>(d.phone&&h.phone===d.phone)||(h.donorName&&h.donorName.toLowerCase()===d.name.toLowerCase()));
-donorHistory.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
-const latestDonationDate=donorHistory.length>0?donorHistory[0].date:d.lastDonated;
-
-const status=calculateEligibilityStatus(latestDonationDate);
-const regDate=d.createdAt.toDate?d.createdAt.toDate():new Date(d.createdAt);
-const daysAgo=Math.floor((now-regDate)/(1000*3600*24));
-const badgeLabel=daysAgo===0?'Registered Today':`Registered ${daysAgo}d ago`;
-
-const el=document.createElement('div');
-el.className="bg-white p-5 rounded-2xl border-2 border-red-500/40 shadow-md hover:shadow-lg transition flex flex-col justify-between";
-el.innerHTML=`
-<div>
-<div class="flex justify-between items-center mb-3">
-<span class="w-11 h-11 rounded-xl bg-red-600 text-white font-black flex items-center justify-center shadow-xs">${d.group}</span>
-<div class="flex items-center gap-1.5">
-<span class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-red-50 text-red-700 border border-red-200">✨ ${badgeLabel}</span>
-<span class="text-xs font-bold px-2.5 py-1 rounded-lg ${status.isEligible?'bg-emerald-50 text-emerald-700 border border-emerald-100':'bg-amber-50 text-amber-700 border border-amber-100'}">${status.badgeText}</span>
-</div>
-</div>
-<h4 class="font-black text-slate-900 text-base cursor-pointer hover:text-red-600 transition" onclick="openPublicDonorHistory('${encodeURIComponent(d.name)}','${d.phone}','${d.group}')">${d.name} 🔍</h4>
-<div class="text-xs text-slate-500 mt-1 flex flex-col gap-0.5">
-<span>📍 ${d.area}, Jhenaidah</span>
-<span class="font-medium text-slate-600">🩸 Last Donated: <strong class="text-slate-900">${latestDonationDate&&latestDonationDate!=="Recently"?latestDonationDate:'N/A'}</strong></span>
-</div>
-</div>
-<a href="tel:${d.phone}" class="mt-5 block text-center py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl shadow-xs transition">Call (${d.phone})</a>
-`;
-grid.appendChild(el);
-});
-}
-
 function renderDonors(items){
 const c=document.getElementById('donor-grid');if(!c)return;c.innerHTML='';
+const now=new Date();
+
 items.forEach(d=>{
 const donorHistory = donationHistoryList.filter(h => (d.phone && h.phone === d.phone) || (h.donorName && h.donorName.toLowerCase() === d.name.toLowerCase()));
 donorHistory.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
 const latestDonationDate = donorHistory.length > 0 ? donorHistory[0].date : d.lastDonated;
 
 const status=calculateEligibilityStatus(latestDonationDate);
+
+let newBadgeHtml='';
+if(d.createdAt){
+const regDate=d.createdAt.toDate ? d.createdAt.toDate() : new Date(d.createdAt);
+if(!isNaN(regDate.getTime())){
+const diffDays=(now-regDate)/(1000*3600*24);
+if(diffDays>=0 && diffDays<=7){
+const daysAgo=Math.floor(diffDays);
+const badgeLabel=daysAgo===0?'Registered Today':`Registered ${daysAgo}d ago`;
+newBadgeHtml=`<span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-red-50 text-red-700 border border-red-200">✨ ${badgeLabel}</span>`;
+}
+}
+}
+
 const el=document.createElement('div');
 el.className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between";
 el.innerHTML=`
 <div>
 <div class="flex justify-between items-center mb-3">
 <span class="w-11 h-11 rounded-xl bg-red-50 text-red-600 font-black flex items-center justify-center border border-red-100 shadow-2xs">${d.group}</span>
+<div class="flex items-center gap-1.5 flex-wrap justify-end">
+${newBadgeHtml}
 <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${status.isEligible?'bg-emerald-50 text-emerald-700 border border-emerald-100':'bg-amber-50 text-amber-700 border border-amber-100'}">${status.badgeText}</span>
+</div>
 </div>
 <h4 class="font-black text-slate-900 text-base cursor-pointer hover:text-red-600 transition" onclick="openPublicDonorHistory('${encodeURIComponent(d.name)}','${d.phone}','${d.group}')">${d.name} 🔍</h4>
 <div class="text-xs text-slate-500 mt-1 flex flex-col gap-0.5">
