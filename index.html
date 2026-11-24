@@ -108,7 +108,7 @@ body{font-family:'Inter',sans-serif}
 <a href="#contact" class="hover:text-red-600 transition">Contact</a>
 </nav>
 <div class="hidden sm:flex items-center space-x-2">
-<button onclick="openModal('donor-login-modal')" class="px-3 py-2 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs hover:border-slate-300 hover:bg-slate-50 transition flex items-center gap-1.5 shadow-2xs"><i data-lucide="user" class="w-3.5 h-3.5 text-red-600"></i> Donor Login</button>
+<button onclick="openModal('donor-login-modal')" class="px-3 py-2 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs hover:border-slate-300 hover:bg-slate-50 transition flex items-center gap-1.5 shadow-2xs"><i data-lucide="user-cog" class="w-3.5 h-3.5 text-red-600"></i> Edit Donor Details</button>
 <button onclick="openModal('past-history-login-modal')" class="px-3 py-2 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs hover:border-slate-300 hover:bg-slate-50 transition">Past Donation History</button>
 <button onclick="openModal('emergency-modal')" class="px-3 py-2 rounded-xl border border-red-200 text-red-600 font-semibold text-xs hover:bg-red-50/50 transition">Request Blood</button>
 <button onclick="openModal('donor-modal')" class="px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-xs shadow-sm transition">Register as a Donor</button>
@@ -122,7 +122,7 @@ body{font-family:'Inter',sans-serif}
 <a href="#archive" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-medium">Archive</a>
 <a href="#contact" onclick="toggleMobileMenu()" class="block py-1 text-slate-800 font-medium">Contact</a>
 <div class="pt-3 border-t flex flex-col space-y-2">
-<button onclick="toggleMobileMenu();openModal('donor-login-modal')" class="w-full py-2.5 rounded-xl border font-semibold text-xs">Donor Login</button>
+<button onclick="toggleMobileMenu();openModal('donor-login-modal')" class="w-full py-2.5 rounded-xl border font-semibold text-xs">Edit Donor Details</button>
 <button onclick="toggleMobileMenu();openModal('past-history-login-modal')" class="w-full py-2.5 rounded-xl border font-semibold text-xs">Past Donation History</button>
 <button onclick="toggleMobileMenu();openModal('emergency-modal')" class="w-full py-2.5 rounded-xl border border-red-200 text-red-600 font-semibold text-xs">Request Blood</button>
 <button onclick="toggleMobileMenu();openModal('donor-modal')" class="w-full py-2.5 rounded-xl bg-red-600 text-white font-semibold text-xs">Register as a Donor</button>
@@ -146,7 +146,7 @@ body{font-family:'Inter',sans-serif}
 </div>
 <div class="flex flex-col gap-3 pt-3 max-w-md mx-auto lg:mx-0">
 <button onclick="openModal('emergency-modal')" class="w-full py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-lg shadow-red-600/20 transition flex items-center justify-center gap-2">Emergency Blood Request</button>
-<button onclick="openModal('donor-login-modal')" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition">Donor Login</button>
+<button onclick="openModal('donor-login-modal')" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition">Edit Donor Details</button>
 <button onclick="openModal('donor-modal')" class="w-full py-3.5 rounded-xl border border-slate-300 hover:bg-white text-slate-700 font-bold text-xs bg-white/80 transition">Register as a Donor</button>
 <button onclick="openModal('past-history-login-modal')" class="w-full py-3.5 rounded-xl border border-slate-300 hover:bg-white text-slate-800 font-bold text-xs bg-white transition">Past Donation History</button>
 </div>
@@ -308,14 +308,15 @@ body{font-family:'Inter',sans-serif}
 </div>
 </div>
 
+<!-- EDIT DONOR DETAILS PHONE LOOKUP MODAL -->
 <div id="donor-login-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
 <div class="bg-white rounded-3xl max-w-sm w-full p-7 relative shadow-2xl border border-slate-100">
 <button onclick="closeModal('donor-login-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">✕</button>
-<h3 class="text-xl font-black text-slate-900 text-center mb-1 tracking-tight">Donor Login</h3>
-<p class="text-xs text-slate-500 text-center mb-5">Enter your registered phone number</p>
+<h3 class="text-xl font-black text-slate-900 text-center mb-1 tracking-tight">Edit Donor Details</h3>
+<p class="text-xs text-slate-500 text-center mb-5">Enter your registered phone number to edit details. If not found, you will go to registration.</p>
 <form onsubmit="handleDonorLogin(event)" class="space-y-4">
 <input type="tel" id="login-phone" required placeholder="Registered Phone Number" class="w-full border border-slate-200 rounded-xl p-3 text-xs font-medium bg-slate-50/50 focus:outline-hidden focus:border-red-500">
-<button type="submit" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-md shadow-red-600/20 transition">Login to Profile</button>
+<button type="submit" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-md shadow-red-600/20 transition">Continue to Edit</button>
 </form>
 </div>
 </div>
@@ -563,6 +564,9 @@ document.getElementById('donor-phone').value=prefillPhone;
 }
 if(id==='past-history-login-modal'){
 document.getElementById('past-history-phone').value='';
+}
+if(id==='donor-login-modal'){
+document.getElementById('login-phone').value='';
 }
 document.getElementById(id).classList.remove('hidden');
 lucide.createIcons();
@@ -941,17 +945,21 @@ document.getElementById('reg-history-container').innerHTML='';
 function handleDonorLogin(e){
 e.preventDefault();
 const p=document.getElementById('login-phone').value.trim();
-const found=donorsList.find(d=>d.phone===p);
+if(!p)return;
+const found=donorsList.find(d=>d.phone.trim()===p);
+closeModal('donor-login-modal');
 if(found){
-currentLoggedInDonor=found;closeModal('donor-login-modal');
-document.getElementById('dp-name').innerText=found.name;
-document.getElementById('dp-group-badge').innerText=found.group;
-document.getElementById('dp-phone').innerText=found.phone;
-document.getElementById('dp-area').innerText=found.area;
-document.getElementById('dp-last').innerText=found.lastDonated||'N/A';
-document.getElementById('dp-status').innerText=calculateEligibilityStatus(found.lastDonated).badgeText;
-openModal('donor-profile-modal');
-}else{showToast("Phone number not registered.");}
+currentLoggedInDonor=found;
+document.getElementById('edit-donor-id').value=found.id;
+document.getElementById('edit-name').value=found.name;
+document.getElementById('edit-group').value=found.group;
+document.getElementById('edit-area').value=found.area;
+document.getElementById('edit-last-date').value=(found.lastDonated&&found.lastDonated!=="Recently")?found.lastDonated:'';
+openModal('donor-edit-modal');
+}else{
+showToast("Number not found. Moving to registration page...");
+openModal('donor-modal', p);
+}
 }
 
 async function openDonorHistoryModal(){
